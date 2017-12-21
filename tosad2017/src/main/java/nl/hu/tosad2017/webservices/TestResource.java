@@ -20,9 +20,9 @@ import javax.ws.rs.core.Response;
 
 import nl.hu.tosad2017.model.*;
 
+
+@Path("/test")
 public class TestResource {
-	@Path("/test")
-	public class TestResource {
 		
 		@GET
 		@Produces("application/json")
