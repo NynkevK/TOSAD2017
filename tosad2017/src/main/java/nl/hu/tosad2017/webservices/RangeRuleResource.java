@@ -21,14 +21,20 @@ import javax.ws.rs.core.Response;
 import nl.hu.tosad2017.model.*;
 
 
-@Path("/test")
-public class TestResource {
+@Path("/rangerule")
+public class RangeRuleResource {
 		
 		@GET
 		@Produces("application/json")
 		public String getValues() {
 			Service service = ServiceProvider.getService();
 			JsonArrayBuilder jab = Json.createArrayBuilder();
+			
+			for (String s : service.getRangeRules()) {
+				JsonObjectBuilder job = Json.createObjectBuilder();
+				job.add("test", s);
+				jab.add(job);
+			}
 			
 			JsonArray array = jab.build();
 			return array.toString();
