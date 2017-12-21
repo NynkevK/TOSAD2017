@@ -33,5 +33,4 @@ public class TestResource {
 			JsonArray array = jab.build();
 			return array.toString();
 		}
-	}
 }
