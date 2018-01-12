@@ -6,9 +6,9 @@ import java.sql.Statement;
 
 public class OracleTest {
     private static final String DB_DRIV = "oracle.jdbc.driver.OracleDriver";
-    private static final String DB_URL  = "jdbc:oracle:thin:@//localhost:1521/xe";
-    private static final String DB_USER = "TEST";
-    private static final String DB_PASS = "test";
+    private static final String DB_URL  = "jdbc:oracle:thin:@//ondora02.hu.nl:8521/cursus02.hu.nl";
+    private static final String DB_USER = "tosad_2017_2b_team1";
+    private static final String DB_PASS = "tosad_2017_2b_team1";
 
     public static void main(String[] args){
         try{
@@ -20,21 +20,21 @@ public class OracleTest {
 
 
             Statement statement = connection.createStatement();
-            String constraint = "ALTER TABLE medewerkers " +
-                            "ADD CONSTRAINT CHK_Functie CHECK (functie in ('TRAINER', 'DIRECTEUR', 'VERKOPER', 'BOEKHOUDER', 'MANAGER'))";
+            String constraint = "ALTER TABLE connection_test " +
+                            "ADD CONSTRAINT CHK_Value CHECK (value IS NOT NULL)";
 
             // Execute query
             System.out.println(statement.executeUpdate(constraint));
 
-            String plsql = "create or replace trigger aur_med\n" +
-                            "    after update of maandsal\n" +
-                            "    on medewerkers\n" +
-                            "    for each row\n" +
-                            "begin\n" +
-                            "    if(( :new.maandsal - :old.maandsal) > 0.1 * :old.maandsal)\n" +
-                            "    then\n" +
-                            "        raise_application_error(-20000, 'Maandsalaris te veel verhoogd: meer dan 10 procent');\n" +
-                            "    end if;\n" +
+            String plsql = "create or replace trigger aur_med \n" +
+                            "    after update of value \n" +
+                            "    on connection_test \n" +
+                            "    for each row \n" +
+                            "begin \n" +
+                            "    if(( :new.value - :old.value) > 0.1 * :old.value) \n" +
+                            "    then \n" +
+                            "        raise_application_error(-20000, 'test gedoe'); \n" +
+                            "    end if; \n" +
                             "end;";
 
             System.out.println(statement.execute(plsql));
