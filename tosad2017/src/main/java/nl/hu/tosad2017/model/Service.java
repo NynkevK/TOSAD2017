@@ -1,18 +1,25 @@
 package nl.hu.tosad2017.model;
 
 import java.util.ArrayList;
+import nl.hu.tosad2017.model.*;
+import nl.hu.tosad2017.persistence.*;
 
 //import java.sql.*;
 
 public class Service {
+	RowDAO rowDAO = new RowDAO();
+	
 	public Service() {}
 
-	// TODO replace string type with business rule class type
-	public ArrayList<String> getRangeRules() {
-		ArrayList<String> test = new ArrayList<String>();
-		test.add("test");
-		test.add("test2");
-		
-		return test;
+	public ArrayList<String> getRangeRules() {		
+		return rowDAO.getRangeRules();
+	}
+	
+	public Row getRowById(String Id) {
+		return rowDAO.findById(Id);
+	}
+	
+	public Row addRow (Row r) {
+		return rowDAO.save(r);
 	}
 }

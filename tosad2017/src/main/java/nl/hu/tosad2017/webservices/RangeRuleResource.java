@@ -24,19 +24,45 @@ import nl.hu.tosad2017.model.*;
 @Path("/rangerule")
 public class RangeRuleResource {
 		
-		@GET
-		@Produces("application/json")
-		public String getValues() {
-			Service service = ServiceProvider.getService();
-			JsonArrayBuilder jab = Json.createArrayBuilder();
-			
-			for (String s : service.getRangeRules()) {
-				JsonObjectBuilder job = Json.createObjectBuilder();
-				job.add("test", s);
-				jab.add(job);
-			}
-			
-			JsonArray array = jab.build();
-			return array.toString();
+	private JsonObjectBuilder rowToJson(Row row) {
+		JsonObjectBuilder job = Json.createObjectBuilder();
+		job.add("value", row.getValue())
+			.add("id", row.getId());
+		return job;
+	}
+	
+	@GET
+	@Produces("application/json")
+	public String getValues() {
+		Service service = ServiceProvider.getService();
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		
+		for (String s : service.getRangeRules()) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("test", s);
+			jab.add(job);
 		}
+		
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
+	@POST
+	@Path ("/test")
+	public Response addValues(@FormParam("value") String value,
+								@FormParam("id") String id) {
+		Service service = ServiceProvider.getService();
+		
+		Integer valueInt = Integer.parseInt(value);
+		Integer idInt = Integer.parseInt(id);
+		
+		Row newRow = new Row(value, id);
+		if(service.getRowById(id) == null){
+			Row returnRow = service.addRow(newRow);
+			String a = rowToJson(returnRow).build().toString();
+			return Response.ok(a).build();
+		} else {
+			return Response.status(Response.Status.FOUND).build();
+		}
+	}
 }
