@@ -16,6 +16,7 @@ public class BaseDAO {
 			
 			if (DATABASE_URL_PROP != null) {
 				URI dbUri = new URI(DATABASE_URL_PROP);
+				//TODO: verander naar oracle db
 				String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
 				BasicDataSource pool = new BasicDataSource();
 				

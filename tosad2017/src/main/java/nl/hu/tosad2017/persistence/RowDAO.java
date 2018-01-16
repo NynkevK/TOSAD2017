@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 //TODO: Waarom werkt dit niet?
-import java.sql.Statement;
+//import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +27,8 @@ public class RowDAO extends BaseDAO{
 		
 		try (Connection con = super.getConnection()) {
 			//TODO: Zelfde als boven, maar waarom willen ze dit casten?
-			Statement stmt = con.createStatement();
-			ResultSet dbResultSet = stmt.executeQuery(query);
+			Statement stmt = (Statement) con.createStatement();
+			ResultSet dbResultSet = ((java.sql.Statement) stmt).executeQuery(query);
 			
 			while (dbResultSet.next()) {
 				String value = dbResultSet.getString("value");
@@ -52,8 +52,8 @@ public class RowDAO extends BaseDAO{
 		
 		try (Connection con = super.getConnection()) {
 			//TODO: Zelfde als boven, maar waarom willen ze dit casten?
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate(query);
+			Statement stmt = (Statement) con.createStatement();
+			((java.sql.Statement) stmt).executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
