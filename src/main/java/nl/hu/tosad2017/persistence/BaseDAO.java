@@ -13,7 +13,7 @@ public class BaseDAO {
 		
 		try {
 			final String DATABASE_URL_PROP = System.getenv("DATABASE_URL");
-			
+			/*
 			if (DATABASE_URL_PROP != null) {
 				URI dbUri = new URI(DATABASE_URL_PROP);
 				//TODO: verander naar oracle db
@@ -32,7 +32,7 @@ public class BaseDAO {
 			} else {
 				InitialContext ic = new InitialContext();
 				connectionPool = (DataSource) ic.lookup("java:comp/env/jdbc/PostgresDS");
-			}
+			} */
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
