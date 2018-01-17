@@ -34,7 +34,8 @@ public class RangeRuleResource {
 	@GET
 	@Produces("application/json")
 	public String getValues() {
-		Service service = ServiceProvider.getService();
+		System.out.println(".. initialising RangeRule Resource");
+		RangeRuleService service = ServiceProvider.getService();
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		
 		for (String s : service.getRangeRules()) {
@@ -48,10 +49,10 @@ public class RangeRuleResource {
 	}
 	
 	@POST
-	@Path ("/test")
+	@Produces("application/json")
 	public Response addValues(@FormParam("value") String value,
 								@FormParam("id") String id) {
-		Service service = ServiceProvider.getService();
+		RangeRuleService service = ServiceProvider.getService();
 		
 		Integer valueInt = Integer.parseInt(value);
 		Integer idInt = Integer.parseInt(id);

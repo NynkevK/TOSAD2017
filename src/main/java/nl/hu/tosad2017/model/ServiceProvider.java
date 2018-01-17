@@ -1,9 +1,10 @@
 package nl.hu.tosad2017.model;
 
 public class ServiceProvider {
-	private static Service service = new Service();
+	private static RangeRuleService service = new RangeRuleService();
 	
-	public static Service getService() {
+	public static RangeRuleService getService() {
+		System.out.println(".. initialising ServiceProvider");
 		return service;	
 	}
 }

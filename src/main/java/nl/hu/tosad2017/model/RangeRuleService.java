@@ -1,17 +1,17 @@
 package nl.hu.tosad2017.model;
 
 import java.util.ArrayList;
-import nl.hu.tosad2017.model.*;
-import nl.hu.tosad2017.persistence.*;
+import nl.hu.tosad2017.persistence.RowDAO;
 
 //import java.sql.*;
 
-public class Service {
+public class RangeRuleService {
 	RowDAO rowDAO = new RowDAO();
 	
-	public Service() {}
+	public RangeRuleService() {}
 
 	public ArrayList<String> getRangeRules() {		
+		System.out.println(".. initialising RangeRule Service");
 		return rowDAO.getRangeRules();
 	}
 	

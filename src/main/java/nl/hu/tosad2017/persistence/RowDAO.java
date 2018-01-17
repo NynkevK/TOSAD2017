@@ -63,6 +63,7 @@ public class RowDAO extends BaseDAO{
 
 	// TODO replace string type with business rule class type
 	public ArrayList<String> getRangeRules() {
+		System.out.println(".. initialising DAO");
 		ArrayList<String> test = new ArrayList<String>();
 		test.add("test");
 		test.add("test2");
