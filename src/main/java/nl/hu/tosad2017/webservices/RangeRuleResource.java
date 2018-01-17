@@ -19,11 +19,11 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import nl.hu.tosad2017.model.*;
-
+	
 
 @Path("/rangerule")
 public class RangeRuleResource {
-		
+	
 	private JsonObjectBuilder rowToJson(Row row) {
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		job.add("value", row.getValue())
