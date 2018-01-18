@@ -1,4 +1,4 @@
-package nl.hu.tosad2017.webservices;
+package main.java.nl.hu.tosad2017.webservices;
 
 import java.sql.SQLException;
 
