@@ -1,4 +1,4 @@
-package main.java.nl.hu.tosad2017.persistence;
+package nl.hu.tosad2017.persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

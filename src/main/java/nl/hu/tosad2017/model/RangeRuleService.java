@@ -1,7 +1,6 @@
 package nl.hu.tosad2017.model;
 
 import java.util.ArrayList;
-import nl.hu.tosad2017.persistence.RowDAO;
 
 //import java.sql.*;
 

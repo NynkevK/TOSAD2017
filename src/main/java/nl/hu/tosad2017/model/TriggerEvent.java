@@ -1,4 +1,4 @@
-package main.java.nl.hu.tosad2017.model;
+package nl.hu.tosad2017.model;
 
 import java.util.List;
 
