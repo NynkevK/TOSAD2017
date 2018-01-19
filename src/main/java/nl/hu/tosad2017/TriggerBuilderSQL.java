@@ -31,9 +31,27 @@ public class TriggerBuilderSQL{
 	
 	public String makeBusinessRule() {
 		String code = "";
-		code = code + buildCreatePart("vbmg_voorbeeld", "connection_test") + makeCodePart(20, 40, "between", "COLUMN1") + buildExceptionPart("mag alleen tussen min en max zijn");
+//		code = code + buildCreatePart("vbmg_voorbeeld", "connection_test") + makeCodePart(20, 40, "between", "COLUMN1") + buildExceptionPart("mag alleen tussen min en max zijn");
+		code = code + CreateFullTrigger("vbmg_voorbeeld", "connection_test", 20, 40, "between", "COLUMN1", "mag alleen tussen min en max zijn");
 		System.out.println(code);
 		return code;
+	}
+	
+	public String CreateFullTrigger(String name, String tablename,int min, int max, String operator, String column, String error) {
+		String code = "create or replace trigger "+ name + " \n"+
+				 "before delete or insert or update \n"+
+				 "on " + tablename +" \n"+
+				 "for each row\n" +
+				"declare\n"+
+				"l_passed boolean := true;\n" +
+				"l_error_stack varchar2 ( 4000 );\n" +
+				"begin \n" +
+				"l_passed := :new."+ column +" "+  operator + " " + min + " and "+ max +";\n" +
+				"if not l_passed \n" +
+				 "then \n" +
+				 "l_error_stack := l_error_stack || '"+error+"'; \n" +
+				 "end if;\nend;";
+				return code;
 	}
 
 }
