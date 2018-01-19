@@ -1,6 +1,6 @@
 package nl.hu.tosad2017;
 
-public class ConstraintBuilderSQL{
+public class TriggerBuilderSQL{
 
 	public String buildCreatePart(String name, String tablename) {
 		String code = "create or replace trigger "+ name + " \n"+
