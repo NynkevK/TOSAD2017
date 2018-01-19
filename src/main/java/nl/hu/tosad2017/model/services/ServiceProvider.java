@@ -1,4 +1,4 @@
-package nl.hu.tosad2017.model;
+package nl.hu.tosad2017.model.services;
 
 public class ServiceProvider {
 	private static RangeRuleService service = new RangeRuleService();

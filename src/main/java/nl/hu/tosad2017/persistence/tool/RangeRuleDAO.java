@@ -1,11 +1,11 @@
-package nl.hu.tosad2017.persistence;
-
-import nl.hu.tosad2017.persistence.BaseDAO;
+package nl.hu.tosad2017.persistence.tool;
 
 import java.sql.*;
 
-public class RangeRuleDAOimpl implements RangeRuleDAO{
-    nl.hu.tosad2017.persistence.BaseDAO BaseDAO = new BaseDAO();
+import nl.hu.tosad2017.persistence.target.BaseDAO;
+
+public class RangeRuleDAO {
+    nl.hu.tosad2017.persistence.target.BaseDAO BaseDAO = new BaseDAO();
 
     public boolean insertRangeRule(String operator, String code, String kolomNaam,  int minvalue, int maxvalue) throws SQLException {
         Connection con = BaseDAO.getConn();

@@ -1,4 +1,4 @@
-package nl.hu.tosad2017.model;
+package nl.hu.tosad2017.model.model;
 
 public class RangeRule extends BusinessRule {
     private int minValue;
