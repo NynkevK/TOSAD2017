@@ -2,7 +2,7 @@ package nl.hu.tosad2017.webservices;
 
 import java.sql.SQLException;
 
-import javax.annotation.security.RolesAllowed;
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response;
 
 import nl.hu.tosad2017.model.model.RangeRule;
 import nl.hu.tosad2017.model.services.RangeRuleService;
+import nl.hu.tosad2017.model.services.RuleService;
 import nl.hu.tosad2017.model.services.ServiceProvider;;
 
 
@@ -31,25 +32,7 @@ public class RangeRuleResource {
 	
 	private JsonObjectBuilder ruleToJson(RangeRule rule) {
 		JsonObjectBuilder job = Json.createObjectBuilder();
-		job.add("value", rule.getCode());
-	}
-	
-	@GET
-	@Produces("application/json")
-	public String getValues() {
-		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Resource (GET)");
-		
-		JsonArrayBuilder jab = Json.createArrayBuilder();
-
-		for (String s : rangeruleservice.getRangeRules()) {
-			JsonObjectBuilder job = Json.createObjectBuilder();
-			job.add("test", s);
-			jab.add(job);
-		}
-
-		JsonArray array = jab.build();
-		return array.toString();
+		return job.add("value", rule.getCode());
 	}
 
 	@POST
@@ -86,7 +69,7 @@ public class RangeRuleResource {
 		System.out.println(".. executing RangeRule Resource (PUT) for " + code);
 		
 		//TODO Add params to constructor and method 
-		RangeRule oldRule = ruleservice.getRuleByCode(code);
+		RangeRule oldRule = (RangeRule) ruleservice.getRuleByCode(code);
 		
 		oldRule.setCode(code);
 		// TODO Add above for each of the attributes of rangerule
@@ -94,6 +77,7 @@ public class RangeRuleResource {
 		RangeRule newRule = rangeruleservice.updateRangeRule(oldRule);
 		
 		JsonObjectBuilder job = Json.createObjectBuilder();
+		//Add all rule attributes to a json object
 		job.add("code", newRule.getCode());
 		//TODO Add above for each of the attributes of rangerule
 		
@@ -107,7 +91,7 @@ public class RangeRuleResource {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Resource (DELETE) for " + code);
 		
-		RangeRule rule = ruleservice.getRuleByCode(code);
+		RangeRule rule = (RangeRule) ruleservice.getRuleByCode(code);
 		try {
 			rangeruleservice.deleteRangeRule(rule);
 			return "Success";
