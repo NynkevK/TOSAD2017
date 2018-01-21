@@ -37,6 +37,25 @@ public class RangeRule extends BusinessRule {
         this.maxValue = maxval;
     }
 
+    @Override
+    public String toString() {
+        return "RangeRule{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", messageText='" + messageText + '\'' +
+                ", ruleType='" + ruleType + '\'' +
+                ", columnName='" + columnName + '\'' +
+                ", columnType='" + columnType + '\'' +
+                ", tableName='" + tableName + '\'' +
+                ", status='" + status + '\'' +
+                ", operator='" + operator + '\'' +
+                ", triggerEvents='" + triggerEvents + '\'' +
+                "minValue=" + minValue +
+                ", maxValue=" + maxValue +
+                '}';
+    }
+
     public int getMinValue() { return minValue; }
 
     public void setMinValue(int minValue) { this.minValue = minValue; }
