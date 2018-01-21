@@ -23,7 +23,7 @@
 //
 //@Path("/rangerule")
 //public class RangeRuleResource {
-//	
+//
 //	private JsonObjectBuilder rowToJson(Row row) {
 //		JsonObjectBuilder job = Json.createObjectBuilder();
 //		job.add("value", row.getValue())
