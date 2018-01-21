@@ -6,6 +6,7 @@ import nl.hu.tosad2017.model.model.BusinessRule;
 import nl.hu.tosad2017.model.model.RangeRule;
 
 public class RuleService {
+	/*
 	ToolRuleDAO ToolDAO = new ToolRuleDAO();
 	
 	public RuleService() {}
@@ -14,9 +15,9 @@ public class RuleService {
 		return ToolDAO.getAllRules();
 	}
 
-	public BusinessRule getRuleByCode(String code) {
+	public BusinessRule getRuleByCode(int code) {
 		// TODO Auto-generated method stub
 		return ToolDAO.getRuleByCode(code);
-	}
+	}*/
 	
 }

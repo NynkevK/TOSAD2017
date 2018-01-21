@@ -15,7 +15,7 @@ import nl.hu.tosad2017.model.services.ServiceProvider;
 
 @Path("/rule")
 public class RuleResource {
-	RuleService ruleservice = ServiceProvider.getRuleService();
+	/*RuleService ruleservice = ServiceProvider.getRuleService();
 	
 	private JsonObjectBuilder ruleToJson(BusinessRule rule) {
 		JsonObjectBuilder job = Json.createObjectBuilder();
@@ -60,5 +60,5 @@ public class RuleResource {
 		
 		JsonArray array = jab.build();
 		return array.toString();
-	}
+	}*/
 }

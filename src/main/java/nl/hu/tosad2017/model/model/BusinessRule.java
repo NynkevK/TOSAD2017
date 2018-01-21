@@ -1,33 +1,33 @@
 package nl.hu.tosad2017.model.model;
 
 public abstract class BusinessRule {
-    protected String code;
-    protected int name;
-    protected int comment;
+    protected int code;
+    protected String name;
+    protected String comment;
     protected int example;
     protected int isStatic;
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
-        this.name = name;
+    public void setName(String name2) {
+        this.name = name2;
     }
 
-    public int getComment() {
+    public String getComment() {
         return comment;
     }
 
-    public void setComment(int comment) {
+    public void setComment(String comment) {
         this.comment = comment;
     }
 

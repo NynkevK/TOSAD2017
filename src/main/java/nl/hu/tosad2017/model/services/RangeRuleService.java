@@ -13,15 +13,12 @@ public class RangeRuleService {
 	
 	public RangeRuleService() {}
 	
-	/* Move following method to ruleservice
-	public void getRangeRules() {		
+	public RangeRule getRangeRuleByCode(int code) {
 		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Service (GET)");
-	} */
-	
-	/* Move following method to ruleservice
-	public void getRuleById(String Id) {
-	} */
+		System.out.println(".. executing RangeRule Service (GET) for " + code);
+		
+		return ToolDAO.getRangeRulebyCode(code);
+	}
 	
 	public RangeRule defineRangeRule(RangeRule rule) {
 		// logging for Heroku application server

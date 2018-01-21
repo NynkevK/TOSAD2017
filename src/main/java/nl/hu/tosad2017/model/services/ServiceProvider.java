@@ -8,9 +8,9 @@ public class ServiceProvider {
 		System.out.println(".. initialising ServiceProvider");
 		return rangeruleservice;	
 	}
-
+/*
 	public static RuleService getRuleService() {
 		System.out.println(".. initialising ServiceProvider");
 		return ruleservice;	
-	}
+	}*/
 }
