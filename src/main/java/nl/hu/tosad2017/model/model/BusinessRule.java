@@ -1,6 +1,7 @@
 package nl.hu.tosad2017.model.model;
 
 public abstract class BusinessRule {
+    protected int id;
     protected String code;
     protected String name;
     protected String messageText;
@@ -11,6 +12,11 @@ public abstract class BusinessRule {
     protected String status;
     protected String operator;
     protected String triggerEvents;
+
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getCode() {
         return code;
