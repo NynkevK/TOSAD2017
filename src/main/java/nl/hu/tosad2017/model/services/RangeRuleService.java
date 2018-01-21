@@ -3,8 +3,7 @@ package nl.hu.tosad2017.model.services;
 import java.util.ArrayList;
 
 import nl.hu.tosad2017.model.model.RangeRule;
-import nl.hu.tosad2017.persistence.target.TargetRangeRuleDAO;
-import nl.hu.tosad2017.persistence.tool.ToolRangeRuleDAO;
+import nl.hu.tosad2017.persistence.tool.RangeRuleDAO;
 
 //import java.sql.*;
 
@@ -28,7 +27,7 @@ public class RangeRuleService {
 		
 		return definedRule;
 	}
-	 
+	
 	public RangeRule updateRangeRule(RangeRule rule) {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Service (UPDATE) for " + rule.getCode());

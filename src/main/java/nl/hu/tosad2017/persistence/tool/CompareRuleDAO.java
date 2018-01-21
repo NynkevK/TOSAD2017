@@ -1,5 +1,5 @@
 package nl.hu.tosad2017.persistence.tool;
 
-public class ToolModifyRuleDAO {
+public class CompareRuleDAO {
 
 }

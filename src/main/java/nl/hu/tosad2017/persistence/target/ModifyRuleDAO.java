@@ -1,5 +1,5 @@
 package nl.hu.tosad2017.persistence.target;
 
-public class TargetOtherRuleDAO {
+public class ModifyRuleDAO {
 
 }
