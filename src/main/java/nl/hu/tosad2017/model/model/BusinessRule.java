@@ -1,49 +1,94 @@
 package nl.hu.tosad2017.model.model;
 
 public abstract class BusinessRule {
-    protected int code;
-    protected int name;
-    protected int comment;
-    protected int example;
-    protected int isStatic;
+    protected String code;
+    protected String name;
+    protected String messageText;
+    protected String ruleType;
+    protected String columnName;
+    protected String columnType;
+    protected String tableName;
+    protected String status;
+    protected String operator;
+    protected String triggerEvents;
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public int getComment() {
-        return comment;
+    public String getMessageText() {
+        return messageText;
     }
 
-    public void setComment(int comment) {
-        this.comment = comment;
+    public void setMessageText(String messageText) {
+        this.messageText = messageText;
     }
 
-    public int getExample() {
-        return example;
+    public String getRuleType() {
+        return ruleType;
     }
 
-    public void setExample(int example) {
-        this.example = example;
+    public void setRuleType(String ruleType) {
+        this.ruleType = ruleType;
     }
 
-    public int getIsStatic() {
-        return isStatic;
+    public String getColumnName() {
+        return columnName;
     }
 
-    public void setIsStatic(int isStatic) {
-        this.isStatic = isStatic;
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public String getColumnType() {
+        return columnType;
+    }
+
+    public void setColumnType(String columnType) {
+        this.columnType = columnType;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public String getTriggerEvents() {
+        return triggerEvents;
+    }
+
+    public void setTriggerEvents(String triggerEvents) {
+        this.triggerEvents = triggerEvents;
     }
 }
