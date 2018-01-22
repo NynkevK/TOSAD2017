@@ -1,5 +1,6 @@
 package nl.hu.tosad2017.model.model;
 
+<<<<<<< HEAD
 public class ModifyRule extends BusinessRule {
     private String query;
     private String otherColumn;
@@ -28,4 +29,12 @@ public class ModifyRule extends BusinessRule {
     public void setOtherTable(String otherTable) {
         this.otherTable = otherTable;
     }
+=======
+public class ModifyRule extends BusinessRule{
+	private String query;
+	
+	public String getQuery { return query; }
+	
+	public void setQuery (String query) { this.query = query; }
+>>>>>>> REST
 }
