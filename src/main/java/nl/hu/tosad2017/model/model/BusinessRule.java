@@ -1,13 +1,6 @@
 package nl.hu.tosad2017.model.model;
 
 public abstract class BusinessRule {
-<<<<<<< HEAD
-    protected int code;
-    protected String name;
-    protected String comment;
-    protected int example;
-    protected int isStatic;
-=======
     protected int id;
     protected String code;
     protected String name;
@@ -19,7 +12,6 @@ public abstract class BusinessRule {
     protected String status;
     protected String operator;
     protected String triggerEvents;
->>>>>>> persistence
 
 
     public int getId() { return id; }
@@ -38,18 +30,6 @@ public abstract class BusinessRule {
         return name;
     }
 
-<<<<<<< HEAD
-    public void setName(String name2) {
-        this.name = name2;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-=======
     public void setName(String name) {
         this.name = name;
     }
@@ -100,7 +80,6 @@ public abstract class BusinessRule {
 
     public void setStatus(String status) {
         this.status = status;
->>>>>>> persistence
     }
 
     public String getOperator() {

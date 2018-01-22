@@ -1,7 +1,6 @@
 package nl.hu.tosad2017.model.services;
 
 public class ServiceProvider {
-	private static RuleService ruleservice = new RuleService();
 	private static RangeRuleService rangeruleservice = new RangeRuleService();	
 	private static CompareRuleService compareRuleService = new CompareRuleService();
 	private static ModifyRuleService modifyRuleService = new ModifyRuleService();

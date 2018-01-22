@@ -1,9 +1,11 @@
 package nl.hu.tosad2017.model.services;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import nl.hu.tosad2017.model.model.RangeRule;
-import nl.hu.tosad2017.persistence.tool.RangeRuleDAO;
+import nl.hu.tosad2017.persistence.target.TargetRangeRuleDAO;
+import nl.hu.tosad2017.persistence.tool.ToolRangeRuleDAO;
 
 //import java.sql.*;
 
@@ -13,34 +15,47 @@ public class RangeRuleService {
 	
 	public RangeRuleService() {}
 	
-	public RangeRule getRangeRuleByCode(int code) {
+	public RangeRule getRangeRuleByCode(int id) {
 		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Service (GET) for " + code);
+		System.out.println(".. executing RangeRule Service (GET) for " + id);
 		
-		return ToolDAO.getRangeRulebyCode(code);
+		try {
+			return ToolDAO.readRule(id);
+		} catch (SQLException e) {
+			e.getMessage();
+		}
+		return null;
 	}
 	
-	public RangeRule defineRangeRule(RangeRule rule) {
+	public boolean defineRangeRule(RangeRule rule) {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Service (CREATE)");
-		RangeRule definedRule = ToolDAO.defineRule(rule);
+		try {
+			return ToolDAO.createRule(rule);
+		} catch (SQLException e) { 
+			e.getMessage();
+		}
 		
-		return definedRule;
+		
+		
+		return null;
 	}
 	
-	public RangeRule updateRangeRule(RangeRule rule) {
+	public RangeRule updateRangeRule(int id) {
 		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Service (UPDATE) for " + rule.getCode());
-		RangeRule updatedRule = ToolDAO.updateRule(rule);
+		System.out.println(".. executing RangeRule Service (UPDATE) for " + id);
+		//TODO Implement updateRule in DAO
+		RangeRule updatedRule = ToolDAO.updateRule(id);
 		
 		return updatedRule;
 	}
 	
-	public boolean deleteRangeRule(RangeRule rule) {
+	public boolean deleteRangeRule(int id) {
 		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Service (DELETE) for " + rule.getCode());
-		ToolDAO.deleteRangeRule(rule);
-		TargetDAO.deleteRangeRule(rule);
+		System.out.println(".. executing RangeRule Service (DELETE) for " + id);
+		ToolDAO.deleteRule(id);
+		//TODO Implement updateRule in DAO
+		TargetDAO.deleteRule(id);
 		
 		return true;
 	}
