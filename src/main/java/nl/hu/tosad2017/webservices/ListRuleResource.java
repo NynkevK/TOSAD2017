@@ -58,7 +58,7 @@ public class ListRuleResource {
 		
 		if(listRuleService.getListRuleByCode(idInt) == null) {
 			ListRule returnedRule = listRuleService.defineListRule(newRule);
-			int a = returnedRule.getCode();
+			int a = returnedRule.getId();
 			return Response.ok(a).build();
 		} else {
 			return Response.status(Response.Status.FOUND).build();
@@ -88,7 +88,7 @@ public class ListRuleResource {
 		//TODO add all other parameters to constructor and method
 		ListRule oldRule = listRuleService.getListRuleByCode(idInt);
 		
-		oldRule.setCode(idInt);
+		oldRule.setId(idInt);
 		oldRule.setName(name);
 		//TODO add all other params
 		

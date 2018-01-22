@@ -37,7 +37,11 @@ public class RangeRule extends BusinessRule {
         this.maxValue = maxval;
     }
 
-    @Override
+    public RangeRule() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
     public String toString() {
         return "RangeRule{" +
                 "id=" + id +

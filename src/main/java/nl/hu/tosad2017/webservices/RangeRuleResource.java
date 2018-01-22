@@ -1,74 +1,3 @@
-<<<<<<< HEAD
-//package nl.hu.tosad2017.webservices;
-//
-//import java.sql.SQLException;
-//
-//import javax.annotation.security.RolesAllowed;
-//import javax.json.Json;
-//import javax.json.JsonArray;
-//import javax.json.JsonArrayBuilder;
-//import javax.json.JsonObjectBuilder;
-//import javax.ws.rs.DELETE;
-//import javax.ws.rs.FormParam;
-//import javax.ws.rs.GET;
-//import javax.ws.rs.POST;
-//import javax.ws.rs.PUT;
-//import javax.ws.rs.Path;
-//import javax.ws.rs.PathParam;
-//import javax.ws.rs.Produces;
-//import javax.ws.rs.WebApplicationException;
-//import javax.ws.rs.core.Response;
-//
-//import nl.hu.tosad2017.model.*;
-//
-//
-//@Path("/rangerule")
-//public class RangeRuleResource {
-//
-//	private JsonObjectBuilder rowToJson(Row row) {
-//		JsonObjectBuilder job = Json.createObjectBuilder();
-//		job.add("value", row.getValue())
-//			.add("id", row.getId());
-//		return job;
-//	}
-//
-//	@GET
-//	@Produces("application/json")
-//	public String getValues() {
-//		System.out.println(".. initialising RangeRule Resource");
-//		RangeRuleService service = ServiceProvider.getService();
-//		JsonArrayBuilder jab = Json.createArrayBuilder();
-//
-//		for (String s : service.getRangeRules()) {
-//			JsonObjectBuilder job = Json.createObjectBuilder();
-//			job.add("test", s);
-//			jab.add(job);
-//		}
-//
-//		JsonArray array = jab.build();
-//		return array.toString();
-//	}
-//
-//	@POST
-//	@Produces("application/json")
-//	public Response addValues(@FormParam("value") String value,
-//								@FormParam("id") String id) {
-//		RangeRuleService service = ServiceProvider.getService();
-//
-//		Integer valueInt = Integer.parseInt(value);
-//		Integer idInt = Integer.parseInt(id);
-//
-//		Row newRow = new Row(value, id);
-//		if(service.getRowById(id) == null){
-//			Row returnRow = service.addRow(newRow);
-//			String a = rowToJson(returnRow).build().toString();
-//			return Response.ok(a).build();
-//		} else {
-//			return Response.status(Response.Status.FOUND).build();
-//		}
-//	}
-//}
-=======
 package nl.hu.tosad2017.webservices;
 
 import java.sql.SQLException;
@@ -93,7 +22,6 @@ import nl.hu.tosad2017.model.model.RangeRule;
 import nl.hu.tosad2017.model.services.RangeRuleService;
 import nl.hu.tosad2017.model.services.ServiceProvider;
 
- /*
 @Path("/rangerule")
 public class RangeRuleResource {
 	//TODO Implement method in serviceprovider, see row below
@@ -131,9 +59,8 @@ public class RangeRuleResource {
 		RangeRule newRule = new RangeRule();
 
 		if(rangeruleservice.getRangeRuleByCode(idInt) == null){
-			RangeRule returnedRule = rangeruleservice.defineRangeRule(newRule);
-			int a =  returnedRule.getCode();
-			return Response.ok(a).build();
+			boolean returnedRule = rangeruleservice.defineRangeRule(newRule);
+			return Response.ok(returnedRule).build();
 		} else {
 			return Response.status(Response.Status.FOUND).build();
 		}
@@ -163,7 +90,7 @@ public class RangeRuleResource {
 		//TODO Add params to constructor and method
 		RangeRule oldRule = rangeruleservice.getRangeRuleByCode(idInt);
 
-		oldRule.setCode(idInt);
+		oldRule.setId(idInt);
 		oldRule.setName(name);
 		//TODO add unimplemented methods below in rangerule model
 		//oldRule.setMessage(message);
@@ -177,7 +104,7 @@ public class RangeRuleResource {
 		//oldRule.setMinValue(minValue);
 		//oldRule.setMaxValue(maxValue);
 
-		RangeRule newRule = rangeruleservice.updateRangeRule(oldRule);
+		RangeRule newRule = rangeruleservice.updateRangeRule(idInt);
 
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		//Add all rule attributes to a json object
@@ -190,21 +117,16 @@ public class RangeRuleResource {
 
 	@DELETE
 	@Path("{code}")
-	public String deleteRangeRule(int code) {
+	public String deleteRangeRule(int id) {
 		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Resource (DELETE) for " + code);
+		System.out.println(".. executing RangeRule Resource (DELETE) for " + id);
 
-		RangeRule rule = rangeruleservice.getRangeRuleByCode(code);
+		RangeRule rule = rangeruleservice.getRangeRuleByCode(id);
 		try {
-			rangeruleservice.deleteRangeRule(rule);
+			rangeruleservice.deleteRangeRule(id);
 			return "Success";
 		} catch (Exception e) {
 			return "Failed DELETE";
 		}
 	}
 }
-<<<<<<< Updated upstream
->>>>>>> REST
-=======
-*/
->>>>>>> Stashed changes

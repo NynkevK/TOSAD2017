@@ -58,7 +58,7 @@ public class ModifyRuleResource {
 		
 		if(modifyRuleService.getModifyRuleByCode(idInt) == null) {
 			ModifyRule returnedRule = modifyRuleService.defineModifyRule(newRule);
-			int a = returnedRule.getCode();
+			int a = returnedRule.getId();
 			return Response.ok(a).build();
 		} else {
 			return Response.status(Response.Status.FOUND).build();
@@ -90,7 +90,7 @@ public class ModifyRuleResource {
 		//TODO add all other parameters to constructor and method
 		ModifyRule oldRule = modifyRuleService.getModifyRuleByCode(idInt);
 		
-		oldRule.setCode(idInt);
+		oldRule.setId(idInt);
 		oldRule.setName(name);
 		//TODO add all other params
 		
