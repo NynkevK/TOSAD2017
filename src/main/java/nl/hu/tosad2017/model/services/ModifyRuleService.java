@@ -13,28 +13,34 @@ public class ModifyRuleService {
 	public ModifyRule getModifyRuleByCode (int code) {
 		// logging for Heroku application server
 		System.out.println(".. executing ModifyRule Service (GET) for " + code);	
-		
-		return ToolDAO.getModifyRuleByCode(code);
+		//TODO Implement updateRule in DAO
+		//return ToolDAO.getModifyRuleByCode(code);
+		return null;
 	}
 	
 	public ModifyRule defineModifyRule (ModifyRule rule) {
 		System.out.println(".. executing ModifyRule Service (CREATE)");
-		ModifyRule definedRule = ToolDAO.defineRule(rule);
+		//TODO Implement updateRule in DAO
+		//ModifyRule definedRule = ToolDAO.defineRule(rule);
 		
-		return definedRule;
+		//return definedRule;
+		return null;
 	}
 	
 	public ModifyRule updateModifyRule (ModifyRule rule) {
 		System.out.println(".. executing ModifyRule Service (UPDATE) for " + rule.getCode());
-		ModifyRule updatedRule = ToolDAO.updateRule(rule);
+		//TODO Implement in DAO
+		//ModifyRule updatedRule = ToolDAO.updateRule(rule);
 		
-		return updatedRule;
+		//return updatedRule;
+		return null;
 	}
 	
 	public boolean deleteModifyRule (ModifyRule rule) {
 		System.out.println(".. executing ModifyRule Service (DELETE) for " + rule.getCode());
-		ToolDAO.deleteModifyRule(rule);
-		TargetDAO.deleteModifyRule(rule);
+		//TODO Implement updateRule in DAO
+		//ToolDAO.deleteModifyRule(rule);
+		//TargetDAO.deleteModifyRule(rule);
 		
 		return true;
 	}

@@ -14,27 +14,34 @@ public class ListRuleService {
 		// logging for Heroku application server
 		System.out.println(".. executing ListRule Service (GET) for " + code);	
 		
-		return ToolDAO.getListRuleByCode(code);
+		//TODO Implement updateRule in DAO
+		//return ToolDAO.getListRuleByCode(code);
+		return null;
 	}
 	
 	public ListRule defineListRule (ListRule rule) {
 		System.out.println(".. executing ListRule Service (CREATE)");
-		ListRule definedRule = ToolDAO.defineRule(rule);
+		//TODO Implement updateRule in DAO
+		//ListRule definedRule = ToolDAO.defineRule(rule);
 		
-		return definedRule;
+		//return definedRule;
+		return null;
 	}
 	
 	public ListRule updateListRule (ListRule rule) {
 		System.out.println(".. executing ListRule Service (UPDATE) for " + rule.getCode());
-		ListRule updatedRule = ToolDAO.updateRule(rule);
+		//TODO Implement updateRule in DAO
+		//ListRule updatedRule = ToolDAO.updateRule(rule);
 		
-		return updatedRule;
+		//return updatedRule;
+		return null;
 	}
 	
 	public boolean deleteListRule (ListRule rule) {
 		System.out.println(".. executing ListRule Service (DELETE) for " + rule.getCode());
-		ToolDAO.deleteListRule(rule);
-		TargetDAO.deleteListRule(rule);
+		//TODO Implement updateRule in DAO
+		//ToolDAO.deleteListRule(rule);
+		//TargetDAO.deleteListRule(rule);
 		
 		return true;
 	}
