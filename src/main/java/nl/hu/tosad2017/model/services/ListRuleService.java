@@ -1,9 +1,7 @@
 package nl.hu.tosad2017.model.services;
 
 import nl.hu.tosad2017.model.model.ListRule;
-import nl.hu.tosad2017.persistence.tool.ListRuleDAO;
 import nl.hu.tosad2017.persistence.tool.ToolListRuleDAO;
-import nl.hu.tosad2017.persistence.target.ListRuleDAO;
 import nl.hu.tosad2017.persistence.target.TargetListRuleDAO;
 
 public class ListRuleService {

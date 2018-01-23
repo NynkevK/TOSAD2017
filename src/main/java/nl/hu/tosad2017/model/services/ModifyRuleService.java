@@ -1,8 +1,8 @@
 package nl.hu.tosad2017.model.services;
 
 import nl.hu.tosad2017.model.model.ModifyRule;
-import nl.hu.tosad2017.persistence.tool.ModifyRuleDAO;
-import nl.hu.tosad2017.persistence.target.ModifyRuleDAO;
+import nl.hu.tosad2017.persistence.tool.ToolModifyRuleDAO;
+import nl.hu.tosad2017.persistence.target.TargetModifyRuleDAO;
 
 public class ModifyRuleService {
 	ToolModifyRuleDAO ToolDAO = new ToolModifyRuleDAO();

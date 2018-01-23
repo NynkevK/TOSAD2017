@@ -1,8 +1,8 @@
 package nl.hu.tosad2017.model.services;
 
-import nl.hu.tosad2017.persistence.tool.CompareRuleDAO;
+import nl.hu.tosad2017.persistence.tool.ToolCompareRuleDAO;
 import nl.hu.tosad2017.model.model.CompareRule;
-import nl.hu.tosad2017.persistence.target.CompareRuleDAO;
+import nl.hu.tosad2017.persistence.target.TargetCompareRuleDAO;
 
 public class CompareRuleService {
 	ToolCompareRuleDAO ToolDAO = new ToolCompareRuleDAO();
