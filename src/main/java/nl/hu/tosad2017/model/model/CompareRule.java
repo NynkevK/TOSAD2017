@@ -3,6 +3,7 @@ package nl.hu.tosad2017.model.model;
 public class CompareRule extends BusinessRule {
     private String comparedColumn;
     private String comparedTable;
+    private int compareValue;
     private int value;
 
     public int getValue() {
@@ -12,8 +13,6 @@ public class CompareRule extends BusinessRule {
     public void setValue(int value) {
         this.value = value;
     }
-
-    private int compareValue;
 
     public String getComparedColumn() {
         return comparedColumn;
