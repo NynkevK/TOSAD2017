@@ -22,7 +22,7 @@ public class RangeRuleService {
 		try {
 			return ToolDAO.readRule(id);
 		} catch (SQLException e) {
-			e.getMessage();
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -33,29 +33,30 @@ public class RangeRuleService {
 		try {
 			return ToolDAO.createRule(rule);
 		} catch (SQLException e) { 
-			e.getMessage();
-		}
-		
-		
-		
-		return null;
+			e.printStackTrace();
+		}		
+		return false;
 	}
 	
 	public RangeRule updateRangeRule(int id) {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Service (UPDATE) for " + id);
 		//TODO Implement updateRule in DAO
-		RangeRule updatedRule = ToolDAO.updateRule(id);
-		
-		return updatedRule;
+		//RangeRule updatedRule = ToolDAO.updateRule(id);
+		return null;
+		//return updatedRule;
 	}
 	
 	public boolean deleteRangeRule(int id) {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Service (DELETE) for " + id);
-		ToolDAO.deleteRule(id);
+		try {
+			ToolDAO.deleteRule(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		//TODO Implement updateRule in DAO
-		TargetDAO.deleteRule(id);
+		//TargetDAO.deleteRule(id);
 		
 		return true;
 	}

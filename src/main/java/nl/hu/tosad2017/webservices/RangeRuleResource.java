@@ -54,9 +54,12 @@ public class RangeRuleResource {
 		System.out.println(".. executing RangeRule Resource (POST)");
 
 		Integer idInt = Integer.parseInt(code);
+		Integer minv = Integer.parseInt(minValue);
+		Integer maxv = Integer.parseInt(maxValue);
 
-		//TODO Add all paramters for rangerule in constructor below
-		RangeRule newRule = new RangeRule();
+		RangeRule newRule = new RangeRule(idInt, code, name, message, type, 
+											columnName, columnType, table, status, 
+											operator, triggerEvents, minv, maxv);
 
 		if(rangeruleservice.getRangeRuleByCode(idInt) == null){
 			boolean returnedRule = rangeruleservice.defineRangeRule(newRule);
@@ -67,9 +70,10 @@ public class RangeRuleResource {
 	}
 
 	@PUT
-	@Path("{code}")
+	@Path("{id}")
 	@Produces("application/json")
-	public String updateRangeRule(@PathParam("code") String code,
+	public String updateRangeRule(@PathParam("id") String id,
+								@FormParam("code") String code,
 								@FormParam("name") String name,
 								@FormParam("message") String message,
 								@FormParam("type") String type,
@@ -83,26 +87,26 @@ public class RangeRuleResource {
 								@FormParam("maxValue") String maxValue) {
 
 		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Resource (PUT) for " + code);
+		System.out.println(".. executing RangeRule Resource (PUT) for " + id);
 
-		Integer idInt = Integer.parseInt(code);
-
-		//TODO Add params to constructor and method
+		Integer idInt = Integer.parseInt(id);
+		Integer minv = Integer.parseInt(minValue);
+		Integer maxv = Integer.parseInt(maxValue);
+		
 		RangeRule oldRule = rangeruleservice.getRangeRuleByCode(idInt);
 
-		oldRule.setId(idInt);
 		oldRule.setName(name);
-		//TODO add unimplemented methods below in rangerule model
-		//oldRule.setMessage(message);
-		//oldRule.setRuleType(type);
-		//oldRule.setColumnName(columnName);
-		//oldRule.setColumnType(columnType);
-		//oldRule.setTable(table);
-		//oldRule.setStatus(status);
-		//oldRule.setOperator(operator);
-		//oldRule.setTriggerEvents(triggerEvetns);
-		//oldRule.setMinValue(minValue);
-		//oldRule.setMaxValue(maxValue);
+		oldRule.setCode(code);
+		oldRule.setMessageText(message);
+		oldRule.setRuleType(type);
+		oldRule.setColumnName(columnName);
+		oldRule.setColumnType(columnType);
+		oldRule.setTableName(table);
+		oldRule.setStatus(status);
+		oldRule.setOperator(operator);
+		oldRule.setTriggerEvents(triggerEvents);
+		oldRule.setMinValue(minv);
+		oldRule.setMaxValue(maxv);
 
 		RangeRule newRule = rangeruleservice.updateRangeRule(idInt);
 
