@@ -29,6 +29,11 @@ public abstract class BusinessRule {
     public String getName() {
         return name;
     }
+    
+    public String getGeneratedName() {
+    	String name = "BRG_" + "VBMG_" + tableName + "_" + "TRG_" + code + "_"  + id;
+        return name;
+    }
 
     public void setName(String name) {
         this.name = name;
