@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+import nl.hu.tosad2017.model.model.BusinessRule;
 import nl.hu.tosad2017.model.model.CompareRule;
+import nl.hu.tosad2017.model.model.ListRule;
 import nl.hu.tosad2017.model.model.OracleRuleGenerator;
 import nl.hu.tosad2017.model.model.RangeRule;
 
@@ -43,12 +45,15 @@ public class OracleTest {
 //
 //            System.out.println(statement.execute(plsql));
             OracleRuleGenerator gen = new OracleRuleGenerator();
-            RangeRule rule = new RangeRule(1, "RANG", "VBMG_RANG", "Range rule", "Range", "COLUMN1", "varchar", "connection_test"
-                    , "defined", "between", "INS", 2, 40);
+            RangeRule rule = new RangeRule(1, "RANG", "VBMG_LEVER_RANG", "Range rule", "Range", "aantal", "varchar", "VBMG_LEVERINGEN"
+                    , "defined", "between", "INS UPD", 2, 40);
             CompareRule rule2 = new CompareRule(1, "COMP", "VBMG_COMP", "Compare rule", "Tuple", "COLUMN1", "varchar", "connection_test"
                     , "defined", "<", "INS UPD", "Prijs", "", 25);
+            ListRule rule3 = new ListRule(1, "COMP", "VBMG_COMP", "Compare rule", "Tuple", "COLUMN1", "varchar", "connection_test"
+                    , "defined", "in", "INS", "'BOE', 'KLA'");
             gen.GenerateRangeRule(rule);
             gen.GenerateCompareRule(rule2);
+            gen.GenerateListRule(rule3);
 
         } catch (Exception e){
             throw new RuntimeException(e);

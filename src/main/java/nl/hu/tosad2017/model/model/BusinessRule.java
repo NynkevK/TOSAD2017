@@ -12,8 +12,7 @@ public abstract class BusinessRule {
     protected String status;
     protected String operator;
     protected String triggerEvents;
-
-
+    
     public int getId() { return id; }
 
     public void setId(int id) { this.id = id; }

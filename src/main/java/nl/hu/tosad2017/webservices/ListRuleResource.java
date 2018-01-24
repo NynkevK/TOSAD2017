@@ -1,5 +1,6 @@
 package nl.hu.tosad2017.webservices;
 
+import nl.hu.tosad2017.model.model.BusinessRule;
 import nl.hu.tosad2017.model.model.ListRule;
 import nl.hu.tosad2017.model.services.ServiceProvider;
 import nl.hu.tosad2017.model.services.ListRuleService;
@@ -25,7 +26,7 @@ public class ListRuleResource {
 	
 	ListRuleService listRuleService = ServiceProvider.getListRuleService();
 	
-	private JsonObjectBuilder ruleToJson (ListRule rule) {
+	private JsonObjectBuilder ruleToJson (BusinessRule rule) {
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		return job.add("code", rule.getCode());
 	}
@@ -54,10 +55,10 @@ public class ListRuleResource {
 		Integer idInt = Integer.parseInt(code);
 		
 		//TODO add all other parameters for ListRule in constructor below
-		ListRule newRule = new ListRule();
+		BusinessRule newRule = new ListRule();
 		
 		if(listRuleService.getListRuleByCode(idInt) == null) {
-			ListRule returnedRule = listRuleService.defineListRule(newRule);
+			BusinessRule returnedRule = listRuleService.defineListRule(newRule);
 			int a = returnedRule.getId();
 			return Response.ok(a).build();
 		} else {
@@ -86,13 +87,13 @@ public class ListRuleResource {
 		Integer idInt = Integer.parseInt(code);
 		
 		//TODO add all other parameters to constructor and method
-		ListRule oldRule = listRuleService.getListRuleByCode(idInt);
+		BusinessRule oldRule = listRuleService.getListRuleByCode(idInt);
 		
 		oldRule.setId(idInt);
 		oldRule.setName(name);
 		//TODO add all other params
 		
-		ListRule newRule = listRuleService.updateListRule(oldRule);
+		BusinessRule newRule = listRuleService.updateListRule(oldRule);
 		
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		
@@ -109,7 +110,7 @@ public class ListRuleResource {
 		// logging for Heroku application server
 		System.out.println(".. executing ListRule Resource (DELETE) for " + code);
 		
-		ListRule rule = listRuleService.getListRuleByCode(code);
+		BusinessRule rule = listRuleService.getListRuleByCode(code);
 		try {
 			listRuleService.deleteListRule(rule);
 			return "Success";

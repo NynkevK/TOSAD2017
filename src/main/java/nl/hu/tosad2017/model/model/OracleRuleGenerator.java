@@ -13,10 +13,15 @@ public class OracleRuleGenerator implements RuleGenerator {
 				"l_error_stack varchar2 ( 4000 );\n" +
 				"begin \n" +
 				 rule.GenerateCode() +
-				"if not l_passed \n" +
+				 "if not l_passed \n" +
 				 "then \n" +
 				 "l_error_stack := l_error_stack || '"+rule.getMessageText()+"'; \n" +
-				 "end if;\nend;";
+				 "end if;\n" +
+				 "if l_error_stack is not null\n" +
+				 "then\n" +
+				 "raise_application_error ( -20800, l_error_stack );\n" +
+				 "end if;\n" +
+				 "end;";
 				System.out.println(code);
 				return code;
 	}
@@ -35,7 +40,12 @@ public class OracleRuleGenerator implements RuleGenerator {
 				"if not l_passed \n" +
 				 "then \n" +
 				 "l_error_stack := l_error_stack || '"+rule.getMessageText()+"'; \n" +
-				 "end if;\nend;";
+				 "end if;\n" +
+				 "if l_error_stack is not null\n" +
+				 "then\n" +
+				 "raise_application_error ( -20800, l_error_stack );\n" +
+				 "end if;\n" +
+				 "end;";
 				System.out.println(code);
 				return code;
 	}
@@ -54,8 +64,26 @@ public class OracleRuleGenerator implements RuleGenerator {
 
 	@Override
 	public String GenerateListRule(ListRule rule) {
-		// TODO Auto-generated method stub
-		return null;
+		String code = "create or replace trigger "+ rule.getName() + " \n"+
+				 generateTriggerEvents(rule) +"  \n"+
+				 "on " + rule.getTableName() +" \n"+
+				 "for each row\n" +
+				"declare\n"+
+				"l_passed boolean := true;\n" +
+				"l_error_stack varchar2 ( 4000 );\n" +
+				"begin \n" +
+				rule.GenerateCode() +
+				"if not l_passed \n" +
+				 "then \n" +
+				 "l_error_stack := l_error_stack || '"+rule.getMessageText()+"'; \n" +
+				 "end if;\n" +
+				 "if l_error_stack is not null\n" +
+				 "then\n" +
+				 "raise_application_error ( -20800, l_error_stack );\n" +
+				 "end if;\n" +
+				 "\nend;";
+				System.out.println(code);
+				return code;
 	}
 	
 	public String generateTriggerEvents(BusinessRule rule) {
