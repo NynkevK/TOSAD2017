@@ -1,5 +1,8 @@
 package nl.hu.tosad2017.model.services;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import nl.hu.tosad2017.model.model.ListRule;
 import nl.hu.tosad2017.persistence.tool.ToolListRuleDAO;
 import nl.hu.tosad2017.persistence.target.TargetListRuleDAO;
@@ -10,26 +13,25 @@ public class ListRuleService {
 	
 	public ListRuleService() {}
 	
-	public ListRule getListRuleByCode (int code) {
+	public List<ListRule> getAllListRules() throws SQLException {
+		return ToolDAO.readAllRules();
+	}
+	
+	public ListRule getListRuleByCode (int id) throws SQLException {
 		// logging for Heroku application server
-		System.out.println(".. executing ListRule Service (GET) for " + code);	
+		System.out.println(".. executing ListRule Service (GET) for " + id);	
 		
-		//TODO Implement updateRule in DAO
-		//return ToolDAO.getListRuleByCode(code);
-		return null;
+		return ToolDAO.readRule(id);
 	}
 	
-	public ListRule defineListRule (ListRule rule) {
+	public boolean defineListRule (ListRule rule) throws SQLException {
 		System.out.println(".. executing ListRule Service (CREATE)");
-		//TODO Implement updateRule in DAO
-		//ListRule definedRule = ToolDAO.defineRule(rule);
 		
-		//return definedRule;
-		return null;
+		return ToolDAO.createRule(rule);
 	}
 	
-	public ListRule updateListRule (ListRule rule) {
-		System.out.println(".. executing ListRule Service (UPDATE) for " + rule.getCode());
+	public ListRule updateListRule (int id) {
+		System.out.println(".. executing ListRule Service (UPDATE) for " + id);
 		//TODO Implement updateRule in DAO
 		//ListRule updatedRule = ToolDAO.updateRule(rule);
 		
@@ -37,12 +39,9 @@ public class ListRuleService {
 		return null;
 	}
 	
-	public boolean deleteListRule (ListRule rule) {
-		System.out.println(".. executing ListRule Service (DELETE) for " + rule.getCode());
-		//TODO Implement updateRule in DAO
-		//ToolDAO.deleteListRule(rule);
-		//TargetDAO.deleteListRule(rule);
+	public boolean deleteListRule (int id) throws SQLException {
+		System.out.println(".. executing ListRule Service (DELETE) for " + id);
 		
-		return true;
+		return ToolDAO.deleteRule(id);
 	}
 }
