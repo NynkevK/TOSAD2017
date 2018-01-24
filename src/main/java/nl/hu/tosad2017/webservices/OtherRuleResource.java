@@ -94,6 +94,7 @@ public class OtherRuleResource {
 									@FormParam("type") String type,
 									@FormParam("columnName") String columnName,
 									@FormParam("columnType") String columnType,
+									@FormParam("otherColumn") String otherColumn,
 									@FormParam("table") String table,
 									@FormParam("status") String status,
 									@FormParam("operator") String operator,
@@ -105,12 +106,9 @@ public class OtherRuleResource {
 
 			Integer idInt = Integer.parseInt(id);
 
-			OtherRule newRule = new OtherRule();
-			
-			/* TODO Create constructor below
 			OtherRule newRule = new OtherRule(idInt, code, name, message, type, 
-												columnName, columnType, table, status, 
-												operator, triggerEvents, query); */
+												columnName, columnType, otherColumn,
+												table, status, operator, triggerEvents, query);
 
 			if(otherruleservice.getOtherRuleById(idInt) == null){
 				boolean returnedRule = otherruleservice.defineOtherRule(newRule);
