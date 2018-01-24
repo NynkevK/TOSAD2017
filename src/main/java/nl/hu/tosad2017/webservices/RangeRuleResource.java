@@ -29,7 +29,7 @@ public class RangeRuleResource {
 	@GET
 	@Produces("application/json")
 	public String getAllRangeRules() throws SQLException {
-		// logging for Heroku application server
+		// logging for Heroku application server 	
 		System.out.println(".. executing RangeRule Resource (GET) for all");
 				
 		JsonArrayBuilder jab = Json.createArrayBuilder();
@@ -62,6 +62,7 @@ public class RangeRuleResource {
 	}
 	
 	@GET
+	@Path("{id}")
 	@Produces("application/json")
 	public String getRangeRuleById(@PathParam("id") String id) throws SQLException {
 		// logging for Heroku application server
