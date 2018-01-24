@@ -47,9 +47,9 @@ public class OracleTest {
             OracleRuleGenerator gen = new OracleRuleGenerator();
             RangeRule rule = new RangeRule(1, "RANG", "VBMG_LEVER_RANG", "Range rule", "Range", "aantal", "varchar", "VBMG_LEVERINGEN"
                     , "defined", "between", "INS UPD", 2, 40);
-            CompareRule rule2 = new CompareRule(1, "COMP", "VBMG_COMP", "Compare rule", "Tuple", "COLUMN1", "varchar", "connection_test"
-                    , "defined", "<", "INS UPD", "Prijs", "", 25);
-            ListRule rule3 = new ListRule(1, "COMP", "VBMG_COMP", "Compare rule", "Tuple", "COLUMN1", "varchar", "connection_test"
+            CompareRule rule2 = new CompareRule(1, "COMP", "VBMG_COMP1", "Compare rule", "Attribute", "aantal", "varchar", "VBMG_LEVERINGEN"
+                    , "defined", ">=", "INS UPD", "Prijs", "", 1);
+            ListRule rule3 = new ListRule(1, "COMP", "VBMG_LIST", "List rule", "List", "COLUMN1", "varchar", "connection_test"
                     , "defined", "in", "INS", "'BOE', 'KLA'");
             gen.GenerateRangeRule(rule);
             gen.GenerateCompareRule(rule2);

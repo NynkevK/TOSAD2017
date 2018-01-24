@@ -6,7 +6,7 @@ public class CompareRule extends BusinessRule {
     private int value;
     
     public CompareRule (int id, String code, String name, String msg, String ruletype, String c_name, String c_type, String t_name
-            ,String r_status, String r_operator, String r_triggerevents, String t_column, String t_table, int value) {
+            ,String r_status, String r_operator, String r_triggerevents, String t_column, String t_table, int t_value) {
 		super.id = id;
 		super.code = code;
 		super.name = name;
@@ -20,7 +20,7 @@ public class CompareRule extends BusinessRule {
 		super.triggerEvents = r_triggerevents;
 		this.comparedColumn = t_column;
 		this.comparedTable = t_table;
-		this.value = value;
+		this.value = t_value;
 		}
 
     public int getValue() {
@@ -60,7 +60,7 @@ public class CompareRule extends BusinessRule {
     public String GenerateCode() {
     	String code = "";
     	if (this.ruleType == "Attribute") {
-    		code = "l_passed := :new."+ this.columnName +" "+  this.operator + " " + this.compareValue +";\n";
+    		code = "l_passed := :new."+ this.columnName +" "+  this.operator + " " + this.value +";\n";
     	} else if (this.ruleType == "Tuple") {
     		code = "l_passed := :new."+ this.columnName +" "+  this.operator + " new." + this.comparedColumn +";\n";
     	} else if (this.ruleType == "Inter-Entity") {
