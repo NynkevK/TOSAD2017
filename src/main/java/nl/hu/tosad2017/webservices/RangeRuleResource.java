@@ -15,7 +15,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 
 import nl.hu.tosad2017.model.model.RangeRule;
 import nl.hu.tosad2017.model.services.RangeRuleService;
@@ -90,8 +89,7 @@ public class RangeRuleResource {
 
 	@POST
 	@Produces("application/json")
-	public Response defineRangeRule(@FormParam("id") String id,
-								@FormParam("code") String code,
+	public boolean defineRangeRule(@FormParam("code") String code,
 								@FormParam("name") String name,
 								@FormParam("message") String message,
 								@FormParam("type") String type,
@@ -107,20 +105,14 @@ public class RangeRuleResource {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Resource (POST)");
 
-		Integer idInt = Integer.parseInt(id);
 		Integer minv = Integer.parseInt(minValue);
 		Integer maxv = Integer.parseInt(maxValue);
 
-		RangeRule newRule = new RangeRule(idInt, code, name, message, type, 
+		RangeRule newRule = new RangeRule(code, name, message, type, 
 											columnName, columnType, table, status, 
 											operator, triggerEvents, minv, maxv);
 
-		if(rangeruleservice.getRangeRuleById(idInt) == null){
-			boolean returnedRule = rangeruleservice.defineRangeRule(newRule);
-			return Response.ok(returnedRule).build();
-		} else {
-			return Response.status(Response.Status.FOUND).build();
-		}
+		return rangeruleservice.defineRangeRule(newRule);
 	}
 
 	@PUT
