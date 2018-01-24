@@ -2,7 +2,6 @@ package nl.hu.tosad2017.webservices;
 
 import java.sql.SQLException;
 
-
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -24,16 +23,69 @@ import nl.hu.tosad2017.model.services.ServiceProvider;
 
 @Path("/rangerule")
 public class RangeRuleResource {
-	//TODO Implement method in serviceprovider, see row below
+	// initialise service
 	RangeRuleService rangeruleservice = ServiceProvider.getRangeRuleService();
 
-	private JsonObjectBuilder ruleToJson(RangeRule rule) {
-		JsonObjectBuilder job = Json.createObjectBuilder();
-		return job.add("value", rule.getCode());
+	@GET
+	@Produces("application/json")
+	public String getAllRangeRules() throws SQLException {
+		// logging for Heroku application server
+		System.out.println(".. executing RangeRule Resource (GET) for all");
+				
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+			
+		//Add each rangerule to a json object
+		for (RangeRule r : rangeruleservice.getAllRangeRules()) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("id", r.getId());
+			job.add("code", r.getCode());
+			job.add("name", r.getName());
+			job.add("message", r.getMessageText());
+			job.add("type", r.getRuleType());
+			job.add("columnName", r.getColumnName());
+			job.add("columnType", r.getColumnType());
+			job.add("table", r.getTableName());
+			job.add("status", r.getStatus());
+			job.add("operator", r.getOperator());
+			job.add("triggerEvents", r.getTriggerEvents());
+			job.add("minValue", r.getMinValue());
+			job.add("maxValue", r.getMaxValue());
+			jab.add(job);
+		}
+		
+		if (jab == null ) {
+			throw new WebApplicationException ("No rues found!");
+			}
+		
+		JsonArray array = jab.build();
+		return array.toString();
 	}
-
-
-	//TODO Make get rangerule by code and get all rangerules functions
+	
+	@GET
+	@Produces("application/json")
+	public String getRangeRuleById(@PathParam("id") String id) throws SQLException {
+		// logging for Heroku application server
+		System.out.println(".. executing RangeRule Resource (GET) for " + id);
+		
+		Integer idInt = Integer.parseInt(id);
+		RangeRule r = rangeruleservice.getRangeRuleByCode(idInt);
+		
+		JsonObjectBuilder job = Json.createObjectBuilder();
+		job.add("id", r.getId());
+		job.add("code", r.getCode());
+		job.add("name", r.getName());
+		job.add("message", r.getMessageText());
+		job.add("type", r.getRuleType());
+		job.add("columnName", r.getColumnName());
+		job.add("columnType", r.getColumnType());
+		job.add("table", r.getTableName());
+		job.add("status", r.getStatus());
+		job.add("operator", r.getOperator());
+		job.add("triggerEvents", r.getTriggerEvents());
+		job.add("minValue", r.getMinValue());
+		job.add("maxValue", r.getMaxValue());
+		return job.build().toString();
+	}
 
 	@POST
 	@Produces("application/json")
@@ -48,7 +100,7 @@ public class RangeRuleResource {
 								@FormParam("operator") String operator,
 								@FormParam("triggerEvents") String triggerEvents,
 								@FormParam("minValue") String minValue,
-								@FormParam("maxValue") String maxValue) {
+								@FormParam("maxValue") String maxValue) throws SQLException {
 
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Resource (POST)");
@@ -84,7 +136,7 @@ public class RangeRuleResource {
 								@FormParam("operator") String operator,
 								@FormParam("triggerEvents") String triggerEvents,
 								@FormParam("minValue") String minValue,
-								@FormParam("maxValue") String maxValue) {
+								@FormParam("maxValue") String maxValue) throws SQLException {
 
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Resource (PUT) for " + id);
@@ -120,17 +172,12 @@ public class RangeRuleResource {
 	}
 
 	@DELETE
-	@Path("{code}")
-	public String deleteRangeRule(int id) {
+	@Path("{id}")
+	public boolean deleteRangeRule(@PathParam("id") String id) throws SQLException {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Resource (DELETE) for " + id);
+		Integer idInt = Integer.parseInt(id);
+		return rangeruleservice.deleteRangeRule(idInt);
 
-		RangeRule rule = rangeruleservice.getRangeRuleByCode(id);
-		try {
-			rangeruleservice.deleteRangeRule(id);
-			return "Success";
-		} catch (Exception e) {
-			return "Failed DELETE";
-		}
 	}
 }

@@ -2,6 +2,7 @@ package nl.hu.tosad2017.model.services;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import nl.hu.tosad2017.model.model.RangeRule;
 import nl.hu.tosad2017.persistence.target.TargetRangeRuleDAO;
@@ -15,27 +16,21 @@ public class RangeRuleService {
 	
 	public RangeRuleService() {}
 	
-	public RangeRule getRangeRuleByCode(int id) {
-		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Service (GET) for " + id);
-		
-		try {
-			return ToolDAO.readRule(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public List<RangeRule> getAllRangeRules() throws SQLException {
+		return ToolDAO.readAllRules(); 
 	}
 	
-	public boolean defineRangeRule(RangeRule rule) {
+	public RangeRule getRangeRuleByCode(int id) throws SQLException {
+		// logging for Heroku application server
+		System.out.println(".. executing RangeRule Service (GET) for " + id);
+		return ToolDAO.readRule(id);
+	}
+	
+	public boolean defineRangeRule(RangeRule rule) throws SQLException {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Service (CREATE)");
-		try {
-			return ToolDAO.createRule(rule);
-		} catch (SQLException e) { 
-			e.printStackTrace();
-		}		
-		return false;
+		return ToolDAO.createRule(rule);
+
 	}
 	
 	public RangeRule updateRangeRule(int id) {
@@ -47,17 +42,12 @@ public class RangeRuleService {
 		//return updatedRule;
 	}
 	
-	public boolean deleteRangeRule(int id) {
+	public boolean deleteRangeRule(int id) throws SQLException {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Service (DELETE) for " + id);
-		try {
-			ToolDAO.deleteRule(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		return ToolDAO.deleteRule(id);
+
 		//TODO Implement updateRule in DAO
 		//TargetDAO.deleteRule(id);
-		
-		return true;
 	}
 }
