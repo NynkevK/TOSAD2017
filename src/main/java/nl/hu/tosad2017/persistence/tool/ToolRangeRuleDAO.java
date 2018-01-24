@@ -3,7 +3,6 @@ package nl.hu.tosad2017.persistence.tool;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import nl.hu.tosad2017.model.model.RangeRule;
 import nl.hu.tosad2017.persistence.target.TargetBaseDAO;
 
