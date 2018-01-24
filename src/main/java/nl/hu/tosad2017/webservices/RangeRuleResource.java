@@ -69,7 +69,7 @@ public class RangeRuleResource {
 		System.out.println(".. executing RangeRule Resource (GET) for " + id);
 		
 		Integer idInt = Integer.parseInt(id);
-		RangeRule r = rangeruleservice.getRangeRuleByCode(idInt);
+		RangeRule r = rangeruleservice.getRangeRuleById(idInt);
 		
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		job.add("id", r.getId());
@@ -90,7 +90,8 @@ public class RangeRuleResource {
 
 	@POST
 	@Produces("application/json")
-	public Response defineRangeRule(@FormParam("code") String code,
+	public Response defineRangeRule(@FormParam("id") String id,
+								@FormParam("code") String code,
 								@FormParam("name") String name,
 								@FormParam("message") String message,
 								@FormParam("type") String type,
@@ -106,7 +107,7 @@ public class RangeRuleResource {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Resource (POST)");
 
-		Integer idInt = Integer.parseInt(code);
+		Integer idInt = Integer.parseInt(id);
 		Integer minv = Integer.parseInt(minValue);
 		Integer maxv = Integer.parseInt(maxValue);
 
@@ -114,7 +115,7 @@ public class RangeRuleResource {
 											columnName, columnType, table, status, 
 											operator, triggerEvents, minv, maxv);
 
-		if(rangeruleservice.getRangeRuleByCode(idInt) == null){
+		if(rangeruleservice.getRangeRuleById(idInt) == null){
 			boolean returnedRule = rangeruleservice.defineRangeRule(newRule);
 			return Response.ok(returnedRule).build();
 		} else {
@@ -146,7 +147,7 @@ public class RangeRuleResource {
 		Integer minv = Integer.parseInt(minValue);
 		Integer maxv = Integer.parseInt(maxValue);
 		
-		RangeRule oldRule = rangeruleservice.getRangeRuleByCode(idInt);
+		RangeRule oldRule = rangeruleservice.getRangeRuleById(idInt);
 
 		oldRule.setName(name);
 		oldRule.setCode(code);
@@ -162,11 +163,23 @@ public class RangeRuleResource {
 		oldRule.setMaxValue(maxv);
 
 		RangeRule newRule = rangeruleservice.updateRangeRule(idInt);
-
 		JsonObjectBuilder job = Json.createObjectBuilder();
+		
 		//Add all rule attributes to a json object
+		job.add("id", newRule.getId());
 		job.add("code", newRule.getCode());
-		//TODO Add above for each of the attributes of rangerule
+		job.add("code", newRule.getCode());
+		job.add("name", newRule.getName());
+		job.add("message", newRule.getMessageText());
+		job.add("type", newRule.getRuleType());
+		job.add("columnName", newRule.getColumnName());
+		job.add("columnType", newRule.getColumnType());
+		job.add("table", newRule.getTableName());
+		job.add("status", newRule.getStatus());
+		job.add("operator", newRule.getOperator());
+		job.add("triggerEvents", newRule.getTriggerEvents());
+		job.add("minValue", newRule.getMinValue());
+		job.add("maxValue", newRule.getMaxValue());
 
 		return job.build().toString();
 

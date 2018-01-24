@@ -1,7 +1,6 @@
 package nl.hu.tosad2017.model.services;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import nl.hu.tosad2017.model.model.RangeRule;
@@ -20,7 +19,7 @@ public class RangeRuleService {
 		return ToolDAO.readAllRules(); 
 	}
 	
-	public RangeRule getRangeRuleByCode(int id) throws SQLException {
+	public RangeRule getRangeRuleById(int id) throws SQLException {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Service (GET) for " + id);
 		return ToolDAO.readRule(id);
@@ -30,7 +29,6 @@ public class RangeRuleService {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Service (CREATE)");
 		return ToolDAO.createRule(rule);
-
 	}
 	
 	public RangeRule updateRangeRule(int id) {
@@ -46,8 +44,5 @@ public class RangeRuleService {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Service (DELETE) for " + id);
 		return ToolDAO.deleteRule(id);
-
-		//TODO Implement updateRule in DAO
-		//TargetDAO.deleteRule(id);
 	}
 }
