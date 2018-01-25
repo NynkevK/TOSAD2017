@@ -1,5 +1,6 @@
 package nl.hu.tosad2017.webservices;
 
+import nl.hu.tosad2017.model.model.BusinessRule;
 import nl.hu.tosad2017.model.model.ListRule;
 import nl.hu.tosad2017.model.services.ServiceProvider;
 import nl.hu.tosad2017.model.services.ListRuleService;
@@ -68,7 +69,7 @@ public class ListRuleResource {
 		
 		Integer idInt = Integer.parseInt(id);
 		ListRule r = listRuleService.getListRuleById(idInt);
-		
+    
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		job.add("id", r.getId());
 		job.add("code", r.getCode());
@@ -183,6 +184,5 @@ public class ListRuleResource {
 		System.out.println(".. executing ListRule Resource (DELETE) for " + id);
 		Integer idInt = Integer.parseInt(id);
 		return listRuleService.deleteListRule(idInt);
-
 	}
 }

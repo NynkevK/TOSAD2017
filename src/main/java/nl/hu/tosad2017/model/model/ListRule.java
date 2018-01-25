@@ -1,6 +1,5 @@
 package nl.hu.tosad2017.model.model;
 
-
 public class ListRule extends BusinessRule {
     private String list;
 
@@ -58,5 +57,18 @@ public class ListRule extends BusinessRule {
                 ", triggerEvents='" + triggerEvents + '\'' +
                 ", list='" + list + '\'' +
                 '}';
+    }
+  
+    public String GenerateCode() {
+      String code = "l_passed := :new."+ this.columnName +" "+ this.operator +" ("+this.list+")\n";
+  //		String VList[] = this.getList().split(",");	
+  //		System.out.println(VList[0]);
+  //		for(int i = 0; i < VList.length; i++)
+  //		{
+  //			code = code + VList[i];
+  //		}
+  //		code = code + "\n";
+      System.out.println(code);
+      return code;
     }
 }

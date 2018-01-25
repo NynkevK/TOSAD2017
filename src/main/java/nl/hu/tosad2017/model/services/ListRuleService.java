@@ -1,5 +1,10 @@
 package nl.hu.tosad2017.model.services;
 
+import nl.hu.tosad2017.persistence.tool.ListRuleDAO;
+import nl.hu.tosad2017.persistence.tool.ToolListRuleDAO;
+import nl.hu.tosad2017.model.model.BusinessRule;
+import nl.hu.tosad2017.persistence.target.ListRuleDAO;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -33,15 +38,14 @@ public class ListRuleService {
 	public ListRule updateListRule (int id) {
 		System.out.println(".. executing ListRule Service (UPDATE) for " + id);
 		//TODO Implement updateRule in DAO
-		//ListRule updatedRule = ToolDAO.updateRule(rule);
+		//ListRule updatedRule = ToolDAO.updateRule(rule
 		
 		//return updatedRule;
 		return null;
 	}
 	
 	public boolean deleteListRule (int id) throws SQLException {
-		System.out.println(".. executing ListRule Service (DELETE) for " + id);
-		
+		System.out.println(".. executing ListRule Service (DELETE) for " + id);		
 		return ToolDAO.deleteRule(id);
 	}
 }
