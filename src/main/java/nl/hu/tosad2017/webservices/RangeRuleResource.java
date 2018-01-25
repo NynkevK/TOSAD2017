@@ -90,7 +90,7 @@ public class RangeRuleResource {
 
 	@POST
 	@Produces("application/json")
-	public boolean defineRangeRule(@FormParam("code") String code,
+	public String defineRangeRule(@FormParam("code") String code,
 								@FormParam("name") String name,
 								@FormParam("message") String message,
 								@FormParam("type") String type,
@@ -121,7 +121,10 @@ public class RangeRuleResource {
 											columnName, columnType, table, status, 
 											operator, triggerEvents, minv, maxv);
 		System.out.println("newRule: " + newRule.getCode() + " " + newRule.getName());
-		return rangeruleservice.defineRangeRule(newRule);
+		if (rangeruleservice.defineRangeRule(newRule) == true) {
+			return newRule.getCode();
+		}
+		return null;
 	}
 
 	@PUT
