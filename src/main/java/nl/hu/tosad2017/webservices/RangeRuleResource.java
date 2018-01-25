@@ -106,8 +106,8 @@ public class RangeRuleResource {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Resource (POST)");
 		
-		Integer minv = null;
-		Integer maxv = null;
+		Integer minv = 0;
+		Integer maxv = 0;
 		
 		if (minValue != null && maxValue != null) {
 			minv = Integer.parseInt(minValue);
