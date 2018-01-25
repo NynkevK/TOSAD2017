@@ -154,7 +154,7 @@ public class ListRuleResource {
 		oldRule.setTriggerEvents(triggerEvents);
 		oldRule.setList(listString);
 
-		ListRule newRule = ListRuleService.updateListRule(idInt);
+		ListRule newRule = listRuleService.updateListRule(idInt);
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		
 		//Add all rule attributes to a json object

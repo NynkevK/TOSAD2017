@@ -13,11 +13,11 @@ public class ModifyRuleService {
 	
 	public ModifyRuleService() {}
 	
-	public List<ModifyRule> getAllRangeRules() throws SQLException {
+	public List<ModifyRule> getAllModifyRules() throws SQLException {
 		return ToolDAO.readAllRules();
 	}
 	
-	public ModifyRule getModifyRuleByCode (int id) throws SQLException {
+	public ModifyRule getModifyRuleById (int id) throws SQLException {
 		// logging for Heroku application server
 		System.out.println(".. executing ModifyRule Service (GET) for " + id);	
 		

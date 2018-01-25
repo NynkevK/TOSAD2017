@@ -177,8 +177,12 @@ public class CompareRuleResource {
 		oldRule.setCompareValue(comparedValueInt);
 		oldRule.setValue(valueInt);
 
-		CompareRule newRule = compareRuleservice.updateCompareRule(idInt);
-		JsonObjectBuilder job = Json.createObjectBuilder();
+		String string = "failed";
+		
+		if (compareRuleservice.updateCompareRule(oldRule) == true) {
+			string = "success";
+		}
+		/*JsonObjectBuilder job = Json.createObjectBuilder();
 		
 		//Add all rule attributes to a json object
 		job.add("id", newRule.getId());
@@ -196,9 +200,9 @@ public class CompareRuleResource {
 		job.add("comparedTable", newRule.getComparedTable());
 		job.add("comparedColumn", newRule.getComparedColumn());
 		job.add("comparedValue", newRule.getCompareValue());
-		job.add("value", newRule.getValue());
+		job.add("value", newRule.getValue());*/
 
-		return job.build().toString();
+		return string;
 
 	}
 

@@ -21,7 +21,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
-@Path("/Modifyrule")
+@Path("/modifyrule")
 public class ModifyRuleResource {
 	
 	ModifyRuleService modifyRuleService = ServiceProvider.getModifyRuleService();	
@@ -106,7 +106,7 @@ public class ModifyRuleResource {
 								@FormParam("triggerEvents") String triggerEvents,
 								@FormParam("query") String query,
 								@FormParam("otherTable") String otherTable,
-								@FormParam("otherColumn") String otherColumn) {
+								@FormParam("otherColumn") String otherColumn) throws SQLException {
 		
 		// logging for Heroku application server
 		System.out.println(".. executing ModifyRule Resource (POST)");
@@ -122,7 +122,7 @@ public class ModifyRuleResource {
 											status, operator, triggerEvents,
 											queryString, otherTableString, otherColumnString);
 		
-		if(modifyRuleService.getModifyRuleByCode(idInt) == null) {
+		if(modifyRuleService.getModifyRuleById(idInt) == null) {
 			boolean returnedRule = modifyRuleService.defineModifyRule(newRule);
 			return Response.ok(returnedRule).build();
 		} else {
@@ -146,7 +146,7 @@ public class ModifyRuleResource {
 								@FormParam("triggerEvents") String triggerEvents,
 								@FormParam("ModifydTable") String ModifydTable,
 								@FormParam("ModifydColumn") String ModifydColumn,
-								@FormParam("ModifyValue") String ModifyValue) {
+								@FormParam("ModifyValue") String ModifyValue) throws SQLException {
 		
 		// logging for Heroku application server
 		System.out.println(".. executing ModifyRule Resource (PUT) for " + id);
@@ -156,7 +156,7 @@ public class ModifyRuleResource {
 		String otherTableString = ModifydTable;
 		String otherColumnString = ModifydColumn;
 		
-		ModifyRule oldRule = modifyRuleService.getModifyRuleByCode(idInt);
+		ModifyRule oldRule = modifyRuleService.getModifyRuleById(idInt);
 		
 		oldRule.setName(name);
 		oldRule.setCode(code);
@@ -196,7 +196,7 @@ public class ModifyRuleResource {
 	
 	@DELETE
 	@Path("{id}")
-	public String deleteModifyRule (@PathParam("id") String id) {
+	public boolean deleteModifyRule (@PathParam("id") String id) throws SQLException {
 		// logging for Heroku application server
 		System.out.println(".. executing ModifyRule Resource (DELETE) for " + id);		
 		Integer idInt = Integer.parseInt(id);

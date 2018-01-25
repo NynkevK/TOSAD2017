@@ -21,6 +21,7 @@ import nl.hu.tosad2017.model.model.OtherRule;
 import nl.hu.tosad2017.model.services.OtherRuleService;
 import nl.hu.tosad2017.model.services.ServiceProvider;
 
+@Path("/otherrule")
 public class OtherRuleResource {
 	// initialise service
 	OtherRuleService otherruleservice = ServiceProvider.getOtherRuleService();

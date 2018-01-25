@@ -154,9 +154,13 @@ public class RangeRuleResource {
 		oldRule.setMinValue(minv);
 		oldRule.setMaxValue(maxv);
 
-		RangeRule newRule = rangeruleservice.updateRangeRule(idInt);
-		JsonObjectBuilder job = Json.createObjectBuilder();
+		String string = "failed";
+		//RangeRule newRule = new RangeRule();
+		if (rangeruleservice.updateRangeRule(oldRule) == true) {
+			string = "success";
+		}
 		
+		/*JsonObjectBuilder job = Json.createObjectBuilder();	
 		//Add all rule attributes to a json object
 		job.add("id", newRule.getId());
 		job.add("code", newRule.getCode());
@@ -171,9 +175,9 @@ public class RangeRuleResource {
 		job.add("operator", newRule.getOperator());
 		job.add("triggerEvents", newRule.getTriggerEvents());
 		job.add("minValue", newRule.getMinValue());
-		job.add("maxValue", newRule.getMaxValue());
+		job.add("maxValue", newRule.getMaxValue());*/
 
-		return job.build().toString();
+		return string;
 
 	}
 

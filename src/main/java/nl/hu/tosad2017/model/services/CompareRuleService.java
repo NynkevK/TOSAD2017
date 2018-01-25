@@ -18,7 +18,7 @@ public class CompareRuleService {
 		return ToolDAO.readAllRules();
 	}
 	
-	public CompareRule getCompareRuleByCode (int id) throws SQLException {
+	public CompareRule getCompareRuleById (int id) throws SQLException {
 		// logging for Heroku application server
 		System.out.println(".. executing CompareRule Service (GET) for " + id);	
 		
@@ -31,13 +31,10 @@ public class CompareRuleService {
 		return ToolDAO.createRule(rule);
 	}
 	
-	public CompareRule updateCompareRule (int id) {
-		System.out.println(".. executing CompareRule Service (UPDATE) for " + ids);
-		//TODO Implement updateRule in DAO
-		//CompareRule updatedRule = ToolDAO.updateRule(rule);
-		
-		//return updatedRule;
-		return null;
+	public boolean updateCompareRule (CompareRule rule) throws SQLException {
+		System.out.println(".. executing CompareRule Service (UPDATE) for " + rule.getId());
+
+		return ToolDAO.updateRule(rule);
 	}
 	
 	public boolean deleteCompareRule (int id) throws SQLException {

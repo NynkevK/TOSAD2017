@@ -17,7 +17,7 @@ public class ListRuleService {
 		return ToolDAO.readAllRules();
 	}
 	
-	public ListRule getListRuleByCode (int id) throws SQLException {
+	public ListRule getListRuleById (int id) throws SQLException {
 		// logging for Heroku application server
 		System.out.println(".. executing ListRule Service (GET) for " + id);	
 		

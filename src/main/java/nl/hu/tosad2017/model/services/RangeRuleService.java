@@ -31,13 +31,12 @@ public class RangeRuleService {
 		return ToolDAO.createRule(rule);
 	}
 	
-	public RangeRule updateRangeRule(int id) {
+	public boolean updateRangeRule(RangeRule rule) throws SQLException {
 		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Service (UPDATE) for " + id);
-		//TODO Implement updateRule in DAO
-		//RangeRule updatedRule = ToolDAO.updateRule(id);
-		return null;
-		//return updatedRule;
+		System.out.println(".. executing RangeRule Service (UPDATE) for " + rule.getId());
+		
+		//RangeRule updatedRule = 
+		return ToolDAO.updateRule(rule);
 	}
 	
 	public boolean deleteRangeRule(int id) throws SQLException {
