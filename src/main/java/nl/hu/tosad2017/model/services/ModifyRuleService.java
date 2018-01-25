@@ -1,8 +1,11 @@
 package nl.hu.tosad2017.model.services;
 
+import java.util.List;
+import java.sql.SQLException;
+
 import nl.hu.tosad2017.model.model.ModifyRule;
-import nl.hu.tosad2017.persistence.tool.ModifyRuleDAO;
-import nl.hu.tosad2017.persistence.target.ModifyRuleDAO;
+import nl.hu.tosad2017.persistence.tool.ToolModifyRuleDAO;
+import nl.hu.tosad2017.persistence.target.TargetModifyRuleDAO;
 
 public class ModifyRuleService {
 	ToolModifyRuleDAO ToolDAO = new ToolModifyRuleDAO();
@@ -10,32 +13,35 @@ public class ModifyRuleService {
 	
 	public ModifyRuleService() {}
 	
-	public ModifyRule getModifyRuleByCode (int code) {
+	public List<ModifyRule> getAllModifyRules() throws SQLException {
+		return ToolDAO.readAllRules();
+	}
+	
+	public ModifyRule getModifyRuleById (int id) throws SQLException {
 		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Service (GET) for " + code);	
+		System.out.println(".. executing ModifyRule Service (GET) for " + id);	
 		
-		return ToolDAO.getModifyRuleByCode(code);
+		return ToolDAO.readRule(id);
 	}
 	
-	public ModifyRule defineModifyRule (ModifyRule rule) {
+	public boolean defineModifyRule (ModifyRule rule) throws SQLException {
 		System.out.println(".. executing ModifyRule Service (CREATE)");
-		ModifyRule definedRule = ToolDAO.defineRule(rule);
 		
-		return definedRule;
+		return ToolDAO.createRule(rule);
 	}
 	
-	public ModifyRule updateModifyRule (ModifyRule rule) {
-		System.out.println(".. executing ModifyRule Service (UPDATE) for " + rule.getCode());
-		ModifyRule updatedRule = ToolDAO.updateRule(rule);
+	public ModifyRule updateModifyRule (int id) {
+		System.out.println(".. executing ModifyRule Service (UPDATE) for " + id);
+		//TODO Implement in DAO
+		//ModifyRule updatedRule = ToolDAO.updateRule(rule);
 		
-		return updatedRule;
+		//return updatedRule;
+		return null;
 	}
 	
-	public boolean deleteModifyRule (ModifyRule rule) {
-		System.out.println(".. executing ModifyRule Service (DELETE) for " + rule.getCode());
-		ToolDAO.deleteModifyRule(rule);
-		TargetDAO.deleteModifyRule(rule);
+	public boolean deleteModifyRule (int id) throws SQLException{
+		System.out.println(".. executing ModifyRule Service (DELETE) for " + id);
 		
-		return true;
+		return ToolDAO.deleteRule(id);
 	}
 }

@@ -16,6 +16,13 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
   
+  <repositories>
+    <repository>
+      <id>Datanucleus</id>
+      <url>http://www.datanucleus.org/downloads/maven2/</url>
+    </repository>
+  </repositories>
+  
   <build>
   	<plugins>
   	<plugin>
@@ -23,7 +30,6 @@
         <artifactId>heroku-maven-plugin</artifactId>
         <version>2.0.2</version>
       </plugin>
-      <!-- -->
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-dependency-plugin</artifactId>
@@ -77,51 +83,9 @@
     	<version>9.0.2</version>
 	</dependency>
 	  <dependency>
-		  <groupId>ojdbc6</groupId>
+		  <groupId>oracle</groupId>
 		  <artifactId>ojdbc6</artifactId>
 		  <version>11.2.0.3</version>
-          <scope>system</scope>
-         <systemPath>${basedir}\src\lib\ojdbc6.jar</systemPath>
-      </dependency>
+	  </dependency>
   </dependencies>
 </project>
-
-    <!-- <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    
-    <dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>javax.servlet-api</artifactId>
-		<version>3.1.0</version>
-		<scope>provided</scope>
-	</dependency>
-	<dependency>
-		<groupId>org.glassfish.jersey.containers</groupId>
-		<artifactId>jersey-container-servlet</artifactId>
-		<version>2.25.1</version>
-	</dependency>
-	<dependency>
-		<groupId>org.glassfish</groupId>
-		<artifactId>javax.json</artifactId>
-		<version>1.0.4</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.tomcat</groupId>
-		<artifactId>tomcat-dbcp</artifactId>
-		<version>8.0.33</version>
-	</dependency>
-	<dependency>
-		<groupId>io.jsonwebtoken</groupId>
-		<artifactId>jjwt</artifactId>
-		<version>0.7.0</version>
-	</dependency>
-	
-	<dependency>
-    	<groupId>javax.ws.rs</groupId>
-    	<artifactId>javax.ws.rs-api</artifactId>
-    	<version>2.1</version>
-	</dependency>-->

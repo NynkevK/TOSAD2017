@@ -1,8 +1,12 @@
 package nl.hu.tosad2017.model.services;
 
-import nl.hu.tosad2017.persistence.tool.CompareRuleDAO;
+import nl.hu.tosad2017.persistence.tool.ToolCompareRuleDAO;
+
+import java.sql.SQLException;
+import java.util.List;
+
 import nl.hu.tosad2017.model.model.CompareRule;
-import nl.hu.tosad2017.persistence.target.CompareRuleDAO;
+import nl.hu.tosad2017.persistence.target.TargetCompareRuleDAO;
 
 public class CompareRuleService {
 	ToolCompareRuleDAO ToolDAO = new ToolCompareRuleDAO();
@@ -10,32 +14,32 @@ public class CompareRuleService {
 	
 	public CompareRuleService() {}
 	
-	public CompareRule getCompareRuleByCode (int code) {
+	public List<CompareRule> getAllCompareRules() throws SQLException {
+		return ToolDAO.readAllRules();
+	}
+	
+	public CompareRule getCompareRuleById (int id) throws SQLException {
 		// logging for Heroku application server
-		System.out.println(".. executing CompareRule Service (GET) for " + code);	
+		System.out.println(".. executing CompareRule Service (GET) for " + id);	
 		
-		return ToolDAO.getCompareRuleByCode(code);
+		return ToolDAO.readRule(id);
 	}
 	
-	public CompareRule defineCompareRule (CompareRule rule) {
+	public boolean defineCompareRule (CompareRule rule) throws SQLException {
 		System.out.println(".. executing CompareRule Service (CREATE)");
-		CompareRule definedRule = ToolDAO.defineRule(rule);
 		
-		return definedRule;
+		return ToolDAO.createRule(rule);
 	}
 	
-	public CompareRule updateCompareRule (CompareRule rule) {
-		System.out.println(".. executing CompareRule Service (UPDATE) for " + rule.getCode());
-		CompareRule updatedRule = ToolDAO.updateRule(rule);
-		
-		return updatedRule;
+	public boolean updateCompareRule (CompareRule rule) throws SQLException {
+		System.out.println(".. executing CompareRule Service (UPDATE) for " + rule.getId());
+
+		return ToolDAO.updateRule(rule);
 	}
 	
-	public boolean deleteCompareRule (CompareRule rule) {
-		System.out.println(".. executing CompareRule Service (DELETE) for " + rule.getCode());
-		ToolDAO.deleteCompareRule(rule);
-		TargetDAO.deleteCompareRule(rule);
+	public boolean deleteCompareRule (int id) throws SQLException {
+		System.out.println(".. executing CompareRule Service (DELETE) for " + id);
 		
-		return true;
+		return ToolDAO.deleteRule(id);
 	}
 }

@@ -1,7 +1,7 @@
 package nl.hu.tosad2017.model.services;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import nl.hu.tosad2017.model.model.RangeRule;
 import nl.hu.tosad2017.persistence.target.TargetRangeRuleDAO;
@@ -15,49 +15,33 @@ public class RangeRuleService {
 	
 	public RangeRuleService() {}
 	
-	public RangeRule getRangeRuleByCode(int id) {
+	public List<RangeRule> getAllRangeRules() throws SQLException {
+		return ToolDAO.readAllRules(); 
+	}
+	
+	public RangeRule getRangeRuleById(int id) throws SQLException {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Service (GET) for " + id);
-		
-		try {
-			return ToolDAO.readRule(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return ToolDAO.readRule(id);
 	}
 	
-	public boolean defineRangeRule(RangeRule rule) {
+	public boolean defineRangeRule(RangeRule rule) throws SQLException {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Service (CREATE)");
-		try {
-			return ToolDAO.createRule(rule);
-		} catch (SQLException e) { 
-			e.printStackTrace();
-		}		
-		return false;
+		return ToolDAO.createRule(rule);
 	}
 	
-	public RangeRule updateRangeRule(int id) {
+	public boolean updateRangeRule(RangeRule rule) throws SQLException {
 		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Service (UPDATE) for " + id);
-		//TODO Implement updateRule in DAO
-		//RangeRule updatedRule = ToolDAO.updateRule(id);
-		return null;
-		//return updatedRule;
+		System.out.println(".. executing RangeRule Service (UPDATE) for " + rule.getId());
+		
+		//RangeRule updatedRule = 
+		return ToolDAO.updateRule(rule);
 	}
 	
-	public boolean deleteRangeRule(int id) {
+	public boolean deleteRangeRule(int id) throws SQLException {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Service (DELETE) for " + id);
-		try {
-			ToolDAO.deleteRule(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		//TODO Implement updateRule in DAO
-		//TargetDAO.deleteRule(id);
-		
-		return true;
+		return ToolDAO.deleteRule(id);
 	}
 }

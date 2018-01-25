@@ -3,7 +3,6 @@ package nl.hu.tosad2017.persistence.tool;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import nl.hu.tosad2017.model.model.RangeRule;
 import nl.hu.tosad2017.persistence.target.TargetBaseDAO;
 
@@ -122,6 +121,34 @@ public class ToolRangeRuleDAO extends ToolBaseDAO {
         System.out.println("false");
         return false;
 
+    }
+
+    public boolean updateRule(RangeRule rule) throws SQLException {
+
+        String query = "UPDATE RANGERULE SET" +
+                " MINIMUMVALUE= ?," +
+                " MAXIMUMVALUE= ?, " +
+                " STATUS= ?," +
+                " OPERATOR= ?," +
+                " MESSAGETEXT= ?" +
+                " WHERE ID= ? ";
+
+        Connection connection = super.getConnection();
+        PreparedStatement ps = connection.prepareStatement(query);
+
+        ps.setInt(1, rule.getMinValue());
+        ps.setInt(2, rule.getMaxValue());
+        ps.setString(3, rule.getStatus());
+        ps.setString(4, rule.getOperator());
+        ps.setString(5, rule.getMessageText());
+        ps.setInt(6,rule.getId());
+        int i = ps.executeUpdate();
+
+        if (i > 0) {
+            return true;
+        }
+
+        return false;
     }
 }
 

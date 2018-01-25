@@ -4,6 +4,12 @@ import nl.hu.tosad2017.persistence.tool.ListRuleDAO;
 import nl.hu.tosad2017.persistence.tool.ToolListRuleDAO;
 import nl.hu.tosad2017.model.model.BusinessRule;
 import nl.hu.tosad2017.persistence.target.ListRuleDAO;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import nl.hu.tosad2017.model.model.ListRule;
+import nl.hu.tosad2017.persistence.tool.ToolListRuleDAO;
 import nl.hu.tosad2017.persistence.target.TargetListRuleDAO;
 
 public class ListRuleService {
@@ -12,32 +18,34 @@ public class ListRuleService {
 	
 	public ListRuleService() {}
 	
-	public BusinessRule getListRuleByCode (int code) {
+	public List<ListRule> getAllListRules() throws SQLException {
+		return ToolDAO.readAllRules();
+	}
+	
+	public ListRule getListRuleById (int id) throws SQLException {
 		// logging for Heroku application server
-		System.out.println(".. executing ListRule Service (GET) for " + code);	
+		System.out.println(".. executing ListRule Service (GET) for " + id);	
 		
-		return ToolDAO.getListRuleByCode(code);
+		return ToolDAO.readRule(id);
 	}
 	
-	public BusinessRule defineListRule (BusinessRule rule) {
+	public boolean defineListRule (ListRule rule) throws SQLException {
 		System.out.println(".. executing ListRule Service (CREATE)");
-		BusinessRule definedRule = ToolDAO.defineRule(rule);
 		
-		return definedRule;
+		return ToolDAO.createRule(rule);
 	}
 	
-	public BusinessRule updateListRule (BusinessRule rule) {
-		System.out.println(".. executing ListRule Service (UPDATE) for " + rule.getCode());
-		BusinessRule updatedRule = ToolDAO.updateRule(rule);
+	public ListRule updateListRule (int id) {
+		System.out.println(".. executing ListRule Service (UPDATE) for " + id);
+		//TODO Implement updateRule in DAO
+		//ListRule updatedRule = ToolDAO.updateRule(rule
 		
-		return updatedRule;
+		//return updatedRule;
+		return null;
 	}
 	
-	public boolean deleteListRule (BusinessRule rule) {
-		System.out.println(".. executing ListRule Service (DELETE) for " + rule.getCode());
-		ToolDAO.deleteListRule(rule);
-		TargetDAO.deleteListRule(rule);
-		
-		return true;
+	public boolean deleteListRule (int id) throws SQLException {
+		System.out.println(".. executing ListRule Service (DELETE) for " + id);		
+		return ToolDAO.deleteRule(id);
 	}
 }
