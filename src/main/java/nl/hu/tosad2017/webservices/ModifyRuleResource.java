@@ -1,7 +1,6 @@
 package nl.hu.tosad2017.webservices;
 
 import nl.hu.tosad2017.model.model.ModifyRule;
-import nl.hu.tosad2017.model.model.RangeRule;
 import nl.hu.tosad2017.model.services.ServiceProvider;
 import nl.hu.tosad2017.model.services.ModifyRuleService;
 
@@ -21,80 +20,23 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
-@Path("/modifyrule")
+@Path("/Modifyrule")
 public class ModifyRuleResource {
 	
-	ModifyRuleService modifyRuleService = ServiceProvider.getModifyRuleService();	
+	ModifyRuleService modifyRuleService = ServiceProvider.getModifyRuleService();
 	
-	@GET
-	@Produces("application/json")
-	public String getAllModifyRules() throws SQLException {
-		// logging for Heroku application server 	
-		System.out.println(".. executing ModifyRule Resource (GET) for all");
-				
-		JsonArrayBuilder jab = Json.createArrayBuilder();
-			
-		//Add each modifyRule to a json object
-		for (ModifyRule r : modifyRuleService.getAllModifyRules()) {
-			JsonObjectBuilder job = Json.createObjectBuilder();
-			job.add("id", r.getId());
-			job.add("code", r.getCode());
-			job.add("name", r.getName());
-			job.add("message", r.getMessageText());
-			job.add("type", r.getRuleType());
-			job.add("columnName", r.getColumnName());
-			job.add("columnType", r.getColumnType());
-			job.add("table", r.getTableName());
-			job.add("status", r.getStatus());
-			job.add("operator", r.getOperator());
-			job.add("triggerEvents", r.getTriggerEvents());
-			job.add("query", r.getQuery());
-			job.add("otherTable", r.getOtherTable());
-			job.add("otherColumn", r.getOtherColumn());
-			jab.add(job);
-		}
-		
-		if (jab == null ) {
-			throw new WebApplicationException ("No rules found!");
-			}
-		
-		JsonArray array = jab.build();
-		return array.toString();
-	}
-	
-	@GET
-	@Path("{id}")
-	@Produces("application/json")
-	public String getModifyRuleById(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Resource (GET) for " + id);
-		
-		Integer idInt = Integer.parseInt(id);
-		ModifyRule r = modifyRuleService.getModifyRuleById(idInt);
-		
+	private JsonObjectBuilder ruleToJson (ModifyRule rule) {
 		JsonObjectBuilder job = Json.createObjectBuilder();
-		job.add("id", r.getId());
-		job.add("code", r.getCode());
-		job.add("name", r.getName());
-		job.add("message", r.getMessageText());
-		job.add("type", r.getRuleType());
-		job.add("columnName", r.getColumnName());
-		job.add("columnType", r.getColumnType());
-		job.add("table", r.getTableName());
-		job.add("status", r.getStatus());
-		job.add("operator", r.getOperator());
-		job.add("triggerEvents", r.getTriggerEvents());
-		job.add("query", r.getQuery());
-		job.add("otherTable", r.getOtherTable());
-		job.add("otherColumn", r.getOtherColumn());
-		
-		return job.build().toString();
+		return job.add("code", rule.getCode());
 	}
+	
+	//TODO Write getModifyRuleByCode
+	
+	//TODO Write getAllModifyRules
 	
 	@POST
 	@Produces("application/json")
-	public Response defineModifyRule(@FormParam("id") String id,
-								@FormParam("code") String code,
+	public Response defineModifyRule(@FormParam("code") String code,
 								@FormParam("name") String name, 
 								@FormParam("message") String message,
 								@FormParam("type") String type,
@@ -104,37 +46,29 @@ public class ModifyRuleResource {
 								@FormParam("status") String status, 
 								@FormParam("operator") String operator,
 								@FormParam("triggerEvents") String triggerEvents,
-								@FormParam("query") String query,
-								@FormParam("otherTable") String otherTable,
-								@FormParam("otherColumn") String otherColumn) throws SQLException {
+								@FormParam("query") String query) {
 		
 		// logging for Heroku application server
 		System.out.println(".. executing ModifyRule Resource (POST)");
 		
 		Integer idInt = Integer.parseInt(code);
-		String queryString = query;
-		String otherTableString = otherTable;
-		String otherColumnString = otherColumn;
 		
 		//TODO add all other parameters for ModifyRule in constructor below
-		ModifyRule newRule = new ModifyRule(idInt, code, name, message, type,
-											columnName, columnType, table,
-											status, operator, triggerEvents,
-											queryString, otherTableString, otherColumnString);
+		ModifyRule newRule = new ModifyRule();
 		
-		if(modifyRuleService.getModifyRuleById(idInt) == null) {
-			boolean returnedRule = modifyRuleService.defineModifyRule(newRule);
-			return Response.ok(returnedRule).build();
+		if(modifyRuleService.getModifyRuleByCode(idInt) == null) {
+			ModifyRule returnedRule = modifyRuleService.defineModifyRule(newRule);
+			int a = returnedRule.getId();
+			return Response.ok(a).build();
 		} else {
 			return Response.status(Response.Status.FOUND).build();
 		}
 	}
 	
 	@PUT
-	@Path("{id}")
+	@Path("{code}")
 	@Produces("application/json")
-	public String updateModifyRule(@PathParam("id") String id,
-								@FormParam("code") String code,
+	public String updateModifyRule(@FormParam("code") String code,
 								@FormParam("name") String name, 
 								@FormParam("message") String message,
 								@FormParam("type") String type,
@@ -146,60 +80,43 @@ public class ModifyRuleResource {
 								@FormParam("triggerEvents") String triggerEvents,
 								@FormParam("ModifydTable") String ModifydTable,
 								@FormParam("ModifydColumn") String ModifydColumn,
-								@FormParam("ModifyValue") String ModifyValue) throws SQLException {
+								@FormParam("ModifyValue") String ModifyValue) {
 		
 		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Resource (PUT) for " + id);
+		System.out.println(".. executing ModifyRule Resource (PUT) for " + code);
 		
-		Integer idInt = Integer.parseInt(id);
-		String queryString = ModifyValue;
-		String otherTableString = ModifydTable;
-		String otherColumnString = ModifydColumn;
+		Integer idInt = Integer.parseInt(code);
 		
-		ModifyRule oldRule = modifyRuleService.getModifyRuleById(idInt);
+		//TODO add all other parameters to constructor and method
+		ModifyRule oldRule = modifyRuleService.getModifyRuleByCode(idInt);
 		
+		oldRule.setId(idInt);
 		oldRule.setName(name);
-		oldRule.setCode(code);
-		oldRule.setMessageText(message);
-		oldRule.setRuleType(type);
-		oldRule.setColumnName(columnName);
-		oldRule.setColumnType(columnType);
-		oldRule.setTableName(table);
-		oldRule.setStatus(status);
-		oldRule.setOperator(operator);
-		oldRule.setTriggerEvents(triggerEvents);
-		oldRule.setQuery(queryString);
-		oldRule.setOtherTable(otherTableString);
-		oldRule.setOtherColumn(otherColumnString);
+		//TODO add all other params
 		
-		ModifyRule newRule = modifyRuleService.updateModifyRule(idInt);		
+		ModifyRule newRule = modifyRuleService.updateModifyRule(oldRule);
+		
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		
 		//Add all rule attributes to a json object
-		job.add("id", newRule.getId());
 		job.add("code", newRule.getCode());
-		job.add("name", newRule.getName());
-		job.add("message", newRule.getMessageText());
-		job.add("type", newRule.getRuleType());
-		job.add("columnName", newRule.getColumnName());
-		job.add("columnType", newRule.getColumnType());
-		job.add("table", newRule.getTableName());
-		job.add("status", newRule.getStatus());
-		job.add("operator", newRule.getOperator());
-		job.add("triggerEvents", newRule.getTriggerEvents());
-		job.add("query", newRule.getQuery());
-		job.add("otherTable", newRule.getOtherTable());
-		job.add("otherColumn", newRule.getOtherColumn());
+		//TODO Add above for each of the attributes of Modifyrule
 		
 		return job.build().toString();
 	}
 	
 	@DELETE
-	@Path("{id}")
-	public boolean deleteModifyRule (@PathParam("id") String id) throws SQLException {
+	@Path("{code}")
+	public String deleteModifyRule (int code) {
 		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Resource (DELETE) for " + id);		
-		Integer idInt = Integer.parseInt(id);
-		return modifyRuleService.deleteModifyRule(idInt);
+		System.out.println(".. executing ModifyRule Resource (DELETE) for " + code);
+		
+		ModifyRule rule = modifyRuleService.getModifyRuleByCode(code);
+		try {
+			modifyRuleService.deleteModifyRule(rule);
+			return "Success";
+		} catch (Exception e) {
+			return "Failed DELETE";
+		}
 	}
 }

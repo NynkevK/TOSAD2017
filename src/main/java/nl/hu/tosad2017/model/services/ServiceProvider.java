@@ -5,30 +5,31 @@ public class ServiceProvider {
 	private static CompareRuleService compareRuleService = new CompareRuleService();
 	private static ModifyRuleService modifyRuleService = new ModifyRuleService();
 	private static ListRuleService listRuleService = new ListRuleService();
-	private static OtherRuleService otherRuleService = new OtherRuleService();
 	
 	public static RangeRuleService getRangeRuleService() {
-		System.out.println(".. initialising RangeRule ServiceProvider");
+		System.out.println(".. initialising ServiceProvider");
 		return rangeruleservice;	
 	}
 	
 	public static CompareRuleService getCompareRuleService() {
-		System.out.println(".. initialising CompareRule ServiceProvider");
+		System.out.println(".. initialising ServiceProvider");
 		return compareRuleService;
 	}
 	
 	public static ModifyRuleService getModifyRuleService() {
-		System.out.println(".. initialising ModifyRule ServiceProvider");
+		System.out.println(".. initialising ServiceProvider");
 		return modifyRuleService;
 	}
 	
 	public static ListRuleService getListRuleService() {
-		System.out.println(".. initialising ListRule ServiceProvider");
+		System.out.println(".. initialising ServiceProvider");
 		return listRuleService;
 	}
-
-	public static OtherRuleService getOtherRuleService() {
-		System.out.println(".. initialising OtherRule ServiceProvider");
-		return otherRuleService;
-	}
+	
+	
+/*
+	public static RuleService getRuleService() {
+		System.out.println(".. initialising ServiceProvider");
+		return ruleservice;	
+	}*/
 }
