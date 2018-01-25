@@ -185,4 +185,9 @@ public class CompareRule extends BusinessRule {
     	}
 		return code;
     }
+
+    @Override
+	public String accept(RuleGenerator ruleGenerator) {
+		return ruleGenerator.visit(this);	
+	}
 }

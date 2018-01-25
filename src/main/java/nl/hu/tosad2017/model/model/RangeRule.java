@@ -69,6 +69,11 @@ public class RangeRule extends BusinessRule {
     		code = "l_passed := :new."+ this.getColumnName() +" "+  this.getOperator() + " " + this.getMinValue() + " and "+ this.getMaxValue() +";\n";
 		return code;
     }
+    
+    @Override
+	public String accept(RuleGenerator ruleGenerator) {
+		return ruleGenerator.visit(this);	
+	}
 
 //	public String generateTriggerEvents() {
 //		String triggers[] = this.getTriggerEvents().split("\\s+");

@@ -3,7 +3,7 @@ package nl.hu.tosad2017.model.model;
 public class OracleRuleGenerator implements RuleGenerator {
 
 	@Override
-	public String GenerateRangeRule(RangeRule rule) {
+	public String visit(RangeRule rule) {
 		String code = "create or replace trigger "+ rule.getName() + " \n"+
 				 generateTriggerEvents(rule) +"  \n"+
 				 "on " + rule.getTableName() +" \n"+
@@ -27,7 +27,7 @@ public class OracleRuleGenerator implements RuleGenerator {
 	}
 
 	@Override
-	public String GenerateCompareRule(CompareRule rule) {
+	public String visit(CompareRule rule) {
 		String code = "create or replace trigger "+ rule.getName() + " \n"+
 				 generateTriggerEvents(rule) +"  \n"+
 				 "on " + rule.getTableName() +" \n"+
@@ -51,19 +51,19 @@ public class OracleRuleGenerator implements RuleGenerator {
 	}
 
 	@Override
-	public String GenerateOtherRule(OtherRule rule) {
+	public String visit(OtherRule rule) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String GenerateModifyRule(ModifyRule rule) {
+	public String visit(ModifyRule rule) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String GenerateListRule(ListRule rule) {
+	public String visit(ListRule rule) {
 		String code = "create or replace trigger "+ rule.getName() + " \n"+
 				 generateTriggerEvents(rule) +"  \n"+
 				 "on " + rule.getTableName() +" \n"+
@@ -81,7 +81,7 @@ public class OracleRuleGenerator implements RuleGenerator {
 				 "then\n" +
 				 "raise_application_error ( -20800, l_error_stack );\n" +
 				 "end if;\n" +
-				 "\nend;";
+				 "end;";
 				System.out.println(code);
 				return code;
 	}
@@ -101,7 +101,6 @@ public class OracleRuleGenerator implements RuleGenerator {
 			if (triggers.length > 0 && i+1 < triggers.length){
 				events = events + " or";
 			}
-		    System.out.println(triggers[i]);
 		}
 		return events;
 	}

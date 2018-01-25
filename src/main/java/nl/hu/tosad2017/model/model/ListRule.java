@@ -68,7 +68,11 @@ public class ListRule extends BusinessRule {
   //			code = code + VList[i];
   //		}
   //		code = code + "\n";
-      System.out.println(code);
       return code;
     }
+    
+    @Override
+	public String accept(RuleGenerator ruleGenerator) {
+		return ruleGenerator.visit(this);	
+	}
 }

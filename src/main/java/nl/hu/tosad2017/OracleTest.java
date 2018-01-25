@@ -13,19 +13,19 @@ import nl.hu.tosad2017.model.model.RangeRule;
 public class OracleTest {
     private static final String DB_DRIV = "oracle.jdbc.driver.OracleDriver";
     private static final String DB_URL  = "jdbc:oracle:thin:@//ondora02.hu.nl:8521/cursus02.hu.nl";
-    private static final String DB_USER = "tosad_2017_2b_team1";
-    private static final String DB_PASS = "tosad_2017_2b_team1";
+    private static final String DB_USER = "tosad_2017_2b_team1_target";
+    private static final String DB_PASS = "tosad_2017_2b_team1_target";
 
     public static void main(String[] args){
         try{
             // Load database driver
-//            Class.forName(DB_DRIV).newInstance();
-//
-//            // Create connection
-//            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-//
-//
-//            Statement statement = connection.createStatement();
+            Class.forName(DB_DRIV).newInstance();
+
+            // Create connection
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+
+
+            Statement statement = connection.createStatement();
 //            String constraint = "ALTER TABLE connection_test " +
 //                            "ADD CONSTRAINT CHK_Value CHECK (value IS NOT NULL)";
 //
@@ -51,9 +51,9 @@ public class OracleTest {
                     , "defined", ">=", "INS UPD", "Prijs", "", 1);
             ListRule rule3 = new ListRule(1, "COMP", "VBMG_LIST", "List rule", "List", "COLUMN1", "varchar", "connection_test"
                     , "defined", "in", "INS", "'BOE', 'KLA'");
-            gen.GenerateRangeRule(rule);
-            gen.GenerateCompareRule(rule2);
-            gen.GenerateListRule(rule3);
+            statement.execute(rule.accept(gen));
+            statement.execute(rule2.accept(gen));
+            statement.execute(rule3.accept(gen));
 
         } catch (Exception e){
             throw new RuntimeException(e);
