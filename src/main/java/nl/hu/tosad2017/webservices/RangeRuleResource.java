@@ -106,6 +106,8 @@ public class RangeRuleResource {
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Resource (POST)");
 		
+		System.out.println("params: " + code + " " + name);
+		
 		Integer minv = 0;
 		Integer maxv = 0;
 		
@@ -118,7 +120,7 @@ public class RangeRuleResource {
 		RangeRule newRule = new RangeRule(code, name, message, type, 
 											columnName, columnType, table, status, 
 											operator, triggerEvents, minv, maxv);
-
+		System.out.println("newRule: " + newRule.getCode() + " " + newRule.getName());
 		return rangeruleservice.defineRangeRule(newRule);
 	}
 
