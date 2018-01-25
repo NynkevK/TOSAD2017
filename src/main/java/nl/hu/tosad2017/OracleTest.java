@@ -45,12 +45,12 @@ public class OracleTest {
 //
 //            System.out.println(statement.execute(plsql));
             OracleRuleGenerator gen = new OracleRuleGenerator();
-            RangeRule rule = new RangeRule(1, "RANG", "VBMG_LEVER_RANG", "Range rule", "Range", "aantal", "varchar", "VBMG_LEVERINGEN"
+            RangeRule rule = new RangeRule(1, "RANG", "VBMG_LEVER_RANG1", "Het aantal moet tussen 2 en 4", "Range", "aantal", "varchar", "VBMG_LEVERINGEN"
                     , "defined", "between", "INS UPD", 2, 40);
-            CompareRule rule2 = new CompareRule(1, "COMP", "VBMG_COMP1", "Compare rule", "Attribute", "aantal", "varchar", "VBMG_LEVERINGEN"
+            CompareRule rule2 = new CompareRule(1, "COMP", "VBMG_LEVER_COMP1", "Het aantal mag niet kleiner zijn dan 1", "Attribute", "aantal", "varchar", "VBMG_LEVERINGEN"
                     , "defined", ">=", "INS UPD", "Prijs", "", 1);
-            ListRule rule3 = new ListRule(1, "COMP", "VBMG_LIST", "List rule", "List", "COLUMN1", "varchar", "connection_test"
-                    , "defined", "in", "INS", "'BOE', 'KLA'");
+            ListRule rule3 = new ListRule(1, "LIST", "VBMG_LEVER_LIST1", "Het type moet BOE of KLA zijn", "List", "Product_type", "varchar", "VBMG_PRODUCTEN"
+                    , "defined", "in", "UPD", "'BOE', 'KLA'");
             statement.execute(rule.accept(gen));
             statement.execute(rule2.accept(gen));
             statement.execute(rule3.accept(gen));
