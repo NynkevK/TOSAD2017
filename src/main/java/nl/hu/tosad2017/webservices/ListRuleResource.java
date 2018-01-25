@@ -20,101 +20,169 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
-@Path("/listrule")
+@Path( "/listrule")
 public class ListRuleResource {
-	
+	// initialise service
 	ListRuleService listRuleService = ServiceProvider.getListRuleService();
-	
-	private JsonObjectBuilder ruleToJson (ListRule rule) {
-		JsonObjectBuilder job = Json.createObjectBuilder();
-		return job.add("code", rule.getCode());
+
+	@GET
+	@Produces("application/json")
+	public String getAllListRules() throws SQLException {
+		// logging for Heroku application server 	
+		System.out.println(".. executing ListRule Resource (GET) for all");
+				
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+			
+		//Add each ListRule to a json object
+		for (ListRule r : listRuleService.getAllListRules()) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("id", r.getId());
+			job.add("code", r.getCode());
+			job.add("name", r.getName());
+			job.add("message", r.getMessageText());
+			job.add("type", r.getRuleType());
+			job.add("columnName", r.getColumnName());
+			job.add("columnType", r.getColumnType());
+			job.add("table", r.getTableName());
+			job.add("status", r.getStatus());
+			job.add("operator", r.getOperator());
+			job.add("triggerEvents", r.getTriggerEvents());
+			job.add("list", r.getList());
+			jab.add(job);
+		}
+		
+		if (jab == null ) {
+			throw new WebApplicationException ("No rules found!");
+			}
+		
+		JsonArray array = jab.build();
+		return array.toString();
 	}
 	
-	//TODO Write getListRuleByCode
-	
-	//TODO Write getAllListRules
-	
+	@GET
+	@Path("{id}")
+	@Produces("application/json")
+	public String getListRuleById(@PathParam("id") String id) throws SQLException {
+		// logging for Heroku application server
+		System.out.println(".. executing ListRule Resource (GET) for " + id);
+		
+		Integer idInt = Integer.parseInt(id);
+		ListRule r = listRuleService.getListRuleById(idInt);
+		
+		JsonObjectBuilder job = Json.createObjectBuilder();
+		job.add("id", r.getId());
+		job.add("code", r.getCode());
+		job.add("name", r.getName());
+		job.add("message", r.getMessageText());
+		job.add("type", r.getRuleType());
+		job.add("columnName", r.getColumnName());
+		job.add("columnType", r.getColumnType());
+		job.add("table", r.getTableName());
+		job.add("status", r.getStatus());
+		job.add("operator", r.getOperator());
+		job.add("triggerEvents", r.getTriggerEvents());
+		job.add("list", r.getList());
+		return job.build().toString();
+	}
+
 	@POST
 	@Produces("application/json")
-	public Response defineListRule(@FormParam("code") String code,
-								@FormParam("name") String name, 
+	public Response defineListRule(@FormParam("id") String id,
+								@FormParam("code") String code,
+								@FormParam("name") String name,
 								@FormParam("message") String message,
 								@FormParam("type") String type,
 								@FormParam("columnName") String columnName,
 								@FormParam("columnType") String columnType,
 								@FormParam("table") String table,
-								@FormParam("status") String status, 
+								@FormParam("status") String status,
 								@FormParam("operator") String operator,
 								@FormParam("triggerEvents") String triggerEvents,
-								@FormParam("query") String query) {
-		
+								@FormParam("list") String list) throws SQLException {
+
 		// logging for Heroku application server
 		System.out.println(".. executing ListRule Resource (POST)");
-		
-		Integer idInt = Integer.parseInt(code);
-		
-		//TODO add all other parameters for ListRule in constructor below
-		ListRule newRule = new ListRule();
-		
-		if(listRuleService.getListRuleByCode(idInt) == null) {
-			ListRule returnedRule = listRuleService.defineListRule(newRule);
-			int a = returnedRule.getId();
-			return Response.ok(a).build();
+
+		Integer idInt = Integer.parseInt(id);
+		String listString = list;
+
+		ListRule newRule = new ListRule(idInt, code, name, message, type, 
+											columnName, columnType, table, status, 
+											operator, triggerEvents, listString);
+
+		if(listRuleService.getListRuleById(idInt) == null){
+			boolean returnedRule = listRuleService.defineListRule(newRule);
+			return Response.ok(returnedRule).build();
 		} else {
 			return Response.status(Response.Status.FOUND).build();
 		}
 	}
-	
+
 	@PUT
-	@Path("{code}")
+	@Path("{id}")
 	@Produces("application/json")
-	public String updateListRule(@FormParam("code") String code,
-								@FormParam("name") String name, 
+	public String updateListRule(@PathParam("id") String id,
+								@FormParam("code") String code,
+								@FormParam("name") String name,
 								@FormParam("message") String message,
 								@FormParam("type") String type,
 								@FormParam("columnName") String columnName,
 								@FormParam("columnType") String columnType,
 								@FormParam("table") String table,
-								@FormParam("status") String status, 
+								@FormParam("status") String status,
 								@FormParam("operator") String operator,
 								@FormParam("triggerEvents") String triggerEvents,
-								@FormParam("query") String query) {
-		
+								@FormParam("list") String list) throws SQLException {
+
 		// logging for Heroku application server
-		System.out.println(".. executing ListRule Resource (PUT) for " + code);
+		System.out.println(".. executing ListRule Resource (PUT) for " + id);
+
+		Integer idInt = Integer.parseInt(id);
+		String listString = list;
 		
-		Integer idInt = Integer.parseInt(code);
-		
-		//TODO add all other parameters to constructor and method
-		ListRule oldRule = listRuleService.getListRuleByCode(idInt);
-		
-		oldRule.setId(idInt);
+		ListRule oldRule = listRuleService.getListRuleById(idInt);
+
 		oldRule.setName(name);
-		//TODO add all other params
-		
-		ListRule newRule = listRuleService.updateListRule(oldRule);
-		
+		oldRule.setCode(code);
+		oldRule.setMessageText(message);
+		oldRule.setRuleType(type);
+		oldRule.setColumnName(columnName);
+		oldRule.setColumnType(columnType);
+		oldRule.setTableName(table);
+		oldRule.setStatus(status);
+		oldRule.setOperator(operator);
+		oldRule.setTriggerEvents(triggerEvents);
+		oldRule.setList(listString);
+
+		ListRule newRule = listRuleService.updateListRule(idInt);
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		
 		//Add all rule attributes to a json object
+		job.add("id", newRule.getId());
 		job.add("code", newRule.getCode());
-		//TODO Add above for each of the attributes of Listrule
-		
+		job.add("code", newRule.getCode());
+		job.add("name", newRule.getName());
+		job.add("message", newRule.getMessageText());
+		job.add("type", newRule.getRuleType());
+		job.add("columnName", newRule.getColumnName());
+		job.add("columnType", newRule.getColumnType());
+		job.add("table", newRule.getTableName());
+		job.add("status", newRule.getStatus());
+		job.add("operator", newRule.getOperator());
+		job.add("triggerEvents", newRule.getTriggerEvents());
+		job.add("list", newRule.getList());
+
 		return job.build().toString();
+
 	}
-	
+
 	@DELETE
-	@Path("{code}")
-	public String deleteListRule (int code) {
+	@Path("{id}")
+	public boolean deleteListRule(@PathParam("id") String id) throws SQLException {
 		// logging for Heroku application server
-		System.out.println(".. executing ListRule Resource (DELETE) for " + code);
-		
-		ListRule rule = listRuleService.getListRuleByCode(code);
-		try {
-			listRuleService.deleteListRule(rule);
-			return "Success";
-		} catch (Exception e) {
-			return "Failed DELETE";
-		}
+		System.out.println(".. executing ListRule Resource (DELETE) for " + id);
+		Integer idInt = Integer.parseInt(id);
+		return listRuleService.deleteListRule(idInt);
+
 	}
 }
