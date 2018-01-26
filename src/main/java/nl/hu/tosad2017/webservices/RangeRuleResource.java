@@ -131,18 +131,18 @@ public class RangeRuleResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public String updateRangeRule(@PathParam("id") String id,
-								@FormParam("code") String code,
-								@FormParam("name") String name,
-								@FormParam("message") String message,
-								@FormParam("type") String type,
-								@FormParam("columnName") String columnName,
-								@FormParam("columnType") String columnType,
-								@FormParam("table") String table,
-								@FormParam("status") String status,
-								@FormParam("operator") String operator,
-								@FormParam("triggerEvents") String triggerEvents,
-								@FormParam("minValue") String minValue,
-								@FormParam("maxValue") String maxValue) throws SQLException {
+								@QueryParam("code") String code,
+								@QueryParam("name") String name,
+								@QueryParam("message") String message,
+								@QueryParam("type") String type,
+								@QueryParam("columnName") String columnName,
+								@QueryParam("columnType") String columnType,
+								@QueryParam("table") String table,
+								@QueryParam("status") String status,
+								@QueryParam("operator") String operator,
+								@QueryParam("triggerEvents") String triggerEvents,
+								@QueryParam("minValue") String minValue,
+								@QueryParam("maxValue") String maxValue) throws SQLException {
 
 		// logging for Heroku application server
 		System.out.println(".. executing RangeRule Resource (PUT) for " + id);
