@@ -83,5 +83,10 @@ public class ModifyRule extends BusinessRule {
                 ", otherTable='" + otherTable + '\'' +
                 '}';
     }
+    
+    @Override
+	public String accept(RuleGenerator ruleGenerator) {
+		return ruleGenerator.visit(this);	
+	}
 
 }

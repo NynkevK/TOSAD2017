@@ -73,4 +73,9 @@ public class OtherRule extends BusinessRule {
                 ", otherColumn='" + otherColumn + '\'' +
                 '}';
     }
+    
+    @Override
+	public String accept(RuleGenerator ruleGenerator) {
+		return ruleGenerator.visit(this);	
+	}
 }

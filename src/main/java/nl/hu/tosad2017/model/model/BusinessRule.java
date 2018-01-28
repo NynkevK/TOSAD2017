@@ -12,8 +12,9 @@ public abstract class BusinessRule {
     protected String status;
     protected String operator;
     protected String triggerEvents;
-
-
+    
+    public abstract String accept(RuleGenerator ruleGenerator);
+    
     public int getId() { return id; }
 
     public void setId(int id) { this.id = id; }
@@ -29,6 +30,11 @@ public abstract class BusinessRule {
     public String getName() {
         return name;
     }
+    
+//    public String getGeneratedName() {
+//    	String name = "BRG_" + "VBMG_" + tableName + "_" + "TRG_" + code + "_"  + id;
+//        return name;
+//    }
 
     public void setName(String name) {
         this.name = name;

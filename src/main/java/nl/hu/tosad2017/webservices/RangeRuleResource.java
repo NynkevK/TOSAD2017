@@ -1,69 +1,205 @@
-//package nl.hu.tosad2017.webservices;
-//
-//import java.sql.SQLException;
-//
-//import javax.annotation.security.RolesAllowed;
-//import javax.json.Json;
-//import javax.json.JsonArray;
-//import javax.json.JsonArrayBuilder;
-//import javax.json.JsonObjectBuilder;
-//import javax.ws.rs.DELETE;
-//import javax.ws.rs.FormParam;
-//import javax.ws.rs.GET;
-//import javax.ws.rs.POST;
-//import javax.ws.rs.PUT;
-//import javax.ws.rs.Path;
-//import javax.ws.rs.PathParam;
-//import javax.ws.rs.Produces;
-//import javax.ws.rs.WebApplicationException;
-//import javax.ws.rs.core.Response;
-//
-//import nl.hu.tosad2017.model.*;
-//
-//
-//@Path("/rangerule")
-//public class RangeRuleResource {
-//	
-//	private JsonObjectBuilder rowToJson(Row row) {
-//		JsonObjectBuilder job = Json.createObjectBuilder();
-//		job.add("value", row.getValue())
-//			.add("id", row.getId());
-//		return job;
-//	}
-//
-//	@GET
-//	@Produces("application/json")
-//	public String getValues() {
-//		System.out.println(".. initialising RangeRule Resource");
-//		RangeRuleService service = ServiceProvider.getService();
-//		JsonArrayBuilder jab = Json.createArrayBuilder();
-//
-//		for (String s : service.getRangeRules()) {
-//			JsonObjectBuilder job = Json.createObjectBuilder();
-//			job.add("test", s);
-//			jab.add(job);
-//		}
-//
-//		JsonArray array = jab.build();
-//		return array.toString();
-//	}
-//
-//	@POST
-//	@Produces("application/json")
-//	public Response addValues(@FormParam("value") String value,
-//								@FormParam("id") String id) {
-//		RangeRuleService service = ServiceProvider.getService();
-//
-//		Integer valueInt = Integer.parseInt(value);
-//		Integer idInt = Integer.parseInt(id);
-//
-//		Row newRow = new Row(value, id);
-//		if(service.getRowById(id) == null){
-//			Row returnRow = service.addRow(newRow);
-//			String a = rowToJson(returnRow).build().toString();
-//			return Response.ok(a).build();
-//		} else {
-//			return Response.status(Response.Status.FOUND).build();
-//		}
-//	}
-//}
+package nl.hu.tosad2017.webservices;
+
+import java.sql.SQLException;
+
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
+
+import nl.hu.tosad2017.model.model.RangeRule;
+import nl.hu.tosad2017.model.services.RangeRuleService;
+import nl.hu.tosad2017.model.services.ServiceProvider;
+
+@Path("/rangerule")
+public class RangeRuleResource {
+	// initialise service
+	RangeRuleService rangeruleservice = ServiceProvider.getRangeRuleService();
+
+	@GET
+	@Produces("application/json")
+	public String getAllRangeRules() throws SQLException {
+		// logging for Heroku application server 	
+		System.out.println(".. executing RangeRule Resource (GET) for all");
+				
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+			
+		//Add each rangerule to a json object
+		for (RangeRule r : rangeruleservice.getAllRangeRules()) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("id", r.getId());
+			job.add("code", r.getCode());
+			job.add("name", r.getName());
+			job.add("message", r.getMessageText());
+			job.add("type", r.getRuleType());
+			job.add("columnName", r.getColumnName());
+			job.add("columnType", r.getColumnType());
+			job.add("table", r.getTableName());
+			job.add("status", r.getStatus());
+			job.add("operator", r.getOperator());
+			job.add("triggerEvents", r.getTriggerEvents());
+			job.add("minValue", r.getMinValue());
+			job.add("maxValue", r.getMaxValue());
+			jab.add(job);
+		}
+		
+		if (jab == null ) {
+			throw new WebApplicationException ("No rues found!");
+			}
+		
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
+	@GET
+	@Path("{id}")
+	@Produces("application/json")
+	public String getRangeRuleById(@PathParam("id") String id) throws SQLException {
+		// logging for Heroku application server
+		System.out.println(".. executing RangeRule Resource (GET) for " + id);
+		
+		Integer idInt = Integer.parseInt(id);
+		RangeRule r = rangeruleservice.getRangeRuleById(idInt);
+		
+		JsonObjectBuilder job = Json.createObjectBuilder();
+		job.add("id", r.getId());
+		job.add("code", r.getCode());
+		job.add("name", r.getName());
+		job.add("message", r.getMessageText());
+		job.add("type", r.getRuleType());
+		job.add("columnName", r.getColumnName());
+		job.add("columnType", r.getColumnType());
+		job.add("table", r.getTableName());
+		job.add("status", r.getStatus());
+		job.add("operator", r.getOperator());
+		job.add("triggerEvents", r.getTriggerEvents());
+		job.add("minValue", r.getMinValue());
+		job.add("maxValue", r.getMaxValue());
+		return job.build().toString();
+	}
+
+	@POST
+	@Produces("application/json")
+	public String defineRangeRule(@QueryParam("code") String code,
+								@QueryParam("name") String name,
+								@QueryParam("message") String message,
+								@QueryParam("type") String type,
+								@QueryParam("columnName") String columnName,
+								@QueryParam("columnType") String columnType,
+								@QueryParam("table") String table,
+								@QueryParam("status") String status,
+								@QueryParam("operator") String operator,
+								@QueryParam("triggerEvents") String triggerEvents,
+								@QueryParam("minValue") String minValue,
+								@QueryParam("maxValue") String maxValue) throws SQLException {
+
+		// logging for Heroku application server
+		System.out.println(".. executing RangeRule Resource (POST)");
+		
+		System.out.println("params: " + code + " " + name);
+		
+		Integer minv = 0;
+		Integer maxv = 0;
+		
+		if (minValue != null && maxValue != null) {
+			minv = Integer.parseInt(minValue);
+			maxv = Integer.parseInt(maxValue);
+		}
+		
+
+		RangeRule newRule = new RangeRule(code, name, message, type, 
+											columnName, columnType, table, status, 
+											operator, triggerEvents, minv, maxv);
+		System.out.println("newRule: " + newRule.getCode() + " " + newRule.getName());
+		if (rangeruleservice.defineRangeRule(newRule) == true) {
+			return newRule.getCode();
+		}
+		return null;
+	}
+
+	@PUT
+	@Path("{id}")
+	@Produces("application/json")
+	public String updateRangeRule(@PathParam("id") String id,
+								@QueryParam("code") String code,
+								@QueryParam("name") String name,
+								@QueryParam("message") String message,
+								@QueryParam("type") String type,
+								@QueryParam("columnName") String columnName,
+								@QueryParam("columnType") String columnType,
+								@QueryParam("table") String table,
+								@QueryParam("status") String status,
+								@QueryParam("operator") String operator,
+								@QueryParam("triggerEvents") String triggerEvents,
+								@QueryParam("minValue") String minValue,
+								@QueryParam("maxValue") String maxValue) throws SQLException {
+
+		// logging for Heroku application server
+		System.out.println(".. executing RangeRule Resource (PUT) for " + id);
+
+		Integer idInt = Integer.parseInt(id);
+		Integer minv = Integer.parseInt(minValue);
+		Integer maxv = Integer.parseInt(maxValue);
+		
+		RangeRule oldRule = rangeruleservice.getRangeRuleById(idInt);
+
+		oldRule.setName(name);
+		oldRule.setCode(code);
+		oldRule.setMessageText(message);
+		oldRule.setRuleType(type);
+		oldRule.setColumnName(columnName);
+		oldRule.setColumnType(columnType);
+		oldRule.setTableName(table);
+		oldRule.setStatus(status);
+		oldRule.setOperator(operator);
+		oldRule.setTriggerEvents(triggerEvents);
+		oldRule.setMinValue(minv);
+		oldRule.setMaxValue(maxv);
+
+		String string = "failed";
+		//RangeRule newRule = new RangeRule();
+		if (rangeruleservice.updateRangeRule(oldRule) == true) {
+			string = "success";
+		}
+		
+		/*JsonObjectBuilder job = Json.createObjectBuilder();	
+		//Add all rule attributes to a json object
+		job.add("id", newRule.getId());
+		job.add("code", newRule.getCode());
+		job.add("code", newRule.getCode());
+		job.add("name", newRule.getName());
+		job.add("message", newRule.getMessageText());
+		job.add("type", newRule.getRuleType());
+		job.add("columnName", newRule.getColumnName());
+		job.add("columnType", newRule.getColumnType());
+		job.add("table", newRule.getTableName());
+		job.add("status", newRule.getStatus());
+		job.add("operator", newRule.getOperator());
+		job.add("triggerEvents", newRule.getTriggerEvents());
+		job.add("minValue", newRule.getMinValue());
+		job.add("maxValue", newRule.getMaxValue());*/
+
+		return string;
+
+	}
+
+	@DELETE
+	@Path("{id}")
+	public boolean deleteRangeRule(@PathParam("id") String id) throws SQLException {
+		// logging for Heroku application server
+		System.out.println(".. executing RangeRule Resource (DELETE) for " + id);
+		Integer idInt = Integer.parseInt(id);
+		return rangeruleservice.deleteRangeRule(idInt);
+
+	}
+}
