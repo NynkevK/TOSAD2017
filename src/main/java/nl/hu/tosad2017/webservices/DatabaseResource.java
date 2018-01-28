@@ -51,7 +51,7 @@ public class DatabaseResource {
         JsonArrayBuilder jab = Json.createArrayBuilder();
 
         //Add each datainfo to a json object
-        for (DataInfo d : databaseService.getAllDataInfo()) {
+        for (DataInfo d : databaseService.getDataByTableName(id)) {
             JsonObjectBuilder job = Json.createObjectBuilder();
             job.add("tablename", d.getTableName());
             job.add("columnname", d.getColumnName());
