@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class TargetBaseDAO {
 	protected static final String DB_URL = "jdbc:oracle:thin:@//ondora02.hu.nl:8521/cursus02.hu.nl";
-	protected static final String DB_USER = "Shafie";
-	protected static final String DB_PASS = "Shafie";
+	protected static final String DB_USER = "tosad_2017_2b_team1";
+	protected static final String DB_PASS = "tosad_2017_2b_team1";
 
 	protected static Connection conn;
 
