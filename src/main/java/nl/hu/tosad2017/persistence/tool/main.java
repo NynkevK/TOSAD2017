@@ -1,6 +1,7 @@
 package nl.hu.tosad2017.persistence.tool;
 
 import nl.hu.tosad2017.model.model.*;
+import nl.hu.tosad2017.persistence.data.DatabaseDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,13 +14,15 @@ public class main {
         //ToolModifyRuleDAO dao1 = new ToolModifyRuleDAO();
         //ToolListRuleDAO dao2 = new ToolListRuleDAO();
         //ToolCompareRuleDAO dao3 = new ToolCompareRuleDAO();
-        ToolOtherRuleDAO dao4 = new ToolOtherRuleDAO();
+        //ToolOtherRuleDAO dao4 = new ToolOtherRuleDAO();
+        DatabaseDAO dao5 = new DatabaseDAO();
 
         //RangeRule rure = new RangeRule("foodpls","asdf","sadfsadf","sadfasadf","asdfsf","sdf","sdf","sdf","sd","asd",5,4);
         //ModifyRule rure1 = new ModifyRule("MRN","ModifyRule","iHateYou","Modify","mod","rure","idkfr","defined","yeswellsaid","insup","idk","poo","ok");
         //ListRule rure2 = new ListRule(1,"LR","ListRule","JeRuleKloptNiet","ListRule","hoi","superKolom","superTabel","defined","MustBeInOfzo","insup","'a','b','c'");
         //CompareRule rure3 = new CompareRule(2,"boop","asggfffdf","tuple","sadfasadf","wBOOOOOPPP","sdf","sdf", 20, "woop2", "woooop", 9, "asd", "hhhhh", "puhhh");
         //OtherRule rure4 = new OtherRule(2,"boop","asggfffdf","tuple","sadfasadf","wBOOOOOPPP","booooooop","sdf","qawsedgrfh","qwteg","tyyy","wtho","thye");
+
 
         try {
             // RangeRuleTesters
@@ -52,10 +55,12 @@ public class main {
 
             //OtherRuleTesters
             //dao4.createRule(rure4);
-            dao4.readAllRules();
+            //dao4.readAllRules();
             //dao4.readRule(1);
             //dao4.updateRule(rure4);
             //dao4.deleteRule(1);
+
+            dao5.readAllData();
 
         } catch (SQLException e) {
            e.printStackTrace();

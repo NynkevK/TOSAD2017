@@ -37,5 +37,10 @@ public class DataInfo {
 
     protected String dataType;
 
-
+    @Override
+    public String toString() {
+        return "tableName='" + tableName + '\'' +
+                ", columnName='" + columnName + '\'' +
+                ", dataType='" + dataType + '\'';
+    }
 }
