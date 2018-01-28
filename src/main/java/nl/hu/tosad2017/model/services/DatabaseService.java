@@ -13,4 +13,8 @@ public class DatabaseService {
         return dataDAO.readAllData();
     }
 
+    public List<DataInfo> getDataByTableName(String tableName) throws SQLException {
+        return dataDAO.readDataByTableName(tableName);
+    }
+
 }
