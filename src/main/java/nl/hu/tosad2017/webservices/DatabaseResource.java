@@ -18,7 +18,7 @@ public class DatabaseResource {
 
     @GET
     @Produces("application/json")
-    public String getAllRangeRules() throws SQLException {
+    public String getAllDataInfo() throws SQLException {
         // logging for Heroku application server
         System.out.println(".. executing DataInfo Resource (GET) for all");
 
@@ -44,14 +44,14 @@ public class DatabaseResource {
     @GET
     @Path("{id}")
     @Produces("application/json")
-    public String getDataByTableName(@PathParam("id") String id) throws SQLException {
+    public String getDataByTableName(@PathParam("id") String table) throws SQLException {
         // logging for Heroku application server
         System.out.println(".. executing DataInfo Resource (GET) for all");
 
         JsonArrayBuilder jab = Json.createArrayBuilder();
 
         //Add each datainfo to a json object
-        for (DataInfo d : databaseService.getDataByTableName(id)) {
+        for (DataInfo d : databaseService.getDataByTableName(table)) {
             JsonObjectBuilder job = Json.createObjectBuilder();
             job.add("tablename", d.getTableName());
             job.add("columnname", d.getColumnName());
