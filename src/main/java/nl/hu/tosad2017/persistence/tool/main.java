@@ -45,7 +45,6 @@ public class main {
             //dao2.updateRule(rure2);
             //dao2.deleteRule(1);
 
-
             //CompareRuleTesters
             //dao3.createRule(rure3);
             //dao3.readAllRules();
