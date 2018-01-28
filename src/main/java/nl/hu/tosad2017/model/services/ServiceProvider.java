@@ -6,6 +6,7 @@ public class ServiceProvider {
 	private static ModifyRuleService modifyRuleService = new ModifyRuleService();
 	private static ListRuleService listRuleService = new ListRuleService();
 	private static OtherRuleService otherRuleService = new OtherRuleService();
+	private static DatabaseService databaseService = new DatabaseService();
 	
 	public static RangeRuleService getRangeRuleService() {
 		System.out.println(".. initialising RangeRule ServiceProvider");
@@ -30,5 +31,10 @@ public class ServiceProvider {
 	public static OtherRuleService getOtherRuleService() {
 		System.out.println(".. initialising OtherRule ServiceProvider");
 		return otherRuleService;
+	}
+
+	public static DatabaseService getDatabaseService() {
+		System.out.println(".. initialising OtherRule ServiceProvider");
+		return databaseService;
 	}
 }
