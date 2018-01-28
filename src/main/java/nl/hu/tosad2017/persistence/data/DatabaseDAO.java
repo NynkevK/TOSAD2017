@@ -38,4 +38,28 @@ public class DatabaseDAO extends ToolBaseDAO {
         }
         return data;
     }
+
+    public List<DataInfo> readDataByTableName(String tableName) throws SQLException {
+        List<DataInfo> data = new ArrayList<DataInfo>();
+
+        Connection connection = super.getConnection();
+        String query =  "SELECT table_name, column_name, data_type FROM user_tab_columns " +
+                        "where table_name= UPPER(?) and not data_type = UPPER('DATE')";
+
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1,tableName);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            String table = rs.getString("table_name");
+            String column = rs.getString("column_name");
+            String datatype = rs.getString("data_type");
+
+            DataInfo info = new DataInfo(table,column,datatype);
+            System.out.println(info.toString());
+            data.add(info);
+        }
+        return data;
+    }
+
 }

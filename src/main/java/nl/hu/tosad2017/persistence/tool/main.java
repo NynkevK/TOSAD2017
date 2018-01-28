@@ -59,8 +59,8 @@ public class main {
             //dao4.updateRule(rure4);
             //dao4.deleteRule(1);
 
-            dao5.readAllData();
-
+            //dao5.readAllData();
+            dao5.readDataByTableName("KLANTEN");
         } catch (SQLException e) {
            e.printStackTrace();
         }
