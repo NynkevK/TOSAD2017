@@ -65,8 +65,7 @@ public class RangeRule extends BusinessRule {
     public void setMaxValue(int maxValue) { this.maxValue = maxValue; }
     
     public String GenerateCode() {
-    	String code = "";
-    		code = "l_passed := :new."+ this.getColumnName() +" "+  this.getOperator() + " " + this.getMinValue() + " and "+ this.getMaxValue() +";\n";
+    	String code = "begin\nl_passed := :new."+ this.getColumnName() +" "+  this.getOperator() + " " + this.getMinValue() + " and "+ this.getMaxValue() +";\n";
 		return code;
     }
     
@@ -74,24 +73,4 @@ public class RangeRule extends BusinessRule {
 	public String accept(RuleGenerator ruleGenerator) {
 		return ruleGenerator.visit(this);	
 	}
-
-//	public String generateTriggerEvents() {
-//		String triggers[] = this.getTriggerEvents().split("\\s+");
-//		String events = "before";
-//		for(int i = 0; i < triggers.length; i++)
-//		{
-//			if (triggers[i].equals("INS")) {
-//				events = events + " insert";
-//			} else if (triggers[i].equals("UPD")) {
-//				events = events + " update";
-//			} else if (triggers[i].equals("DEL")) {
-//				events = events + " delete";
-//			}
-//			if (triggers.length > 0 && i+1 < triggers.length){
-//				events = events + " or";
-//			}
-//		    System.out.println(triggers[i]);
-//		}
-//		return events;
-//	}
 }

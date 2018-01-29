@@ -60,7 +60,7 @@ public class ListRule extends BusinessRule {
     }
   
     public String GenerateCode() {
-      String code = "l_passed := :new."+ this.columnName +" "+ this.operator +" ("+this.list+")\n";
+      String code = "begin\nl_passed := :new."+ this.columnName +" "+ this.operator +" ("+this.list+")\n";
   //		String VList[] = this.getList().split(",");	
   //		System.out.println(VList[0]);
   //		for(int i = 0; i < VList.length; i++)

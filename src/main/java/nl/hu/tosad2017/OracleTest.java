@@ -9,6 +9,7 @@ import nl.hu.tosad2017.model.model.CompareRule;
 import nl.hu.tosad2017.model.model.ListRule;
 import nl.hu.tosad2017.model.model.OracleRuleGenerator;
 import nl.hu.tosad2017.model.model.RangeRule;
+import nl.hu.tosad2017.persistence.target.OracleTargetDao;
 
 public class OracleTest {
     private static final String DB_DRIV = "oracle.jdbc.driver.OracleDriver";
@@ -45,15 +46,17 @@ public class OracleTest {
 //
 //            System.out.println(statement.execute(plsql));
             OracleRuleGenerator gen = new OracleRuleGenerator();
-            RangeRule rule = new RangeRule(1, "RANG", "VBMG_LEVER_RANG1", "Het aantal moet tussen 2 en 4", "Range", "aantal", "varchar", "VBMG_LEVERINGEN"
+            OracleTargetDao dao = new OracleTargetDao();
+            RangeRule rule = new RangeRule(1, "RANG", "VBMG_LEVER_RANG2", "Het aantal moet tussen 2 en 4", "Range", "aantal", "varchar", "VBMG_LEVERINGEN"
                     , "defined", "between", "INS UPD", 2, 40);
             CompareRule rule2 = new CompareRule(1, "COMP", "VBMG_LEVER_COMP1", "Het aantal mag niet kleiner zijn dan 1", "Attribute", "aantal", "varchar", "VBMG_LEVERINGEN"
                     , "defined", ">=", "INS UPD", "Prijs", "", 1);
             ListRule rule3 = new ListRule(1, "LIST", "VBMG_LEVER_LIST1", "Het type moet BOE of KLA zijn", "List", "Product_type", "varchar", "VBMG_PRODUCTEN"
                     , "defined", "in", "UPD", "'BOE', 'KLA'");
-            statement.execute(rule.accept(gen));
-            statement.execute(rule2.accept(gen));
-            statement.execute(rule3.accept(gen));
+//            statement.execute(rule.accept(gen));
+//            statement.execute(rule2.accept(gen));
+//            statement.execute(rule3.accept(gen));
+            dao.insertTrigger(rule.accept(gen));
 
         } catch (Exception e){
             throw new RuntimeException(e);

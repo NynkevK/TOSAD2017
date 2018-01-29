@@ -11,7 +11,7 @@ public class TargetBaseDAO {
 
 	protected static Connection conn;
 
-	public static Connection getConn() throws SQLException {
+	public static Connection getConnection() throws SQLException {
 		conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
 		return conn;
 	}
