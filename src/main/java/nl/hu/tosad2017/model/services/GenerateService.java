@@ -5,7 +5,7 @@ public class GenerateService {
 	
 	public GenerateService() {}
 	
-	public String generateRule(int id) {
+	public String generateRule(int id, String type) {
 		// TODO Link to DAO
 		return null;
 	}
