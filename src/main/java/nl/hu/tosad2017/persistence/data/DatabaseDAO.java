@@ -1,7 +1,7 @@
 package nl.hu.tosad2017.persistence.data;
 
 import nl.hu.tosad2017.model.model.DataInfo;
-import nl.hu.tosad2017.persistence.tool.ToolBaseDAO;
+import nl.hu.tosad2017.persistence.target.TargetBaseDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,12 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseDAO extends ToolBaseDAO {
+public class DatabaseDAO extends TargetBaseDAO {
 
     public List<DataInfo> readAllData() throws SQLException {
         List<DataInfo> data = new ArrayList<DataInfo>();
 
-        Connection connection = super.getConnection();
+        Connection connection = super.getConn();
         String query = "SELECT table_name, column_name, data_type\n" +
                 "FROM user_tab_columns\n" +
                 "where   table_name= UPPER('KLANTEN')    and not data_type = UPPER('DATE')\n" +
@@ -42,7 +42,7 @@ public class DatabaseDAO extends ToolBaseDAO {
     public List<DataInfo> readDataByTableName(String tableName) throws SQLException {
         List<DataInfo> data = new ArrayList<DataInfo>();
 
-        Connection connection = super.getConnection();
+        Connection connection = super.getConn();
         String query =  "SELECT table_name, column_name, data_type FROM user_tab_columns " +
                         "where table_name= UPPER(?) and not data_type = UPPER('DATE')";
 
