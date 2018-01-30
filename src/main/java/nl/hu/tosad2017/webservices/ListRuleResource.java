@@ -17,6 +17,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
@@ -84,18 +85,18 @@ public class ListRuleResource {
 
 	@POST
 	@Produces("application/json")
-	public Response defineListRule(@FormParam("id") String id,
-								@FormParam("code") String code,
-								@FormParam("name") String name,
-								@FormParam("message") String message,
-								@FormParam("type") String type,
-								@FormParam("columnName") String columnName,
-								@FormParam("columnType") String columnType,
-								@FormParam("table") String table,
-								@FormParam("status") String status,
-								@FormParam("operator") String operator,
-								@FormParam("triggerEvents") String triggerEvents,
-								@FormParam("list") String list) throws SQLException {
+	public Response defineListRule(@QueryParam("id") String id,
+								@QueryParam("code") String code,
+								@QueryParam("name") String name,
+								@QueryParam("message") String message,
+								@QueryParam("type") String type,
+								@QueryParam("columnName") String columnName,
+								@QueryParam("columnType") String columnType,
+								@QueryParam("table") String table,
+								@QueryParam("status") String status,
+								@QueryParam("operator") String operator,
+								@QueryParam("triggerEvents") String triggerEvents,
+								@QueryParam("list") String list) throws SQLException {
 
 		Integer idInt = Integer.parseInt(id);
 		String listString = list;
@@ -116,17 +117,17 @@ public class ListRuleResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public String updateListRule(@PathParam("id") String id,
-								@FormParam("code") String code,
-								@FormParam("name") String name,
-								@FormParam("message") String message,
-								@FormParam("type") String type,
-								@FormParam("columnName") String columnName,
-								@FormParam("columnType") String columnType,
-								@FormParam("table") String table,
-								@FormParam("status") String status,
-								@FormParam("operator") String operator,
-								@FormParam("triggerEvents") String triggerEvents,
-								@FormParam("list") String list) throws SQLException {
+								@QueryParam("code") String code,
+								@QueryParam("name") String name,
+								@QueryParam("message") String message,
+								@QueryParam("type") String type,
+								@QueryParam("columnName") String columnName,
+								@QueryParam("columnType") String columnType,
+								@QueryParam("table") String table,
+								@QueryParam("status") String status,
+								@QueryParam("operator") String operator,
+								@QueryParam("triggerEvents") String triggerEvents,
+								@QueryParam("list") String list) throws SQLException {
 
 		Integer idInt = Integer.parseInt(id);
 		String listString = list;
