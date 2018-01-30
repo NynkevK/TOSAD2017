@@ -48,7 +48,6 @@ public class CompareRuleResource {
 			job.add("comparedTable", r.getComparedTable());
 			job.add("comparedColumn", r.getComparedColumn());
 			job.add("comparedValue", r.getCompareValue());
-			job.add("value", r.getValue());
 			jab.add(job);
 		}
 		
@@ -83,7 +82,6 @@ public class CompareRuleResource {
 		job.add("comparedTable", r.getComparedTable());
 		job.add("comparedColumn", r.getComparedColumn());
 		job.add("comparedValue", r.getCompareValue());
-		job.add("value", r.getValue());
 		return job.build().toString();
 	}
 
@@ -102,20 +100,17 @@ public class CompareRuleResource {
 								@FormParam("triggerEvents") String triggerEvents,
 								@FormParam("comparedTable") String comparedTable,
 								@FormParam("comparedColumn") String comparedColumn,
-								@FormParam("comparedValue") String comparedValue,
-								@FormParam("value") String value) throws SQLException {
+								@FormParam("comparedValue") String comparedValue) throws SQLException {
 
 		Integer idInt = Integer.parseInt(id);
 		String comparedTableString = comparedTable;
 		String comparedColumnString = comparedColumn;
 		Integer comparedValueInt = Integer.parseInt(comparedValue);
-		Integer valueInt = Integer.parseInt(value);
 
-		CompareRule newRule = new CompareRule(idInt, code, name, type, status,
-											columnName, columnType, table, valueInt,
-											comparedColumnString, comparedTableString,
-											comparedValueInt, operator, triggerEvents,
-											message);
+		CompareRule newRule = new CompareRule(idInt, code, name, message, type,
+											columnName, columnType, table, status,
+											operator, triggerEvents, comparedColumnString,
+											comparedTableString, comparedValueInt);
 
 		if(compareRuleservice.getCompareRuleById(idInt) == null){
 			boolean returnedRule = compareRuleservice.defineCompareRule(newRule);
@@ -165,7 +160,6 @@ public class CompareRuleResource {
 		oldRule.setComparedColumn(comparedColumnString);
 		oldRule.setComparedTable(comparedTableString);
 		oldRule.setCompareValue(comparedValueInt);
-		oldRule.setValue(valueInt);
 
 		String string = "failed";
 		

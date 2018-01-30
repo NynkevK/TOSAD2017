@@ -20,6 +20,7 @@ public class CompareRule extends BusinessRule {
 		super.triggerEvents = r_triggerevents;
 		this.comparedColumn = t_column;
 		this.comparedTable = t_table;
+		this.comparedValue = t_value;
 		}
 
     public CompareRule(int id, String code, String name, String ruletype, String status, String columnname, String columntype,
