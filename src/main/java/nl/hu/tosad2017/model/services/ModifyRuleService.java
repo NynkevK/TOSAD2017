@@ -27,12 +27,8 @@ public class ModifyRuleService {
 		return ToolDAO.createRule(rule);
 	}
 	
-	public ModifyRule updateModifyRule (int id) {
-		//TODO Implement in DAO
-		//ModifyRule updatedRule = ToolDAO.updateRule(rule);
-		
-		//return updatedRule;
-		return null;
+	public boolean updateModifyRule (ModifyRule rule) throws SQLException {
+		return ToolDAO.updateRule(rule);
 	}
 	
 	public boolean deleteModifyRule (int id) throws SQLException{

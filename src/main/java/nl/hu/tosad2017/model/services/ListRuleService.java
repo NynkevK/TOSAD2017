@@ -27,12 +27,8 @@ public class ListRuleService {
 		return ToolDAO.createRule(rule);
 	}
 	
-	public ListRule updateListRule (int id) {
-		//TODO Implement updateRule in DAO
-		//ListRule updatedRule = ToolDAO.updateRule(rule
-		
-		//return updatedRule;
-		return null;
+	public boolean updateListRule (ListRule rule) throws SQLException {
+		return ToolDAO.updateRule(rule);
 	}
 	
 	public boolean deleteListRule (int id) throws SQLException {	

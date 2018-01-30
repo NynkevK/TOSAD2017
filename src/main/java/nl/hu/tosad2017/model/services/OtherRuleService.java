@@ -25,11 +25,8 @@ public class OtherRuleService {
 		return true; //ToolDAO.createRule(rule);
 	}
 	
-	public OtherRule updateOtherRule(int id) {
-		//TODO Implement updateRule in DAO
-		//RangeRule updatedRule = ToolDAO.updateRule(id);
-		return null;
-		//return updatedRule;
+	public boolean updateOtherRule(OtherRule rule) throws SQLException {
+		return ToolDAO.updateRule(rule);
 	}
 	
 	public boolean deleteOtherRule(int id) throws SQLException {

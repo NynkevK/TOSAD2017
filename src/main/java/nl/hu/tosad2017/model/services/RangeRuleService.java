@@ -28,8 +28,6 @@ public class RangeRuleService {
 	}
 	
 	public boolean updateRangeRule(RangeRule rule) throws SQLException {
-		
-		//RangeRule updatedRule = 
 		return ToolDAO.updateRule(rule);
 	}
 	
