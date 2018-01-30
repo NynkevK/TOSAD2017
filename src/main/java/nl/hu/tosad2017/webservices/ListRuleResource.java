@@ -114,7 +114,7 @@ public class ListRuleResource {
 	@PUT
 	@Path("{id}")
 	@Produces("application/json")
-	public String updateListRule(@PathParam("id") String id,
+	public boolean updateListRule(@PathParam("id") String id,
 								@QueryParam("code") String code,
 								@QueryParam("name") String name,
 								@QueryParam("message") String message,
@@ -144,25 +144,7 @@ public class ListRuleResource {
 		oldRule.setTriggerEvents(triggerEvents);
 		oldRule.setList(listString);
 
-		ListRule newRule = listRuleService.updateListRule(idInt);
-		JsonObjectBuilder job = Json.createObjectBuilder();
-		
-		//Add all rule attributes to a json object
-		job.add("id", newRule.getId());
-		job.add("code", newRule.getCode());
-		job.add("code", newRule.getCode());
-		job.add("name", newRule.getName());
-		job.add("message", newRule.getMessageText());
-		job.add("type", newRule.getRuleType());
-		job.add("columnName", newRule.getColumnName());
-		job.add("columnType", newRule.getColumnType());
-		job.add("table", newRule.getTableName());
-		job.add("status", newRule.getStatus());
-		job.add("operator", newRule.getOperator());
-		job.add("triggerEvents", newRule.getTriggerEvents());
-		job.add("list", newRule.getList());
-
-		return job.build().toString();
+		return listRuleService.updateListRule(oldRule);
 
 	}
 
