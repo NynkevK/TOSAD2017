@@ -29,8 +29,6 @@ public class RangeRuleResource {
 	@GET
 	@Produces("application/json")
 	public String getAllRangeRules() throws SQLException {
-		// logging for Heroku application server 	
-		System.out.println(".. executing RangeRule Resource (GET) for all");
 				
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 			
@@ -65,8 +63,6 @@ public class RangeRuleResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public String getRangeRuleById(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Resource (GET) for " + id);
 		
 		Integer idInt = Integer.parseInt(id);
 		RangeRule r = rangeruleservice.getRangeRuleById(idInt);
@@ -103,11 +99,6 @@ public class RangeRuleResource {
 								@QueryParam("minValue") String minValue,
 								@QueryParam("maxValue") String maxValue) throws SQLException {
 
-		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Resource (POST)");
-		
-		System.out.println("params: " + code + " " + name);
-		
 		Integer minv = 0;
 		Integer maxv = 0;
 		
@@ -120,7 +111,6 @@ public class RangeRuleResource {
 		RangeRule newRule = new RangeRule(code, name, message, type, 
 											columnName, columnType, table, status, 
 											operator, triggerEvents, minv, maxv);
-		System.out.println("newRule: " + newRule.getCode() + " " + newRule.getName());
 		if (rangeruleservice.defineRangeRule(newRule) == true) {
 			return newRule.getCode();
 		}
@@ -144,8 +134,6 @@ public class RangeRuleResource {
 								@QueryParam("minValue") String minValue,
 								@QueryParam("maxValue") String maxValue) throws SQLException {
 
-		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Resource (PUT) for " + id);
 
 		Integer idInt = Integer.parseInt(id);
 		Integer minv = Integer.parseInt(minValue);
@@ -196,8 +184,6 @@ public class RangeRuleResource {
 	@DELETE
 	@Path("{id}")
 	public boolean deleteRangeRule(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Resource (DELETE) for " + id);
 		Integer idInt = Integer.parseInt(id);
 		return rangeruleservice.deleteRangeRule(idInt);
 

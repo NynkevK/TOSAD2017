@@ -29,8 +29,6 @@ public class OtherRuleResource {
 		@GET
 		@Produces("application/json")
 		public String getAllOtherRules() throws SQLException {
-			// logging for Heroku application server 	
-			System.out.println(".. executing OtherRule Resource (GET) for all");
 					
 			JsonArrayBuilder jab = Json.createArrayBuilder();
 				
@@ -64,8 +62,6 @@ public class OtherRuleResource {
 		@Path("{id}")
 		@Produces("application/json")
 		public String getOtherRuleById(@PathParam("id") String id) throws SQLException {
-			// logging for Heroku application server
-			System.out.println(".. executing OtherRule Resource (GET) for " + id);
 			
 			Integer idInt = Integer.parseInt(id);
 			OtherRule r = otherruleservice.getOtherRuleById(idInt);
@@ -102,8 +98,6 @@ public class OtherRuleResource {
 									@FormParam("triggerEvents") String triggerEvents,
 									@FormParam("query") String query) throws SQLException {
 
-			// logging for Heroku application server
-			System.out.println(".. executing OtherRule Resource (POST)");
 
 			Integer idInt = Integer.parseInt(id);
 
@@ -135,8 +129,6 @@ public class OtherRuleResource {
 									@FormParam("triggerEvents") String triggerEvents,
 									@FormParam("query") String query) throws SQLException {
 
-			// logging for Heroku application server
-			System.out.println(".. executing OtherRule Resource (PUT) for " + id);
 
 			Integer idInt = Integer.parseInt(id);
 			
@@ -178,8 +170,6 @@ public class OtherRuleResource {
 		@DELETE
 		@Path("{id}")
 		public boolean deleteOtherRule(@PathParam("id") String id) throws SQLException {
-			// logging for Heroku application server
-			System.out.println(".. executing OtherRule Resource (DELETE) for " + id);
 			Integer idInt = Integer.parseInt(id);
 			return otherruleservice.deleteOtherRule(idInt);
 

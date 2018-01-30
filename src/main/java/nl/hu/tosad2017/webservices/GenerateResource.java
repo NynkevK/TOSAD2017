@@ -18,8 +18,6 @@ public class GenerateResource {
 	@Produces("application/json")
 	public String generateRule(@PathParam("id") String id,
 								@PathParam("type") String type) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing generate Resource for " + id);
 				
 		Integer idInt = Integer.parseInt(id);
 		String typeString = type;

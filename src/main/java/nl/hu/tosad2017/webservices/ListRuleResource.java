@@ -29,8 +29,6 @@ public class ListRuleResource {
 	@GET
 	@Produces("application/json")
 	public String getAllListRules() throws SQLException {
-		// logging for Heroku application server 	
-		System.out.println(".. executing ListRule Resource (GET) for all");
 				
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 			
@@ -64,8 +62,6 @@ public class ListRuleResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public String getListRuleById(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing ListRule Resource (GET) for " + id);
 		
 		Integer idInt = Integer.parseInt(id);
 		ListRule r = listRuleService.getListRuleById(idInt);
@@ -101,9 +97,6 @@ public class ListRuleResource {
 								@FormParam("triggerEvents") String triggerEvents,
 								@FormParam("list") String list) throws SQLException {
 
-		// logging for Heroku application server
-		System.out.println(".. executing ListRule Resource (POST)");
-
 		Integer idInt = Integer.parseInt(id);
 		String listString = list;
 
@@ -134,9 +127,6 @@ public class ListRuleResource {
 								@FormParam("operator") String operator,
 								@FormParam("triggerEvents") String triggerEvents,
 								@FormParam("list") String list) throws SQLException {
-
-		// logging for Heroku application server
-		System.out.println(".. executing ListRule Resource (PUT) for " + id);
 
 		Integer idInt = Integer.parseInt(id);
 		String listString = list;
@@ -180,8 +170,6 @@ public class ListRuleResource {
 	@DELETE
 	@Path("{id}")
 	public boolean deleteListRule(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing ListRule Resource (DELETE) for " + id);
 		Integer idInt = Integer.parseInt(id);
 		return listRuleService.deleteListRule(idInt);
 	}

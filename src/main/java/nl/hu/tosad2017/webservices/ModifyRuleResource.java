@@ -29,8 +29,6 @@ public class ModifyRuleResource {
 	@GET
 	@Produces("application/json")
 	public String getAllModifyRules() throws SQLException {
-		// logging for Heroku application server 	
-		System.out.println(".. executing ModifyRule Resource (GET) for all");
 				
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 			
@@ -66,8 +64,6 @@ public class ModifyRuleResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public String getModifyRuleById(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Resource (GET) for " + id);
 		
 		Integer idInt = Integer.parseInt(id);
 		ModifyRule r = modifyRuleService.getModifyRuleById(idInt);
@@ -108,8 +104,6 @@ public class ModifyRuleResource {
 								@FormParam("otherTable") String otherTable,
 								@FormParam("otherColumn") String otherColumn) throws SQLException {
 		
-		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Resource (POST)");
 		
 		Integer idInt = Integer.parseInt(code);
 		String queryString = query;
@@ -147,9 +141,6 @@ public class ModifyRuleResource {
 								@FormParam("ModifydTable") String ModifydTable,
 								@FormParam("ModifydColumn") String ModifydColumn,
 								@FormParam("ModifyValue") String ModifyValue) throws SQLException {
-		
-		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Resource (PUT) for " + id);
 		
 		Integer idInt = Integer.parseInt(id);
 		String queryString = ModifyValue;
@@ -196,9 +187,7 @@ public class ModifyRuleResource {
 	
 	@DELETE
 	@Path("{id}")
-	public boolean deleteModifyRule (@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Resource (DELETE) for " + id);		
+	public boolean deleteModifyRule (@PathParam("id") String id) throws SQLException {	
 		Integer idInt = Integer.parseInt(id);
 		return modifyRuleService.deleteModifyRule(idInt);
 	}

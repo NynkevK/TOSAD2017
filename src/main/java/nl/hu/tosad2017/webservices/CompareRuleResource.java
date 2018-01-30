@@ -28,8 +28,6 @@ public class CompareRuleResource {
 	@GET
 	@Produces("application/json")
 	public String getAllCompareRules() throws SQLException {
-		// logging for Heroku application server 	
-		System.out.println(".. executing CompareRule Resource (GET) for all");
 				
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 			
@@ -66,8 +64,6 @@ public class CompareRuleResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public String getCompareRuleById(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing CompareRule Resource (GET) for " + id);
 		
 		Integer idInt = Integer.parseInt(id);
 		CompareRule r = compareRuleservice.getCompareRuleById(idInt);
@@ -109,9 +105,6 @@ public class CompareRuleResource {
 								@FormParam("comparedValue") String comparedValue,
 								@FormParam("value") String value) throws SQLException {
 
-		// logging for Heroku application server
-		System.out.println(".. executing CompareRule Resource (POST)");
-
 		Integer idInt = Integer.parseInt(id);
 		String comparedTableString = comparedTable;
 		String comparedColumnString = comparedColumn;
@@ -150,9 +143,6 @@ public class CompareRuleResource {
 									@FormParam("comparedColumn") String comparedColumn,
 									@FormParam("comparedValue") String comparedValue,
 									@FormParam("value") String value) throws SQLException {
-
-		// logging for Heroku application server
-		System.out.println(".. executing CompareRule Resource (PUT) for " + id);
 
 		Integer idInt = Integer.parseInt(id);
 		String comparedTableString = comparedTable;
@@ -209,8 +199,6 @@ public class CompareRuleResource {
 	@DELETE
 	@Path("{id}")
 	public boolean deleteCompareRule(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing CompareRule Resource (DELETE) for " + id);
 		Integer idInt = Integer.parseInt(id);
 		return compareRuleservice.deleteCompareRule(idInt);
 
