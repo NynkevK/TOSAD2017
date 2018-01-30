@@ -39,7 +39,7 @@ public class OracleRuleGenerator implements RuleGenerator {
 	public String visit(CompareRule rule) {
 	    String l_passed = "begin\n";
 	    if (rule.getRuleType() == "Attribute") {
-	    	l_passed += "l_passed := :new."+ rule.getColumnName() +" "+  rule.getOperator() + " " + rule.getValue() +";\n";
+	    	l_passed += "l_passed := :new."+ rule.getColumnName() +" "+  rule.getOperator() + " " + rule.getCompareValue() +";\n";
 	    } else if (rule.getRuleType() == "Tuple") {
 	    	l_passed += "l_passed := :new."+ rule.getColumnName() +" "+  rule.getOperator() + " new." + rule.getComparedColumn() +";\n";
 	    } else if (rule.getRuleType() == "Inter-Entity") {

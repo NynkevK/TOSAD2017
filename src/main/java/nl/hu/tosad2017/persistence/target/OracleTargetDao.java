@@ -43,11 +43,8 @@ public class OracleTargetDao extends TargetBaseDAO{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-<<<<<<< HEAD
-    	
     	return fk;
-=======
->>>>>>> origin/master
+
     }
     
 //    public void removeTrigger(String triggerName){
