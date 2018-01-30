@@ -13,12 +13,10 @@ public class OracleTargetDao extends TargetBaseDAO{
             String triggerCode = code;
 
             if (stmt.execute(triggerCode)){
-                System.out.println("Succesfully added trigger");
             }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        System.out.println("Succesfully added trigger");
     }
 }

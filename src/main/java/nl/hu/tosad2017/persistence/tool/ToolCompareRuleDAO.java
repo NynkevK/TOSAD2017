@@ -73,7 +73,6 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
 
             CompareRule rule = new CompareRule(id, code, name, ruletype, status, columnName, columnType, tableName, value, comparedColumn, comparedTable, comparedvalue, operator, triggerEvents, msgText);
 
-            System.out.println(rule.toString());
             CompareRules.add(rule);
         }
         return CompareRules;
@@ -107,7 +106,6 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
             String msgText = rs.getString("MESSAGETEXT");
 
             CompareRule rule = new CompareRule(id, code, name, ruletype, status, columnName, columnType, tableName, value, comparedColumn, comparedTable, comparedvalue, operator, triggerEvents, msgText);
-            System.out.println(rule.toString());
             return rule;
         }
         return null;
@@ -124,10 +122,8 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
         int i = ps.executeUpdate();
 
         if (i > 0){
-            System.out.println("true");
             return true;
         }
-        System.out.println("false");
         return false;
 
     }

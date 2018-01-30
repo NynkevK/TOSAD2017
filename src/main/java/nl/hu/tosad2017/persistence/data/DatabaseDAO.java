@@ -33,7 +33,6 @@ public class DatabaseDAO extends TargetBaseDAO {
             String datatype = rs.getString("data_type");
 
                 DataInfo info = new DataInfo(table,column,datatype);
-                System.out.println(info.toString());
                 data.add(info);
         }
         return data;
@@ -56,7 +55,6 @@ public class DatabaseDAO extends TargetBaseDAO {
             String datatype = rs.getString("data_type");
 
             DataInfo info = new DataInfo(table,column,datatype);
-            System.out.println(info.toString());
             data.add(info);
         }
         return data;

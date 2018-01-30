@@ -90,7 +90,6 @@ public class ToolModifyRuleDAO extends ToolBaseDAO {
         int i = ps.executeUpdate();
 
         if (i > 0){
-            System.out.println("true");
             return true;
         }
         return false;
@@ -123,7 +122,6 @@ public class ToolModifyRuleDAO extends ToolBaseDAO {
             String msgText = rs.getString("MESSAGETEXT");
 
             ModifyRule rule = new ModifyRule(id, code, name, msgText, ruletype, columnName, columnType, tableName, status, operator, triggerEvents, v_query, otherColumn, otherTable);
-            System.out.println(rule.toString());
             modifyRules.add(rule);
         }
         return modifyRules;
@@ -155,7 +153,6 @@ public class ToolModifyRuleDAO extends ToolBaseDAO {
             String msgText = rs.getString("MESSAGETEXT");
 
             ModifyRule rule = new ModifyRule(id, code, name, msgText, ruletype, columnName, columnType, tableName, status, operator, triggerEvents, v_query, otherColumn, otherTable);
-            System.out.println(rule.toString());
             return rule;
         }
         return null;
