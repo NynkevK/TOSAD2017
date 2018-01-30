@@ -19,26 +19,21 @@ public class CompareRuleService {
 	}
 	
 	public CompareRule getCompareRuleById (int id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing CompareRule Service (GET) for " + id);	
 		
 		return ToolDAO.readRule(id);
 	}
 	
 	public boolean defineCompareRule (CompareRule rule) throws SQLException {
-		System.out.println(".. executing CompareRule Service (CREATE)");
 		
 		return ToolDAO.createRule(rule);
 	}
 	
 	public boolean updateCompareRule (CompareRule rule) throws SQLException {
-		System.out.println(".. executing CompareRule Service (UPDATE) for " + rule.getId());
 
 		return ToolDAO.updateRule(rule);
 	}
 	
 	public boolean deleteCompareRule (int id) throws SQLException {
-		System.out.println(".. executing CompareRule Service (DELETE) for " + id);
 		
 		return ToolDAO.deleteRule(id);
 	}

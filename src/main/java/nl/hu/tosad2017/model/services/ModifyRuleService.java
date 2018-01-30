@@ -18,20 +18,16 @@ public class ModifyRuleService {
 	}
 	
 	public ModifyRule getModifyRuleById (int id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Service (GET) for " + id);	
 		
 		return ToolDAO.readRule(id);
 	}
 	
 	public boolean defineModifyRule (ModifyRule rule) throws SQLException {
-		System.out.println(".. executing ModifyRule Service (CREATE)");
 		
 		return ToolDAO.createRule(rule);
 	}
 	
 	public ModifyRule updateModifyRule (int id) {
-		System.out.println(".. executing ModifyRule Service (UPDATE) for " + id);
 		//TODO Implement in DAO
 		//ModifyRule updatedRule = ToolDAO.updateRule(rule);
 		
@@ -40,7 +36,6 @@ public class ModifyRuleService {
 	}
 	
 	public boolean deleteModifyRule (int id) throws SQLException{
-		System.out.println(".. executing ModifyRule Service (DELETE) for " + id);
 		
 		return ToolDAO.deleteRule(id);
 	}

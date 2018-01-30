@@ -18,20 +18,16 @@ public class ListRuleService {
 	}
 	
 	public ListRule getListRuleById (int id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing ListRule Service (GET) for " + id);	
 		
 		return ToolDAO.readRule(id);
 	}
 	
 	public boolean defineListRule (ListRule rule) throws SQLException {
-		System.out.println(".. executing ListRule Service (CREATE)");
 		
 		return ToolDAO.createRule(rule);
 	}
 	
 	public ListRule updateListRule (int id) {
-		System.out.println(".. executing ListRule Service (UPDATE) for " + id);
 		//TODO Implement updateRule in DAO
 		//ListRule updatedRule = ToolDAO.updateRule(rule
 		
@@ -39,8 +35,7 @@ public class ListRuleService {
 		return null;
 	}
 	
-	public boolean deleteListRule (int id) throws SQLException {
-		System.out.println(".. executing ListRule Service (DELETE) for " + id);		
+	public boolean deleteListRule (int id) throws SQLException {	
 		return ToolDAO.deleteRule(id);
 	}
 }

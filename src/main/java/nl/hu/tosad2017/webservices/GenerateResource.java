@@ -17,11 +17,17 @@ public class GenerateResource {
 	
 	@POST
 	@Produces("application/json")
+<<<<<<< HEAD
 	public String generateRule(@QueryParam("id") String id,
 							@QueryParam("ruletype") String ruletype) 
 							//@QueryParam("otherTable") String otherTable,
 							//@QueryParam("otherColumn") String otherColumn; 
 							throws SQLException {
+=======
+	public String generateRule(@PathParam("id") String id,
+								@PathParam("type") String type) throws SQLException {
+				
+>>>>>>> ae9b95ca3cb9b93a4a9a25c829f1ef9e01c86c72
 		Integer idInt = Integer.parseInt(id);
 		
 		service.generateRule(idInt, ruletype);

@@ -20,28 +20,20 @@ public class RangeRuleService {
 	}
 	
 	public RangeRule getRangeRuleById(int id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Service (GET) for " + id);
 		return ToolDAO.readRule(id);
 	}
 	
 	public boolean defineRangeRule(RangeRule rule) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Service (CREATE)");
 		return ToolDAO.createRule(rule);
 	}
 	
 	public boolean updateRangeRule(RangeRule rule) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Service (UPDATE) for " + rule.getId());
 		
 		//RangeRule updatedRule = 
 		return ToolDAO.updateRule(rule);
 	}
 	
 	public boolean deleteRangeRule(int id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing RangeRule Service (DELETE) for " + id);
 		return ToolDAO.deleteRule(id);
 	}
 }
