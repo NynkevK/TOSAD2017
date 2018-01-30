@@ -7,7 +7,6 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -114,7 +113,7 @@ public class OtherRuleResource {
 		@PUT
 		@Path("{id}")
 		@Produces("application/json")
-		public String updateOtherRule(@PathParam("id") String id,
+		public boolean updateOtherRule(@PathParam("id") String id,
 									@QueryParam("code") String code,
 									@QueryParam("name") String name,
 									@QueryParam("message") String message,
@@ -144,25 +143,7 @@ public class OtherRuleResource {
 			oldRule.setTriggerEvents(triggerEvents);
 			oldRule.setQuery(query);
 
-			OtherRule newRule = otherruleservice.updateOtherRule(idInt);
-
-			JsonObjectBuilder job = Json.createObjectBuilder();
-			
-			//Add all rule attributes to a json object
-			job.add("id", newRule.getId());
-			job.add("code", newRule.getCode());
-			job.add("name", newRule.getName());
-			job.add("message", newRule.getMessageText());
-			job.add("type", newRule.getRuleType());
-			job.add("columnName", newRule.getColumnName());
-			job.add("columnType", newRule.getColumnType());
-			job.add("table", newRule.getTableName());
-			job.add("status", newRule.getStatus());
-			job.add("operator", newRule.getOperator());
-			job.add("triggerEvents", newRule.getTriggerEvents());
-			job.add("query", newRule.getQuery());
-
-			return job.build().toString();
+			return otherruleservice.updateOtherRule(oldRule);
 		}
 
 		@DELETE

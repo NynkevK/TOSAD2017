@@ -109,7 +109,6 @@ public class ModifyRuleResource {
 		String otherTableString = otherTable;
 		String otherColumnString = otherColumn;
 		
-		//TODO add all other parameters for ModifyRule in constructor below
 		ModifyRule newRule = new ModifyRule(code, name, message, type,
 											columnName, columnType, table,
 											status, operator, triggerEvents,
@@ -125,7 +124,7 @@ public class ModifyRuleResource {
 	@PUT
 	@Path("{id}")
 	@Produces("application/json")
-	public String updateModifyRule(@PathParam("id") String id,
+	public boolean updateModifyRule(@PathParam("id") String id,
 								@QueryParam("code") String code,
 								@QueryParam("name") String name, 
 								@QueryParam("message") String message,
@@ -161,26 +160,8 @@ public class ModifyRuleResource {
 		oldRule.setOtherTable(otherTableString);
 		oldRule.setOtherColumn(otherColumnString);
 		
-		ModifyRule newRule = modifyRuleService.updateModifyRule(idInt);		
-		JsonObjectBuilder job = Json.createObjectBuilder();
+		return modifyRuleService.updateModifyRule(oldRule);		
 		
-		//Add all rule attributes to a json object
-		job.add("id", newRule.getId());
-		job.add("code", newRule.getCode());
-		job.add("name", newRule.getName());
-		job.add("message", newRule.getMessageText());
-		job.add("type", newRule.getRuleType());
-		job.add("columnName", newRule.getColumnName());
-		job.add("columnType", newRule.getColumnType());
-		job.add("table", newRule.getTableName());
-		job.add("status", newRule.getStatus());
-		job.add("operator", newRule.getOperator());
-		job.add("triggerEvents", newRule.getTriggerEvents());
-		job.add("query", newRule.getQuery());
-		job.add("otherTable", newRule.getOtherTable());
-		job.add("otherColumn", newRule.getOtherColumn());
-		
-		return job.build().toString();
 	}
 	
 	@DELETE

@@ -1,6 +1,5 @@
 package nl.hu.tosad2017.webservices;
 
-import nl.hu.tosad2017.model.model.BusinessRule;
 import nl.hu.tosad2017.model.model.ListRule;
 import nl.hu.tosad2017.model.services.ServiceProvider;
 import nl.hu.tosad2017.model.services.ListRuleService;
@@ -10,7 +9,6 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;

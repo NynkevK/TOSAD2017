@@ -9,7 +9,6 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -106,7 +105,7 @@ public class CompareRuleResource {
 		String comparedColumnString = comparedColumn;
 		Integer comparedValueInt = Integer.parseInt(comparedValue);
 
-		CompareRule newRule = new CompareRule(code,name,type,status,columnName,columnType,table,comparedColumn,comparedTable,comparedValueInt,operator,triggerEvents,message);
+		CompareRule newRule = new CompareRule(code,name,type,status,columnName,columnType,table,comparedColumnString,comparedTableString,comparedValueInt,operator,triggerEvents,message);
 
 		if(compareRuleservice.defineCompareRule(newRule) == true){
 			return Response.ok(true).build();
@@ -138,7 +137,6 @@ public class CompareRuleResource {
 		String comparedTableString = comparedTable;
 		String comparedColumnString = comparedColumn;
 		Integer comparedValueInt = Integer.parseInt(comparedValue);
-		Integer valueInt = Integer.parseInt(value);
 		
 		CompareRule oldRule = compareRuleservice.getCompareRuleById(idInt);
 
