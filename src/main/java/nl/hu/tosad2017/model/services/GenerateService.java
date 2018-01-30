@@ -63,7 +63,7 @@ public class GenerateService {
 		} else if (type.equals("otherrule")) {
 			OtherRule otherrule = otherDAO.readRule(id);
 			targetDAO.removeTrigger(otherrule.getName());
-		
+		}
 		return "service success";
-	}
+	} 
 }
