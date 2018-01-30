@@ -85,7 +85,7 @@ public class OtherRuleResource {
 
 		@POST
 		@Produces("application/json")
-		public Response defineRangeRule(@QueryParam("id") String id,
+		public Response defineRangeRule(
 									@QueryParam("code") String code,
 									@QueryParam("name") String name,
 									@QueryParam("message") String message,
@@ -100,15 +100,12 @@ public class OtherRuleResource {
 									@QueryParam("query") String query) throws SQLException {
 
 
-			Integer idInt = Integer.parseInt(id);
-
-			OtherRule newRule = new OtherRule(idInt, code, name, message, type, 
+			OtherRule newRule = new OtherRule( code, name, message, type, 
 												columnName, columnType, otherColumn,
 												table, status, operator, triggerEvents, query);
 
-			if(otherruleservice.getOtherRuleById(idInt) == null){
-				boolean returnedRule = otherruleservice.defineOtherRule(newRule);
-				return Response.ok(returnedRule).build();
+			if(otherruleservice.defineOtherRule(newRule) == true){
+				return Response.ok(true).build();
 			} else {
 				return Response.status(Response.Status.FOUND).build();
 			}

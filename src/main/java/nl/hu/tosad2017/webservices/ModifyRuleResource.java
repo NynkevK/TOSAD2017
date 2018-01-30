@@ -90,7 +90,7 @@ public class ModifyRuleResource {
 	
 	@POST
 	@Produces("application/json")
-	public Response defineModifyRule(@QueryParam("id") String id,
+	public Response defineModifyRule(
 								@QueryParam("code") String code,
 								@QueryParam("name") String name, 
 								@QueryParam("message") String message,
@@ -105,21 +105,18 @@ public class ModifyRuleResource {
 								@QueryParam("otherTable") String otherTable,
 								@QueryParam("otherColumn") String otherColumn) throws SQLException {
 		
-		
-		Integer idInt = Integer.parseInt(code);
 		String queryString = query;
 		String otherTableString = otherTable;
 		String otherColumnString = otherColumn;
 		
 		//TODO add all other parameters for ModifyRule in constructor below
-		ModifyRule newRule = new ModifyRule(idInt, code, name, message, type,
+		ModifyRule newRule = new ModifyRule(code, name, message, type,
 											columnName, columnType, table,
 											status, operator, triggerEvents,
 											queryString, otherTableString, otherColumnString);
 		
-		if(modifyRuleService.getModifyRuleById(idInt) == null) {
-			boolean returnedRule = modifyRuleService.defineModifyRule(newRule);
-			return Response.ok(returnedRule).build();
+		if(modifyRuleService.defineModifyRule(newRule) == true) {
+			return Response.ok(true).build();
 		} else {
 			return Response.status(Response.Status.FOUND).build();
 		}

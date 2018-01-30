@@ -88,8 +88,7 @@ public class CompareRuleResource {
 
 	@POST
 	@Produces("application/json")
-	public Response defineCompareRule(@QueryParam("id") String id,
-			@QueryParam("code") String code,
+	public Response defineCompareRule(@QueryParam("code") String code,
 			@QueryParam("name") String name,
 			@QueryParam("message") String message,
 			@QueryParam("type") String type,
@@ -103,19 +102,14 @@ public class CompareRuleResource {
 			@QueryParam("comparedColumn") String comparedColumn,
 			@QueryParam("comparedValue") String comparedValue) throws SQLException {
 
-		Integer idInt = Integer.parseInt(id);
 		String comparedTableString = comparedTable;
 		String comparedColumnString = comparedColumn;
 		Integer comparedValueInt = Integer.parseInt(comparedValue);
 
-		CompareRule newRule = new CompareRule(idInt, code, name, message, type,
-											columnName, columnType, table, status,
-											operator, triggerEvents, comparedColumnString,
-											comparedTableString, comparedValueInt);
+		CompareRule newRule = new CompareRule(code,name,type,status,columnName,columnType,table,comparedColumn,comparedTable,comparedValueInt,operator,triggerEvents,message);
 
-		if(compareRuleservice.getCompareRuleById(idInt) == null){
-			boolean returnedRule = compareRuleservice.defineCompareRule(newRule);
-			return Response.ok(returnedRule).build();
+		if(compareRuleservice.defineCompareRule(newRule) == true){
+			return Response.ok(true).build();
 		} else {
 			return Response.status(Response.Status.FOUND).build();
 		}

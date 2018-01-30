@@ -85,7 +85,7 @@ public class ListRuleResource {
 
 	@POST
 	@Produces("application/json")
-	public Response defineListRule(@QueryParam("id") String id,
+	public Response defineListRule(
 								@QueryParam("code") String code,
 								@QueryParam("name") String name,
 								@QueryParam("message") String message,
@@ -98,16 +98,14 @@ public class ListRuleResource {
 								@QueryParam("triggerEvents") String triggerEvents,
 								@QueryParam("list") String list) throws SQLException {
 
-		Integer idInt = Integer.parseInt(id);
 		String listString = list;
 
-		ListRule newRule = new ListRule(idInt, code, name, message, type, 
+		ListRule newRule = new ListRule(code, name, message, type, 
 											columnName, columnType, table, status, 
 											operator, triggerEvents, listString);
 
-		if(listRuleService.getListRuleById(idInt) == null){
-			boolean returnedRule = listRuleService.defineListRule(newRule);
-			return Response.ok(returnedRule).build();
+		if(listRuleService.defineListRule(newRule) == true){
+			return Response.ok(true).build();
 		} else {
 			return Response.status(Response.Status.FOUND).build();
 		}
