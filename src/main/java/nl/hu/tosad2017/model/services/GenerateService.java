@@ -30,7 +30,9 @@ public class GenerateService {
 	public String generateRule(int id, String type) throws SQLException {
 		if (type == "rangerule") {
 			RangeRule rangerule = rangeDAO.readRule(id);
-			System.out.println(rangerule.getCode());
+			System.out.println("GENERATERULE TEST | CODE: " + rangerule.getCode());
+			System.out.println("GENERATERULE TEST | MESSAGE: " + rangerule.getMessageText());
+			System.out.println("GENERATERULE TEST | TABLE: " + rangerule.getTableName());
 			targetDAO.insertTrigger(rangerule.accept(generator));
 		} else if (type == "comparerule") {
 			CompareRule comparerule = compareDAO.readRule(id);
@@ -46,6 +48,6 @@ public class GenerateService {
 			targetDAO.insertTrigger(otherrule.accept(generator));
 		}
 		
-		return null;
+		return "service success";
 	}
 }
