@@ -21,8 +21,6 @@ public class GenerateResource {
 		Integer idInt = Integer.parseInt(id);
 		System.out.println("GENERATE CALL WITH: " + idInt + type);
 		
-		service.generateRule(idInt, type);
-		
-		return "success";
+		return service.generateRule(idInt, type);
 	}
 }
