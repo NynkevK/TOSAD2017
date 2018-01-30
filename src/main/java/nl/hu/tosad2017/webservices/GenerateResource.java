@@ -19,6 +19,7 @@ public class GenerateResource {
 								@QueryParam("type") String type) throws SQLException {
 				
 		Integer idInt = Integer.parseInt(id);
+		System.out.println("GENERATE CALL WITH: " + idInt + type);
 		
 		service.generateRule(idInt, type);
 		
