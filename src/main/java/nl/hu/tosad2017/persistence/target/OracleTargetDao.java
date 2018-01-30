@@ -47,22 +47,18 @@ public class OracleTargetDao extends TargetBaseDAO{
 
     }
     
-//    public void removeTrigger(String triggerName){
-//    	try {
-//        	Connection con = TargetBaseDAO.getConnection();
-//            Statement stmt = con.createStatement();
-//            String triggerCode = "DROP TRIGGER "+rule.get  
-//            System.out.println(triggerCode);
-//            ResultSet rs = stmt.executeQuery(triggerCode);
-//
-//            if(rs.next()) {
-//            	  fk = rs.getString(1);
-//            	  System.out.println(fk);
-//            }
-//
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
-//        System.out.println("Succesfully added trigger");
-//    }
+    public void removeTrigger(String triggerName){
+    	try {
+        	Connection con = TargetBaseDAO.getConnection();
+            Statement stmt = con.createStatement();
+            String triggerCode = "DROP TRIGGER "+ triggerName;
+            System.out.println(triggerCode);
+            ResultSet rs = stmt.executeQuery(triggerCode);
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("Succesfully added trigger");
+    }
 }

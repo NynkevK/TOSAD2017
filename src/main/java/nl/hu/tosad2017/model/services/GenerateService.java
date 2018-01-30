@@ -30,9 +30,6 @@ public class GenerateService {
 	public String generateRule(int id, String type) throws SQLException {
 		if (type.equals("rangerule")) {
 			RangeRule rangerule = rangeDAO.readRule(id);
-			System.out.println("GENERATERULE TEST | CODE: " + rangerule.getCode());
-			System.out.println("GENERATERULE TEST | MESSAGE: " + rangerule.getMessageText());
-			System.out.println("GENERATERULE TEST | TABLE: " + rangerule.getTableName());
 			targetDAO.insertTrigger(rangerule.accept(generator));
 		} else if (type == "comparerule") {
 			CompareRule comparerule = compareDAO.readRule(id);
@@ -47,6 +44,25 @@ public class GenerateService {
 			OtherRule otherrule = otherDAO.readRule(id);
 			targetDAO.insertTrigger(otherrule.accept(generator));
 		}
+		
+		return "service success";
+	}
+	
+	public String deleteRule(int id, String type) throws SQLException {
+		if (type.equals("rangerule")) {
+			RangeRule rangerule = rangeDAO.readRule(id);
+			targetDAO.removeTrigger(rangerule.getName());
+			CompareRule comparerule = compareDAO.readRule(id);
+			targetDAO.removeTrigger(comparerule.getName());
+		} else if (type.equals("listrule")) {
+			ListRule listrule = listDAO.readRule(id);
+			targetDAO.removeTrigger(listrule.getName());
+		} else if (type.equals("modifyrule")) {
+			ModifyRule modifyrule = modifyDAO.readRule(id);
+			targetDAO.removeTrigger(modifyrule.getName());
+		} else if (type.equals("otherrule")) {
+			OtherRule otherrule = otherDAO.readRule(id);
+			targetDAO.removeTrigger(otherrule.getName());
 		
 		return "service success";
 	}
