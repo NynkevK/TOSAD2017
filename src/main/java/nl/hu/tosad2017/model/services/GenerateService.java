@@ -28,7 +28,7 @@ public class GenerateService {
 	public GenerateService() {}
 	
 	public String generateRule(int id, String type) throws SQLException {
-		if (type == "rangerule") {
+		if (type.equals("rangerule")) {
 			RangeRule rangerule = rangeDAO.readRule(id);
 			System.out.println("GENERATERULE TEST | CODE: " + rangerule.getCode());
 			System.out.println("GENERATERULE TEST | MESSAGE: " + rangerule.getMessageText());
