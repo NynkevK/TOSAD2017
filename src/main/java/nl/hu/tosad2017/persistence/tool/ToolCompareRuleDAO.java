@@ -13,7 +13,7 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
     public boolean createRule(CompareRule rule) throws SQLException {
 
         String query = "INSERT INTO COMPARERULE" +
-                "(ID,CODE,NAME,RULETYPE,STATUS,COLUMNNAME,COLUMNTYPE,TABLENAME,VALUE,COMPAREDCOLUMN" +
+                "(ID,CODE,NAME,RULETYPE,STATUS,COLUMNNAME,COLUMNTYPE,TABLENAME,COMPAREDCOLUMN" +
                 ",COMPAREDTABLE,COMPAREDVALUE,OPERATOR,TRIGGEREVENTS,MESSAGETEXT)" +
                 "VALUES(0,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
