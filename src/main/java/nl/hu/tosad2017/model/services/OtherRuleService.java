@@ -14,7 +14,7 @@ public class OtherRuleService {
 	public OtherRuleService() {}
 	
 	public List<OtherRule> getAllOtherRules() throws SQLException {
-		return  null; //ToolDAO.readAllRules(); 
+		return  ToolDAO.readAllRules(); 
 	}
 	
 	public OtherRule getOtherRuleById(int id) throws SQLException {
