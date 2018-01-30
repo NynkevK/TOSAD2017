@@ -48,8 +48,6 @@ public class ModifyRuleResource {
 			job.add("operator", r.getOperator());
 			job.add("triggerEvents", r.getTriggerEvents());
 			job.add("query", r.getQuery());
-			job.add("otherTable", r.getOtherTable());
-			job.add("otherColumn", r.getOtherColumn());
 			jab.add(job);
 		}
 		
@@ -82,8 +80,6 @@ public class ModifyRuleResource {
 		job.add("operator", r.getOperator());
 		job.add("triggerEvents", r.getTriggerEvents());
 		job.add("query", r.getQuery());
-		job.add("otherTable", r.getOtherTable());
-		job.add("otherColumn", r.getOtherColumn());
 		
 		return job.build().toString();
 	}
@@ -101,18 +97,14 @@ public class ModifyRuleResource {
 								@QueryParam("status") String status, 
 								@QueryParam("operator") String operator,
 								@QueryParam("triggerEvents") String triggerEvents,
-								@QueryParam("query") String query,
-								@QueryParam("otherTable") String otherTable,
-								@QueryParam("otherColumn") String otherColumn) throws SQLException {
+								@QueryParam("query") String query) throws SQLException {
 		
 		String queryString = query;
-		String otherTableString = otherTable;
-		String otherColumnString = otherColumn;
 		
 		ModifyRule newRule = new ModifyRule(code, name, message, type,
 											columnName, columnType, table,
 											status, operator, triggerEvents,
-											queryString, otherTableString, otherColumnString);
+											queryString);
 		
 		if(modifyRuleService.defineModifyRule(newRule) == true) {
 			return Response.ok(true).build();
@@ -135,14 +127,10 @@ public class ModifyRuleResource {
 								@QueryParam("status") String status, 
 								@QueryParam("operator") String operator,
 								@QueryParam("triggerEvents") String triggerEvents,
-								@QueryParam("ModifydTable") String ModifydTable,
-								@QueryParam("ModifydColumn") String ModifydColumn,
 								@QueryParam("ModifyValue") String ModifyValue) throws SQLException {
 		
 		Integer idInt = Integer.parseInt(id);
 		String queryString = ModifyValue;
-		String otherTableString = ModifydTable;
-		String otherColumnString = ModifydColumn;
 		
 		ModifyRule oldRule = modifyRuleService.getModifyRuleById(idInt);
 		
@@ -157,8 +145,6 @@ public class ModifyRuleResource {
 		oldRule.setOperator(operator);
 		oldRule.setTriggerEvents(triggerEvents);
 		oldRule.setQuery(queryString);
-		oldRule.setOtherTable(otherTableString);
-		oldRule.setOtherColumn(otherColumnString);
 		
 		return modifyRuleService.updateModifyRule(oldRule);		
 		

@@ -13,7 +13,7 @@ public class ToolModifyRuleDAO extends ToolBaseDAO {
     public boolean createRule(ModifyRule rule) throws SQLException {
 
         String query = "INSERT INTO MODIFYRULE" +
-                "(ID,CODE,NAME,RULETYPE,QUERY,STATUS,COLUMNNAME,COLUMNTYPE,TABLENAME,OTHERCOLUMN,OTHERTABLE,OPERATOR" +
+                "(ID,CODE,NAME,RULETYPE,QUERY,STATUS,COLUMNNAME,COLUMNTYPE,TABLENAME,OPERATOR" +
                 ",TRIGGEREVENTS,MESSAGETEXT)" +
                 "VALUES(0,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -28,8 +28,6 @@ public class ToolModifyRuleDAO extends ToolBaseDAO {
         ps.setString(6, rule.getColumnName());
         ps.setString(7, rule.getColumnType());
         ps.setString(8, rule.getTableName());
-        ps.setString(9,rule.getOtherColumn());
-        ps.setString(10,rule.getOtherTable());
         ps.setString(11, rule.getOperator());
         ps.setString(12, rule.getTriggerEvents());
         ps.setString(13, rule.getMessageText());
@@ -49,8 +47,6 @@ public class ToolModifyRuleDAO extends ToolBaseDAO {
                 " COLUMNNAME= ?," +
                 " COLUMNTYPE= ?," +
                 " TABLENAME= ?," +
-                " OTHERCOLUMN= ?," +
-                " OTHERTABLE= ?," +
                 " OPERATOR= ?," +
                 " TRIGGEREVENTS= ?," +
                 " MESSAGETEXT= ?" +
@@ -64,8 +60,6 @@ public class ToolModifyRuleDAO extends ToolBaseDAO {
         ps.setString(3, rule.getColumnName());
         ps.setString(4, rule.getColumnType());
         ps.setString(5, rule.getTableName());
-        ps.setString(6,rule.getOtherColumn());
-        ps.setString(7,rule.getOtherTable());
         ps.setString(8, rule.getOperator());
         ps.setString(9, rule.getTriggerEvents());
         ps.setString(10, rule.getMessageText());
@@ -115,13 +109,11 @@ public class ToolModifyRuleDAO extends ToolBaseDAO {
             String columnName = rs.getString("COLUMNNAME");
             String columnType = rs.getString("COLUMNTYPE");
             String tableName = rs.getString("TABLENAME");
-            String otherColumn = rs.getString("OTHERCOLUMN");
-            String otherTable = rs.getString("OTHERTABLE");
             String operator = rs.getString("OPERATOR");
             String triggerEvents = rs.getString("TRIGGEREVENTS");
             String msgText = rs.getString("MESSAGETEXT");
 
-            ModifyRule rule = new ModifyRule(id, code, name, msgText, ruletype, columnName, columnType, tableName, status, operator, triggerEvents, v_query, otherColumn, otherTable);
+            ModifyRule rule = new ModifyRule(id, code, name, msgText, ruletype, columnName, columnType, tableName, status, operator, triggerEvents, v_query);
             modifyRules.add(rule);
         }
         return modifyRules;
@@ -146,13 +138,11 @@ public class ToolModifyRuleDAO extends ToolBaseDAO {
             String columnName = rs.getString("COLUMNNAME");
             String columnType = rs.getString("COLUMNTYPE");
             String tableName = rs.getString("TABLENAME");
-            String otherColumn = rs.getString("OTHERCOLUMN");
-            String otherTable = rs.getString("OTHERTABLE");
             String operator = rs.getString("OPERATOR");
             String triggerEvents = rs.getString("TRIGGEREVENTS");
             String msgText = rs.getString("MESSAGETEXT");
 
-            ModifyRule rule = new ModifyRule(id, code, name, msgText, ruletype, columnName, columnType, tableName, status, operator, triggerEvents, v_query, otherColumn, otherTable);
+            ModifyRule rule = new ModifyRule(id, code, name, msgText, ruletype, columnName, columnType, tableName, status, operator, triggerEvents, v_query);
             return rule;
         }
         return null;
