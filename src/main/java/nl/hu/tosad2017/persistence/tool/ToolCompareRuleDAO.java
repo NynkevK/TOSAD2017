@@ -58,7 +58,6 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
             String code = rs.getString("CODE");
             String name = rs.getString("NAME");
             String ruletype = rs.getString("RULETYPE");
-            int value = rs.getInt("VALUE");
             int comparedvalue = rs.getInt("COMPAREDVALUE");
             String status = rs.getString("STATUS");
             String columnName = rs.getString("COLUMNNAME");
