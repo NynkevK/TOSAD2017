@@ -58,18 +58,6 @@ public class ListRule extends BusinessRule {
                 ", list='" + list + '\'' +
                 '}';
     }
-  
-    public String GenerateCode() {
-      String code = "begin\nl_passed := :new."+ this.columnName +" "+ this.operator +" ("+this.list+")\n";
-  //		String VList[] = this.getList().split(",");	
-  //		System.out.println(VList[0]);
-  //		for(int i = 0; i < VList.length; i++)
-  //		{
-  //			code = code + VList[i];
-  //		}
-  //		code = code + "\n";
-      return code;
-    }
     
     @Override
 	public String accept(RuleGenerator ruleGenerator) {
