@@ -64,10 +64,10 @@ public class RangeRule extends BusinessRule {
 
     public void setMaxValue(int maxValue) { this.maxValue = maxValue; }
     
-    public String GenerateCode() {
-    	String code = "begin\nl_passed := :new."+ this.getColumnName() +" "+  this.getOperator() + " " + this.getMinValue() + " and "+ this.getMaxValue() +";\n";
-		return code;
-    }
+//    public String GenerateCode() {
+//    	String code = "begin\nl_passed := :new."+ this.getColumnName() +" "+  this.getOperator() + " " + this.getMinValue() + " and "+ this.getMaxValue() +";\n";
+//		return code;
+//    }
     
     @Override
 	public String accept(RuleGenerator ruleGenerator) {

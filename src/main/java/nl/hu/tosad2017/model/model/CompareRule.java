@@ -172,28 +172,28 @@ public class CompareRule extends BusinessRule {
         return text; 
     }
     
-    public String GenerateCode() {
-    	String code = "begin";
-    	if (this.ruleType == "Attribute") {
-    		code = "l_passed := :new."+ this.columnName +" "+  this.operator + " " + this.value +";\n";
-    	} else if (this.ruleType == "Tuple") {
-    		code = "l_passed := :new."+ this.columnName +" "+  this.operator + " new." + this.comparedColumn +";\n";
-    	} else if (this.ruleType == "Inter-Entity") {
-    		code = "cursor lc_ord is "+
-				"\nselect ord."+ this.getComparedColumn()+
-				"\nfrom " + this.getComparedTable() + " ord "+
-				"\nwhere ord.id = :new.ord_id ;"+
-				"\nl_orderdatum "+this.getComparedTable()+"."+this.getComparedColumn()+"%type;"+
-				"\nbegin "+
-				"\nopen lc_ord; "+
-				"\nfetch lc_ord into l_orderdatum; "+
-				"\nclose lc_ord;"+
-				"\nl_passed := :new."+ this.getColumnName() +" >= l_orderdatum;";
-    	} else {
-    		System.out.println("Rule type niet herkend");
-    	}
-		return code;
-    }
+//    public String GenerateCode() {
+//    	String code = "begin";
+//    	if (this.ruleType == "Attribute") {
+//    		code = "l_passed := :new."+ this.columnName +" "+  this.operator + " " + this.value +";\n";
+//    	} else if (this.ruleType == "Tuple") {
+//    		code = "l_passed := :new."+ this.columnName +" "+  this.operator + " new." + this.comparedColumn +";\n";
+//    	} else if (this.ruleType == "Inter-Entity") {
+//    		code = "cursor lc_ord is "+
+//				"\nselect ord."+ this.getComparedColumn()+
+//				"\nfrom " + this.getComparedTable() + " ord "+
+//				"\nwhere ord.id = :new.ord_id ;"+
+//				"\nl_orderdatum "+this.getComparedTable()+"."+this.getComparedColumn()+"%type;"+
+//				"\nbegin "+
+//				"\nopen lc_ord; "+
+//				"\nfetch lc_ord into l_orderdatum; "+
+//				"\nclose lc_ord;"+
+//				"\nl_passed := :new."+ this.getColumnName() +" >= l_orderdatum;";
+//    	} else {
+//    		System.out.println("Rule type niet herkend");
+//    	}
+//		return code;
+//    }
 
     @Override
 	public String accept(RuleGenerator ruleGenerator) {

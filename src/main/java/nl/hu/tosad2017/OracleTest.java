@@ -53,10 +53,13 @@ public class OracleTest {
                     , "defined", ">=", "INS UPD", "Prijs", "", 1);
             ListRule rule3 = new ListRule(1, "LIST", "VBMG_LEVER_LIST1", "Het type moet BOE of KLA zijn", "List", "Product_type", "varchar", "VBMG_PRODUCTEN"
                     , "defined", "in", "UPD", "'BOE', 'KLA'");
+            CompareRule rule4 = new CompareRule(1, "COMP", "VBMG_COMP2", "Levering datum kleiner dan orders datum", "Inter-Entity", "datum", "varchar", "VBMG_LEVERINGEN"
+                    , "defined", ">", "INS UPD", "aanvraag_datum", "VBMG_ORDERS", 0);
 //            statement.execute(rule.accept(gen));
 //            statement.execute(rule2.accept(gen));
 //            statement.execute(rule3.accept(gen));
-            dao.insertTrigger(rule.accept(gen));
+//            dao.insertTrigger(rule.accept(gen));
+            dao.insertTrigger(rule3.accept(gen));
 
         } catch (Exception e){
             throw new RuntimeException(e);
