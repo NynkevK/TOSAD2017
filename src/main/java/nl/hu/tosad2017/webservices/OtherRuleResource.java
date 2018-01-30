@@ -14,6 +14,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
@@ -29,8 +30,6 @@ public class OtherRuleResource {
 		@GET
 		@Produces("application/json")
 		public String getAllOtherRules() throws SQLException {
-			// logging for Heroku application server 	
-			System.out.println(".. executing OtherRule Resource (GET) for all");
 					
 			JsonArrayBuilder jab = Json.createArrayBuilder();
 				
@@ -64,8 +63,6 @@ public class OtherRuleResource {
 		@Path("{id}")
 		@Produces("application/json")
 		public String getOtherRuleById(@PathParam("id") String id) throws SQLException {
-			// logging for Heroku application server
-			System.out.println(".. executing OtherRule Resource (GET) for " + id);
 			
 			Integer idInt = Integer.parseInt(id);
 			OtherRule r = otherruleservice.getOtherRuleById(idInt);
@@ -88,22 +85,20 @@ public class OtherRuleResource {
 
 		@POST
 		@Produces("application/json")
-		public Response defineRangeRule(@FormParam("id") String id,
-									@FormParam("code") String code,
-									@FormParam("name") String name,
-									@FormParam("message") String message,
-									@FormParam("type") String type,
-									@FormParam("columnName") String columnName,
-									@FormParam("columnType") String columnType,
-									@FormParam("otherColumn") String otherColumn,
-									@FormParam("table") String table,
-									@FormParam("status") String status,
-									@FormParam("operator") String operator,
-									@FormParam("triggerEvents") String triggerEvents,
-									@FormParam("query") String query) throws SQLException {
+		public Response defineRangeRule(@QueryParam("id") String id,
+									@QueryParam("code") String code,
+									@QueryParam("name") String name,
+									@QueryParam("message") String message,
+									@QueryParam("type") String type,
+									@QueryParam("columnName") String columnName,
+									@QueryParam("columnType") String columnType,
+									@QueryParam("otherColumn") String otherColumn,
+									@QueryParam("table") String table,
+									@QueryParam("status") String status,
+									@QueryParam("operator") String operator,
+									@QueryParam("triggerEvents") String triggerEvents,
+									@QueryParam("query") String query) throws SQLException {
 
-			// logging for Heroku application server
-			System.out.println(".. executing OtherRule Resource (POST)");
 
 			Integer idInt = Integer.parseInt(id);
 
@@ -123,20 +118,18 @@ public class OtherRuleResource {
 		@Path("{id}")
 		@Produces("application/json")
 		public String updateOtherRule(@PathParam("id") String id,
-									@FormParam("code") String code,
-									@FormParam("name") String name,
-									@FormParam("message") String message,
-									@FormParam("type") String type,
-									@FormParam("columnName") String columnName,
-									@FormParam("columnType") String columnType,
-									@FormParam("table") String table,
-									@FormParam("status") String status,
-									@FormParam("operator") String operator,
-									@FormParam("triggerEvents") String triggerEvents,
-									@FormParam("query") String query) throws SQLException {
+									@QueryParam("code") String code,
+									@QueryParam("name") String name,
+									@QueryParam("message") String message,
+									@QueryParam("type") String type,
+									@QueryParam("columnName") String columnName,
+									@QueryParam("columnType") String columnType,
+									@QueryParam("table") String table,
+									@QueryParam("status") String status,
+									@QueryParam("operator") String operator,
+									@QueryParam("triggerEvents") String triggerEvents,
+									@QueryParam("query") String query) throws SQLException {
 
-			// logging for Heroku application server
-			System.out.println(".. executing OtherRule Resource (PUT) for " + id);
 
 			Integer idInt = Integer.parseInt(id);
 			
@@ -178,8 +171,6 @@ public class OtherRuleResource {
 		@DELETE
 		@Path("{id}")
 		public boolean deleteOtherRule(@PathParam("id") String id) throws SQLException {
-			// logging for Heroku application server
-			System.out.println(".. executing OtherRule Resource (DELETE) for " + id);
 			Integer idInt = Integer.parseInt(id);
 			return otherruleservice.deleteOtherRule(idInt);
 

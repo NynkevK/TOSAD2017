@@ -11,7 +11,6 @@ public class TargetRangeRuleDAO {
             Statement stmt = con.createStatement();
             String insert = "INSERT INTO RANGERULES VALUES(0,'" + operator + "','" + code + "','" + kolomNaam + "'," + minvalue + "," + maxvalue + ")";
 
-            System.out.println(insert);
 
             ResultSet rs = stmt.executeQuery(insert);
 

@@ -15,7 +15,7 @@ public class DatabaseDAO extends TargetBaseDAO {
     public List<DataInfo> readAllData() throws SQLException {
         List<DataInfo> data = new ArrayList<DataInfo>();
 
-        Connection connection = super.getConn();
+        Connection connection = super.getConnection();
         String query = "SELECT table_name, column_name, data_type\n" +
                 "FROM user_tab_columns\n" +
                 "where   table_name= UPPER('VBMG_KLANTEN')    and not data_type = UPPER('DATE')\n" +
@@ -33,7 +33,6 @@ public class DatabaseDAO extends TargetBaseDAO {
             String datatype = rs.getString("data_type");
 
                 DataInfo info = new DataInfo(table,column,datatype);
-                System.out.println(info.toString());
                 data.add(info);
         }
         return data;
@@ -42,7 +41,7 @@ public class DatabaseDAO extends TargetBaseDAO {
     public List<DataInfo> readDataByTableName(String tableName) throws SQLException {
         List<DataInfo> data = new ArrayList<DataInfo>();
 
-        Connection connection = super.getConn();
+        Connection connection = super.getConnection();
         String query =  "SELECT table_name, column_name, data_type FROM user_tab_columns " +
                         "where table_name= UPPER(?) and not data_type = UPPER('DATE')";
 
@@ -56,7 +55,6 @@ public class DatabaseDAO extends TargetBaseDAO {
             String datatype = rs.getString("data_type");
 
             DataInfo info = new DataInfo(table,column,datatype);
-            System.out.println(info.toString());
             data.add(info);
         }
         return data;

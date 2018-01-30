@@ -16,6 +16,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
@@ -28,8 +29,6 @@ public class CompareRuleResource {
 	@GET
 	@Produces("application/json")
 	public String getAllCompareRules() throws SQLException {
-		// logging for Heroku application server 	
-		System.out.println(".. executing CompareRule Resource (GET) for all");
 				
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 			
@@ -50,7 +49,6 @@ public class CompareRuleResource {
 			job.add("comparedTable", r.getComparedTable());
 			job.add("comparedColumn", r.getComparedColumn());
 			job.add("comparedValue", r.getCompareValue());
-			job.add("value", r.getValue());
 			jab.add(job);
 		}
 		
@@ -66,8 +64,6 @@ public class CompareRuleResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public String getCompareRuleById(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing CompareRule Resource (GET) for " + id);
 		
 		Integer idInt = Integer.parseInt(id);
 		CompareRule r = compareRuleservice.getCompareRuleById(idInt);
@@ -87,42 +83,35 @@ public class CompareRuleResource {
 		job.add("comparedTable", r.getComparedTable());
 		job.add("comparedColumn", r.getComparedColumn());
 		job.add("comparedValue", r.getCompareValue());
-		job.add("value", r.getValue());
 		return job.build().toString();
 	}
 
 	@POST
 	@Produces("application/json")
-	public Response defineCompareRule(@FormParam("id") String id,
-								@FormParam("code") String code,
-								@FormParam("name") String name,
-								@FormParam("message") String message,
-								@FormParam("type") String type,
-								@FormParam("columnName") String columnName,
-								@FormParam("columnType") String columnType,
-								@FormParam("table") String table,
-								@FormParam("status") String status,
-								@FormParam("operator") String operator,
-								@FormParam("triggerEvents") String triggerEvents,
-								@FormParam("comparedTable") String comparedTable,
-								@FormParam("comparedColumn") String comparedColumn,
-								@FormParam("comparedValue") String comparedValue,
-								@FormParam("value") String value) throws SQLException {
-
-		// logging for Heroku application server
-		System.out.println(".. executing CompareRule Resource (POST)");
+	public Response defineCompareRule(@QueryParam("id") String id,
+			@QueryParam("code") String code,
+			@QueryParam("name") String name,
+			@QueryParam("message") String message,
+			@QueryParam("type") String type,
+			@QueryParam("columnName") String columnName,
+			@QueryParam("columnType") String columnType,
+			@QueryParam("table") String table,
+			@QueryParam("status") String status,
+			@QueryParam("operator") String operator,
+			@QueryParam("triggerEvents") String triggerEvents,
+			@QueryParam("comparedTable") String comparedTable,
+			@QueryParam("comparedColumn") String comparedColumn,
+			@QueryParam("comparedValue") String comparedValue) throws SQLException {
 
 		Integer idInt = Integer.parseInt(id);
 		String comparedTableString = comparedTable;
 		String comparedColumnString = comparedColumn;
 		Integer comparedValueInt = Integer.parseInt(comparedValue);
-		Integer valueInt = Integer.parseInt(value);
 
-		CompareRule newRule = new CompareRule(idInt, code, name, type, status,
-											columnName, columnType, table, valueInt,
-											comparedColumnString, comparedTableString,
-											comparedValueInt, operator, triggerEvents,
-											message);
+		CompareRule newRule = new CompareRule(idInt, code, name, message, type,
+											columnName, columnType, table, status,
+											operator, triggerEvents, comparedColumnString,
+											comparedTableString, comparedValueInt);
 
 		if(compareRuleservice.getCompareRuleById(idInt) == null){
 			boolean returnedRule = compareRuleservice.defineCompareRule(newRule);
@@ -136,23 +125,20 @@ public class CompareRuleResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public String updateCompareRule(@PathParam("id") String id,
-									@FormParam("code") String code,
-									@FormParam("name") String name,
-									@FormParam("message") String message,
-									@FormParam("type") String type,
-									@FormParam("columnName") String columnName,
-									@FormParam("columnType") String columnType,
-									@FormParam("table") String table,
-									@FormParam("status") String status,
-									@FormParam("operator") String operator,
-									@FormParam("triggerEvents") String triggerEvents,
-									@FormParam("comparedTable") String comparedTable,
-									@FormParam("comparedColumn") String comparedColumn,
-									@FormParam("comparedValue") String comparedValue,
-									@FormParam("value") String value) throws SQLException {
-
-		// logging for Heroku application server
-		System.out.println(".. executing CompareRule Resource (PUT) for " + id);
+									@QueryParam("code") String code,
+									@QueryParam("name") String name,
+									@QueryParam("message") String message,
+									@QueryParam("type") String type,
+									@QueryParam("columnName") String columnName,
+									@QueryParam("columnType") String columnType,
+									@QueryParam("table") String table,
+									@QueryParam("status") String status,
+									@QueryParam("operator") String operator,
+									@QueryParam("triggerEvents") String triggerEvents,
+									@QueryParam("comparedTable") String comparedTable,
+									@QueryParam("comparedColumn") String comparedColumn,
+									@QueryParam("comparedValue") String comparedValue,
+									@QueryParam("value") String value) throws SQLException {
 
 		Integer idInt = Integer.parseInt(id);
 		String comparedTableString = comparedTable;
@@ -175,7 +161,6 @@ public class CompareRuleResource {
 		oldRule.setComparedColumn(comparedColumnString);
 		oldRule.setComparedTable(comparedTableString);
 		oldRule.setCompareValue(comparedValueInt);
-		oldRule.setValue(valueInt);
 
 		String string = "failed";
 		
@@ -209,8 +194,6 @@ public class CompareRuleResource {
 	@DELETE
 	@Path("{id}")
 	public boolean deleteCompareRule(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing CompareRule Resource (DELETE) for " + id);
 		Integer idInt = Integer.parseInt(id);
 		return compareRuleservice.deleteCompareRule(idInt);
 

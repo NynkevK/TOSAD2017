@@ -90,7 +90,6 @@ public class ToolListRuleDAO extends ToolBaseDAO {
             String msgText = rs.getString("MESSAGETEXT");
 
             ListRule rule = new ListRule(id, code, name, msgText, ruletype, columnName, columnType, tableName, status, operator, triggerEvents, list);
-            System.out.println(rule.toString());
             return rule;
         }
         return null;

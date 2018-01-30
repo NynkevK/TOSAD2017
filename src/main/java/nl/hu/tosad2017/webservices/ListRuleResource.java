@@ -17,6 +17,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
@@ -29,8 +30,6 @@ public class ListRuleResource {
 	@GET
 	@Produces("application/json")
 	public String getAllListRules() throws SQLException {
-		// logging for Heroku application server 	
-		System.out.println(".. executing ListRule Resource (GET) for all");
 				
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 			
@@ -64,8 +63,6 @@ public class ListRuleResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public String getListRuleById(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing ListRule Resource (GET) for " + id);
 		
 		Integer idInt = Integer.parseInt(id);
 		ListRule r = listRuleService.getListRuleById(idInt);
@@ -88,21 +85,18 @@ public class ListRuleResource {
 
 	@POST
 	@Produces("application/json")
-	public Response defineListRule(@FormParam("id") String id,
-								@FormParam("code") String code,
-								@FormParam("name") String name,
-								@FormParam("message") String message,
-								@FormParam("type") String type,
-								@FormParam("columnName") String columnName,
-								@FormParam("columnType") String columnType,
-								@FormParam("table") String table,
-								@FormParam("status") String status,
-								@FormParam("operator") String operator,
-								@FormParam("triggerEvents") String triggerEvents,
-								@FormParam("list") String list) throws SQLException {
-
-		// logging for Heroku application server
-		System.out.println(".. executing ListRule Resource (POST)");
+	public Response defineListRule(@QueryParam("id") String id,
+								@QueryParam("code") String code,
+								@QueryParam("name") String name,
+								@QueryParam("message") String message,
+								@QueryParam("type") String type,
+								@QueryParam("columnName") String columnName,
+								@QueryParam("columnType") String columnType,
+								@QueryParam("table") String table,
+								@QueryParam("status") String status,
+								@QueryParam("operator") String operator,
+								@QueryParam("triggerEvents") String triggerEvents,
+								@QueryParam("list") String list) throws SQLException {
 
 		Integer idInt = Integer.parseInt(id);
 		String listString = list;
@@ -123,20 +117,17 @@ public class ListRuleResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public String updateListRule(@PathParam("id") String id,
-								@FormParam("code") String code,
-								@FormParam("name") String name,
-								@FormParam("message") String message,
-								@FormParam("type") String type,
-								@FormParam("columnName") String columnName,
-								@FormParam("columnType") String columnType,
-								@FormParam("table") String table,
-								@FormParam("status") String status,
-								@FormParam("operator") String operator,
-								@FormParam("triggerEvents") String triggerEvents,
-								@FormParam("list") String list) throws SQLException {
-
-		// logging for Heroku application server
-		System.out.println(".. executing ListRule Resource (PUT) for " + id);
+								@QueryParam("code") String code,
+								@QueryParam("name") String name,
+								@QueryParam("message") String message,
+								@QueryParam("type") String type,
+								@QueryParam("columnName") String columnName,
+								@QueryParam("columnType") String columnType,
+								@QueryParam("table") String table,
+								@QueryParam("status") String status,
+								@QueryParam("operator") String operator,
+								@QueryParam("triggerEvents") String triggerEvents,
+								@QueryParam("list") String list) throws SQLException {
 
 		Integer idInt = Integer.parseInt(id);
 		String listString = list;
@@ -180,8 +171,6 @@ public class ListRuleResource {
 	@DELETE
 	@Path("{id}")
 	public boolean deleteListRule(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing ListRule Resource (DELETE) for " + id);
 		Integer idInt = Integer.parseInt(id);
 		return listRuleService.deleteListRule(idInt);
 	}

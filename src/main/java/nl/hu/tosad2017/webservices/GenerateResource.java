@@ -4,8 +4,8 @@ import java.sql.SQLException;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 import nl.hu.tosad2017.model.services.GenerateService;
 
@@ -14,18 +14,13 @@ public class GenerateResource {
 	GenerateService service = new GenerateService();
 	
 	@POST
-	@Path("{id},{type}")
 	@Produces("application/json")
-	public String generateRule(@PathParam("id") String id,
-								@PathParam("type") String type) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing generate Resource for " + id);
+	public String generateRule(@QueryParam("id") String id,
+								@QueryParam("type") String type) throws SQLException {
 				
 		Integer idInt = Integer.parseInt(id);
-		String typeString = type;
+		System.out.println("GENERATE CALL WITH: " + idInt + type);
 		
-		service.generateRule(idInt, typeString);
-		
-		return "success";
+		return service.generateRule(idInt, type);
 	}
 }

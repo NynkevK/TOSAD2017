@@ -66,7 +66,6 @@ public class ToolRangeRuleDAO extends ToolBaseDAO {
             String msgText = rs.getString("MESSAGETEXT");
 
             RangeRule rule = new RangeRule(id, code, name, msgText, ruletype, columnName, columnType, tableName, status, operator, triggerEvents, minvalue, maxvalue);
-            System.out.println(rule.toString());
             rangeRules.add(rule);
         }
         return rangeRules;
@@ -98,7 +97,6 @@ public class ToolRangeRuleDAO extends ToolBaseDAO {
             String msgText = rs.getString("MESSAGETEXT");
 
             RangeRule rule = new RangeRule(id, code, name, msgText, ruletype, columnName, columnType, tableName, status, operator, triggerEvents, minvalue, maxvalue);
-            System.out.println(rule.toString());
             return rule;
         }
         return null;
@@ -115,10 +113,8 @@ public class ToolRangeRuleDAO extends ToolBaseDAO {
             int i = ps.executeUpdate();
 
             if (i > 0){
-                System.out.println("true");
                 return true;
             }
-        System.out.println("false");
         return false;
 
     }

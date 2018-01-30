@@ -66,7 +66,6 @@ public class ToolOtherRuleDAO extends ToolBaseDAO{
                 String msgText = rs.getString("MESSAGETEXT");
 
                OtherRule rule = new OtherRule(id, code, name, ruletype, o_query, status, columnName, columnType, tableName, otherColumn, operator, triggerEvents, msgText);
-               System.out.println(rule.toString());
                otherRules.add(rule);
             }
             return otherRules;
@@ -97,7 +96,6 @@ public class ToolOtherRuleDAO extends ToolBaseDAO{
                 String msgText = rs.getString("MESSAGETEXT");
 
                 OtherRule rule = new OtherRule(id, code, name, ruletype, o_query, status, columnName, columnType, tableName, otherColumn, operator, triggerEvents, msgText);
-                System.out.println(rule.toString());
                 return rule;
             }
             return null;
@@ -114,7 +112,6 @@ public class ToolOtherRuleDAO extends ToolBaseDAO{
         int i = ps.executeUpdate();
 
         if (i > 0){
-            System.out.println("true");
             return true;
         }
         return false;

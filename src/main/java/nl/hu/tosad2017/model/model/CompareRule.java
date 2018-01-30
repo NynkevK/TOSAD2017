@@ -4,7 +4,6 @@ public class CompareRule extends BusinessRule {
     private String comparedColumn;
     private String comparedTable;
     private int comparedValue;
-    private int value;
     
     public CompareRule (int id, String code, String name, String msg, String ruletype, String c_name, String c_type, String t_name
             ,String r_status, String r_operator, String r_triggerevents, String t_column, String t_table, int t_value) {
@@ -21,11 +20,11 @@ public class CompareRule extends BusinessRule {
 		super.triggerEvents = r_triggerevents;
 		this.comparedColumn = t_column;
 		this.comparedTable = t_table;
-		this.value = t_value;
+		this.comparedValue = t_value;
 		}
 
     public CompareRule(int id, String code, String name, String ruletype, String status, String columnname, String columntype,
-                       String tablename, int value, String comparedColumn, String comparedTable, int comapredValue, String operator,
+                       String tablename, String comparedColumn, String comparedTable, int comapredValue, String operator,
                        String triggerevents, String messagetext) {
         super.id = id;
         super.code = code;
@@ -35,7 +34,6 @@ public class CompareRule extends BusinessRule {
         super.columnName = columnname;
         super.columnType = columntype;
         super.tableName = tablename;
-        this.value = value;
         this.comparedColumn = comparedColumn;
         this.comparedTable = comparedTable;
         this.comparedValue = comapredValue;
@@ -45,7 +43,7 @@ public class CompareRule extends BusinessRule {
     }
 
     public CompareRule(String code, String name, String ruletype, String status, String columnname, String columntype,
-                       String tablename, int value, String comparedColumn, String comparedTable, int comapredValue, String operator,
+                       String tablename, String comparedColumn, String comparedTable, int comapredValue, String operator,
                        String triggerevents, String messagetext) {
         super.code = code;
         super.name = name;
@@ -54,7 +52,6 @@ public class CompareRule extends BusinessRule {
         super.columnName = columnname;
         super.columnType = columntype;
         super.tableName = tablename;
-        this.value = value;
         this.comparedColumn = comparedColumn;
         this.comparedTable = comparedTable;
         this.comparedValue = comapredValue;
@@ -64,7 +61,7 @@ public class CompareRule extends BusinessRule {
     }
 
     public CompareRule(int id, String code, String name, String ruletype, String status, String columnname, String columntype,
-                       String tablename, int value, int comapredValue, String operator,
+                       String tablename, int comapredValue, String operator,
                        String triggerevents, String messagetext) {
         super.id = id;
         super.code = code;
@@ -74,7 +71,6 @@ public class CompareRule extends BusinessRule {
         super.columnName = columnname;
         super.columnType = columntype;
         super.tableName = tablename;
-        this.value = value;
         this.comparedValue = comapredValue;
         super.operator = operator;
         super.triggerEvents = triggerevents;
@@ -82,7 +78,7 @@ public class CompareRule extends BusinessRule {
     }
 
     public CompareRule(String code, String name, String ruletype, String status, String columnname, String columntype,
-                       String tablename, int value, int comapredValue, String operator,
+                       String tablename, int comapredValue, String operator,
                        String triggerevents, String messagetext) {
         super.code = code;
         super.name = name;
@@ -91,20 +87,10 @@ public class CompareRule extends BusinessRule {
         super.columnName = columnname;
         super.columnType = columntype;
         super.tableName = tablename;
-        this.value = value;
         this.comparedValue = comapredValue;
         super.operator = operator;
         super.triggerEvents = triggerevents;
         super.messageText = messagetext;
-    }
-
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public String getComparedColumn() {
@@ -147,7 +133,6 @@ public class CompareRule extends BusinessRule {
                         ", status='" + status + '\'' +
                         ", operator='" + operator + '\'' +
                         ", triggerEvents='" + triggerEvents + '\'' +
-                        ", value='" + value + '\'' +
                         ", comparedValue='" + comparedValue + '\'' +
                         ", comapredColumn=" + comparedColumn + '\'' +
                         ", comparedTable=" + comparedTable + '\'' +
@@ -165,13 +150,13 @@ public class CompareRule extends BusinessRule {
                         ", status='" + status + '\'' +
                         ", operator='" + operator + '\'' +
                         ", triggerEvents='" + triggerEvents + '\'' +
-                        ", value='" + value + '\'' +
                         ", comparedValue='" + comparedValue + '\'' +
                         '}';
             }
         return text; 
     }
     
+<<<<<<< HEAD
 //    public String GenerateCode() {
 //    	String code = "begin";
 //    	if (this.ruleType == "Attribute") {
@@ -194,6 +179,30 @@ public class CompareRule extends BusinessRule {
 //    	}
 //		return code;
 //    }
+=======
+    public String GenerateCode() {
+    	String code = "begin";
+    	if (this.ruleType == "Attribute") {
+    		code = "l_passed := :new."+ this.columnName +" "+  this.operator +";\n";
+    	} else if (this.ruleType == "Tuple") {
+    		code = "l_passed := :new."+ this.columnName +" "+  this.operator + " new." + this.comparedColumn +";\n";
+    	} else if (this.ruleType == "Inter-Entity") {
+    		code = "cursor lc_ord is "+
+				"\nselect ord."+ this.getComparedColumn()+
+				"\nfrom " + this.getComparedTable() + " ord "+
+				"\nwhere ord.id = :new.ord_id ;"+
+				"\nl_orderdatum "+this.getComparedTable()+"."+this.getComparedColumn()+"%type;"+
+				"\nbegin "+
+				"\nopen lc_ord; "+
+				"\nfetch lc_ord into l_orderdatum; "+
+				"\nclose lc_ord;"+
+				"\nl_passed := :new."+ this.getColumnName() +" >= l_orderdatum;";
+    	} else {
+    		System.out.println("Rule type niet herkend");
+    	}
+		return code;
+    }
+>>>>>>> origin/master
 
     @Override
 	public String accept(RuleGenerator ruleGenerator) {

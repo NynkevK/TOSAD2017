@@ -17,6 +17,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
@@ -29,8 +30,6 @@ public class ModifyRuleResource {
 	@GET
 	@Produces("application/json")
 	public String getAllModifyRules() throws SQLException {
-		// logging for Heroku application server 	
-		System.out.println(".. executing ModifyRule Resource (GET) for all");
 				
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 			
@@ -66,8 +65,6 @@ public class ModifyRuleResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public String getModifyRuleById(@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Resource (GET) for " + id);
 		
 		Integer idInt = Integer.parseInt(id);
 		ModifyRule r = modifyRuleService.getModifyRuleById(idInt);
@@ -93,23 +90,21 @@ public class ModifyRuleResource {
 	
 	@POST
 	@Produces("application/json")
-	public Response defineModifyRule(@FormParam("id") String id,
-								@FormParam("code") String code,
-								@FormParam("name") String name, 
-								@FormParam("message") String message,
-								@FormParam("type") String type,
-								@FormParam("columnName") String columnName,
-								@FormParam("columnType") String columnType,
-								@FormParam("table") String table,
-								@FormParam("status") String status, 
-								@FormParam("operator") String operator,
-								@FormParam("triggerEvents") String triggerEvents,
-								@FormParam("query") String query,
-								@FormParam("otherTable") String otherTable,
-								@FormParam("otherColumn") String otherColumn) throws SQLException {
+	public Response defineModifyRule(@QueryParam("id") String id,
+								@QueryParam("code") String code,
+								@QueryParam("name") String name, 
+								@QueryParam("message") String message,
+								@QueryParam("type") String type,
+								@QueryParam("columnName") String columnName,
+								@QueryParam("columnType") String columnType,
+								@QueryParam("table") String table,
+								@QueryParam("status") String status, 
+								@QueryParam("operator") String operator,
+								@QueryParam("triggerEvents") String triggerEvents,
+								@QueryParam("query") String query,
+								@QueryParam("otherTable") String otherTable,
+								@QueryParam("otherColumn") String otherColumn) throws SQLException {
 		
-		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Resource (POST)");
 		
 		Integer idInt = Integer.parseInt(code);
 		String queryString = query;
@@ -134,22 +129,19 @@ public class ModifyRuleResource {
 	@Path("{id}")
 	@Produces("application/json")
 	public String updateModifyRule(@PathParam("id") String id,
-								@FormParam("code") String code,
-								@FormParam("name") String name, 
-								@FormParam("message") String message,
-								@FormParam("type") String type,
-								@FormParam("columnName") String columnName,
-								@FormParam("columnType") String columnType,
-								@FormParam("table") String table,
-								@FormParam("status") String status, 
-								@FormParam("operator") String operator,
-								@FormParam("triggerEvents") String triggerEvents,
-								@FormParam("ModifydTable") String ModifydTable,
-								@FormParam("ModifydColumn") String ModifydColumn,
-								@FormParam("ModifyValue") String ModifyValue) throws SQLException {
-		
-		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Resource (PUT) for " + id);
+								@QueryParam("code") String code,
+								@QueryParam("name") String name, 
+								@QueryParam("message") String message,
+								@QueryParam("type") String type,
+								@QueryParam("columnName") String columnName,
+								@QueryParam("columnType") String columnType,
+								@QueryParam("table") String table,
+								@QueryParam("status") String status, 
+								@QueryParam("operator") String operator,
+								@QueryParam("triggerEvents") String triggerEvents,
+								@QueryParam("ModifydTable") String ModifydTable,
+								@QueryParam("ModifydColumn") String ModifydColumn,
+								@QueryParam("ModifyValue") String ModifyValue) throws SQLException {
 		
 		Integer idInt = Integer.parseInt(id);
 		String queryString = ModifyValue;
@@ -196,9 +188,7 @@ public class ModifyRuleResource {
 	
 	@DELETE
 	@Path("{id}")
-	public boolean deleteModifyRule (@PathParam("id") String id) throws SQLException {
-		// logging for Heroku application server
-		System.out.println(".. executing ModifyRule Resource (DELETE) for " + id);		
+	public boolean deleteModifyRule (@PathParam("id") String id) throws SQLException {	
 		Integer idInt = Integer.parseInt(id);
 		return modifyRuleService.deleteModifyRule(idInt);
 	}

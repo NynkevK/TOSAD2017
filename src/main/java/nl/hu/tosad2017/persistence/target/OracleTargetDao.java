@@ -16,7 +16,6 @@ public class OracleTargetDao extends TargetBaseDAO{
             String triggerCode = code;
 
             if (stmt.execute(triggerCode)){
-                System.out.println("Succesfully added trigger");
             }
 
         } catch (SQLException ex) {
@@ -44,8 +43,11 @@ public class OracleTargetDao extends TargetBaseDAO{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+<<<<<<< HEAD
     	
     	return fk;
+=======
+>>>>>>> origin/master
     }
     
 //    public void removeTrigger(String triggerName){

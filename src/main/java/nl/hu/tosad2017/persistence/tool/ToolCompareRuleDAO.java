@@ -15,7 +15,7 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
         String query = "INSERT INTO COMPARERULE" +
                 "(ID,CODE,NAME,RULETYPE,STATUS,COLUMNNAME,COLUMNTYPE,TABLENAME,VALUE,COMPAREDCOLUMN" +
                 ",COMPAREDTABLE,COMPAREDVALUE,OPERATOR,TRIGGEREVENTS,MESSAGETEXT)" +
-                "VALUES(0,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                "VALUES(0,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         Connection connection = super.getConnection();
         PreparedStatement ps = connection.prepareStatement(query);
@@ -27,13 +27,12 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
         ps.setString(5, rule.getColumnName());
         ps.setString(6, rule.getColumnType());
         ps.setString(7, rule.getTableName());
-        ps.setInt(   8, rule.getValue());
-        ps.setString(9, rule.getComparedColumn());
-        ps.setString(10, rule.getComparedTable());
-        ps.setInt(   11, rule.getCompareValue());
-        ps.setString(12, rule.getOperator());
-        ps.setString(13, rule.getTriggerEvents());
-        ps.setString(14, rule.getMessageText());
+        ps.setString(8, rule.getComparedColumn());
+        ps.setString(9, rule.getComparedTable());
+        ps.setInt(   10, rule.getCompareValue());
+        ps.setString(11, rule.getOperator());
+        ps.setString(12, rule.getTriggerEvents());
+        ps.setString(13, rule.getMessageText());
 
         int i = ps.executeUpdate();
 
@@ -59,7 +58,6 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
             String code = rs.getString("CODE");
             String name = rs.getString("NAME");
             String ruletype = rs.getString("RULETYPE");
-            int value = rs.getInt("VALUE");
             int comparedvalue = rs.getInt("COMPAREDVALUE");
             String status = rs.getString("STATUS");
             String columnName = rs.getString("COLUMNNAME");
@@ -71,7 +69,7 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
             String triggerEvents = rs.getString("TRIGGEREVENTS");
             String msgText = rs.getString("MESSAGETEXT");
 
-            CompareRule rule = new CompareRule(id, code, name, ruletype, status, columnName, columnType, tableName, value, comparedColumn, comparedTable, comparedvalue, operator, triggerEvents, msgText);
+            CompareRule rule = new CompareRule(id, code, name, ruletype, status, columnName, columnType, tableName, comparedColumn, comparedTable, comparedvalue, operator, triggerEvents, msgText);
 
             System.out.println(rule.toString());
             CompareRules.add(rule);
@@ -94,7 +92,6 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
             String code = rs.getString("CODE");
             String name = rs.getString("NAME");
             String ruletype = rs.getString("RULETYPE");
-            int value = rs.getInt("VALUE");
             int comparedvalue = rs.getInt("COMPAREDVALUE");
             String status = rs.getString("STATUS");
             String columnName = rs.getString("COLUMNNAME");
@@ -106,7 +103,7 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
             String triggerEvents = rs.getString("TRIGGEREVENTS");
             String msgText = rs.getString("MESSAGETEXT");
 
-            CompareRule rule = new CompareRule(id, code, name, ruletype, status, columnName, columnType, tableName, value, comparedColumn, comparedTable, comparedvalue, operator, triggerEvents, msgText);
+            CompareRule rule = new CompareRule(id, code, name, ruletype, status, columnName, columnType, tableName, comparedColumn, comparedTable, comparedvalue, operator, triggerEvents, msgText);
             System.out.println(rule.toString());
             return rule;
         }
@@ -135,7 +132,6 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
     public boolean updateRule(CompareRule rule) throws SQLException {
 
         String query = "UPDATE COMPARERULE SET" +
-                " VALUE= ?," +
                 " COMPAREDVALUE= ?, " +
                 " COLUMNNAME= ?, " +
                 " COMPAREDCOLUMN= ?, " +
@@ -148,15 +144,14 @@ public class ToolCompareRuleDAO extends ToolBaseDAO {
         Connection connection = super.getConnection();
         PreparedStatement ps = connection.prepareStatement(query);
 
-        ps.setInt(1, rule.getValue());
-        ps.setInt(2, rule.getCompareValue());
-        ps.setString(3, rule.getColumnName());
-        ps.setString(4, rule.getComparedColumn());
-        ps.setString(5, rule.getComparedTable());
-        ps.setString(6, rule.getStatus());
-        ps.setString(7, rule.getOperator());
-        ps.setString(8, rule.getMessageText());
-        ps.setInt(9,rule.getId());
+        ps.setInt(1, rule.getCompareValue());
+        ps.setString(2, rule.getColumnName());
+        ps.setString(3, rule.getComparedColumn());
+        ps.setString(4, rule.getComparedTable());
+        ps.setString(5, rule.getStatus());
+        ps.setString(6, rule.getOperator());
+        ps.setString(7, rule.getMessageText());
+        ps.setInt(8,rule.getId());
         int i = ps.executeUpdate();
 
         if (i > 0) {
