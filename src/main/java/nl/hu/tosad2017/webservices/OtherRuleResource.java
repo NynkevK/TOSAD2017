@@ -48,7 +48,6 @@ public class OtherRuleResource {
 				job.add("triggerEvents", r.getTriggerEvents());
 				job.add("query", r.getQuery());
 				job.add("otherColumn", r.getOtherColumn());
-				job.add("otherTable", r.getOtherTable());
 				jab.add(job);
 			}
 			
@@ -82,7 +81,6 @@ public class OtherRuleResource {
 			job.add("triggerEvents", r.getTriggerEvents());
 			job.add("query", r.getQuery());
 			job.add("otherColumn", r.getOtherColumn());
-			job.add("otherTable", r.getOtherTable());
 			return job.build().toString();
 		}
 
