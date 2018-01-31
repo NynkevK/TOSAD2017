@@ -124,6 +124,8 @@ public class OtherRuleResource {
 									@QueryParam("type") String type,
 									@QueryParam("columnName") String columnName,
 									@QueryParam("columnType") String columnType,
+									@QueryParam("otherColumn") String otherColumn,
+									@QueryParam("otherTable") String otherTable,
 									@QueryParam("table") String table,
 									@QueryParam("status") String status,
 									@QueryParam("operator") String operator,
@@ -141,6 +143,8 @@ public class OtherRuleResource {
 			oldRule.setRuleType(type);
 			oldRule.setColumnName(columnName);
 			oldRule.setColumnType(columnType);
+			oldRule.setOtherColumn(otherColumn);
+			oldRule.setOtherTable(otherTable);
 			oldRule.setTableName(table);
 			oldRule.setStatus(status);
 			oldRule.setOperator(operator);
