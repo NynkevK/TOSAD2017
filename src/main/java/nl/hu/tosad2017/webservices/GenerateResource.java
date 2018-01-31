@@ -2,6 +2,7 @@ package nl.hu.tosad2017.webservices;
 
 import java.sql.SQLException;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -19,8 +20,17 @@ public class GenerateResource {
 								@QueryParam("type") String type) throws SQLException {
 				
 		Integer idInt = Integer.parseInt(id);
-		System.out.println("GENERATE CALL WITH: " + idInt + type);
 		
 		return service.generateRule(idInt, type);
+	}
+	
+	@DELETE
+	@Produces("application/json")
+	public String deleteRule(@QueryParam("id") String id,
+							@QueryParam("type") String type) throws SQLException {
+		
+		Integer idInt = Integer.parseInt(id);
+		return service.deleteRule(idInt, type);
+	
 	}
 }

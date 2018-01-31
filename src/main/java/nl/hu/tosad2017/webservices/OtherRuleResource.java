@@ -92,6 +92,7 @@ public class OtherRuleResource {
 									@QueryParam("columnName") String columnName,
 									@QueryParam("columnType") String columnType,
 									@QueryParam("otherColumn") String otherColumn,
+									@QueryParam("otherColumn") String otherTable,
 									@QueryParam("table") String table,
 									@QueryParam("status") String status,
 									@QueryParam("operator") String operator,
@@ -100,7 +101,7 @@ public class OtherRuleResource {
 
 
 			OtherRule newRule = new OtherRule( code, name, message, type, 
-												columnName, columnType, otherColumn,
+												columnName, columnType, otherColumn, otherTable,
 												table, status, operator, triggerEvents, query);
 
 			if(otherruleservice.defineOtherRule(newRule) == true){

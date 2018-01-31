@@ -6,11 +6,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 import nl.hu.tosad2017.model.model.CompareRule;
+import nl.hu.tosad2017.model.model.ListRule;
+import nl.hu.tosad2017.model.model.OracleRuleGenerator;
+import nl.hu.tosad2017.persistence.target.OracleTargetDao;
 import nl.hu.tosad2017.persistence.target.TargetCompareRuleDAO;
 
 public class CompareRuleService {
 	ToolCompareRuleDAO ToolDAO = new ToolCompareRuleDAO();
-	TargetCompareRuleDAO TargetDAO = new TargetCompareRuleDAO();
+	
+	OracleTargetDao targetDAO = new OracleTargetDao();
+	OracleRuleGenerator generator = new OracleRuleGenerator(); 
 	
 	public CompareRuleService() {}
 	
@@ -34,7 +39,8 @@ public class CompareRuleService {
 	}
 	
 	public boolean deleteCompareRule (int id) throws SQLException {
-		
+		CompareRule comparerule = ToolDAO.readRule(id);
+		targetDAO.removeTrigger(comparerule.getName());
 		return ToolDAO.deleteRule(id);
 	}
 }

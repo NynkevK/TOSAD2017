@@ -3,13 +3,17 @@ package nl.hu.tosad2017.model.services;
 import java.sql.SQLException;
 import java.util.List;
 
+import nl.hu.tosad2017.model.model.OracleRuleGenerator;
 import nl.hu.tosad2017.model.model.OtherRule;
+import nl.hu.tosad2017.model.model.RangeRule;
+import nl.hu.tosad2017.persistence.target.OracleTargetDao;
 import nl.hu.tosad2017.persistence.target.TargetOtherRuleDAO;
 import nl.hu.tosad2017.persistence.tool.ToolOtherRuleDAO;
 
 public class OtherRuleService {
 	ToolOtherRuleDAO ToolDAO = new ToolOtherRuleDAO();
-	TargetOtherRuleDAO TargetDAO = new TargetOtherRuleDAO();
+	OracleTargetDao targetDAO = new OracleTargetDao();
+	OracleRuleGenerator generator = new OracleRuleGenerator(); 
 	
 	public OtherRuleService() {}
 	
@@ -18,19 +22,22 @@ public class OtherRuleService {
 	}
 	
 	public OtherRule getOtherRuleById(int id) throws SQLException {
-		return null; //ToolDAO.readRule(id);
+		return ToolDAO.readRule(id);
 	}
 	
 	public boolean defineOtherRule(OtherRule rule) throws SQLException {
-		return true; //ToolDAO.createRule(rule);
+		return ToolDAO.createRule(rule);
 	}
 	
 	public boolean updateOtherRule(OtherRule rule) throws SQLException {
+		targetDAO.insertTrigger(rule.accept(generator));
 		return ToolDAO.updateRule(rule);
 	}
 	
 	public boolean deleteOtherRule(int id) throws SQLException {
-		return true; //ToolDAO.deleteRule(id);
+		OtherRule otherrule = ToolDAO.readRule(id);
+		targetDAO.removeTrigger(otherrule.getName());
+		return ToolDAO.deleteRule(id);
 	}
 }
 

@@ -4,12 +4,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 import nl.hu.tosad2017.model.model.ListRule;
+import nl.hu.tosad2017.model.model.OracleRuleGenerator;
+import nl.hu.tosad2017.model.model.RangeRule;
 import nl.hu.tosad2017.persistence.tool.ToolListRuleDAO;
+import nl.hu.tosad2017.persistence.target.OracleTargetDao;
 import nl.hu.tosad2017.persistence.target.TargetListRuleDAO;
 
 public class ListRuleService {
 	ToolListRuleDAO ToolDAO = new ToolListRuleDAO();
-	TargetListRuleDAO TargetDAO = new TargetListRuleDAO();
+	
+	OracleTargetDao targetDAO = new OracleTargetDao();
+	OracleRuleGenerator generator = new OracleRuleGenerator(); 
 	
 	public ListRuleService() {}
 	
@@ -31,7 +36,9 @@ public class ListRuleService {
 		return ToolDAO.updateRule(rule);
 	}
 	
-	public boolean deleteListRule (int id) throws SQLException {	
+	public boolean deleteListRule (int id) throws SQLException {
+		ListRule listrule = ToolDAO.readRule(id);
+		targetDAO.removeTrigger(listrule.getName());
 		return ToolDAO.deleteRule(id);
 	}
 }
