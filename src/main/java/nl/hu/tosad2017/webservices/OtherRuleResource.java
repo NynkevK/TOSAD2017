@@ -84,7 +84,7 @@ public class OtherRuleResource {
 
 		@POST
 		@Produces("application/json")
-		public Response defineRangeRule(
+		public Response defineOtherRule(
 									@QueryParam("code") String code,
 									@QueryParam("name") String name,
 									@QueryParam("message") String message,
@@ -92,7 +92,7 @@ public class OtherRuleResource {
 									@QueryParam("columnName") String columnName,
 									@QueryParam("columnType") String columnType,
 									@QueryParam("otherColumn") String otherColumn,
-									@QueryParam("otherColumn") String otherTable,
+									@QueryParam("otherTable") String otherTable,
 									@QueryParam("table") String table,
 									@QueryParam("status") String status,
 									@QueryParam("operator") String operator,
