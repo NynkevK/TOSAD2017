@@ -50,8 +50,7 @@ public class OracleTargetDao extends TargetBaseDAO{
     	try {
         	Connection con = TargetBaseDAO.getConnection();
             Statement stmt = con.createStatement();
-<<<<<<< HEAD
-            String triggerCode = "drop trigger " +"VBMG_LEVERINGEN"+ "."+triggerName+";";
+            String triggerCode = "drop trigger \""+triggerName+"\";";
             System.out.println(triggerCode);
             if (stmt.execute(triggerCode)){
             	System.out.println("Succesfully removed trigger");
@@ -62,16 +61,5 @@ public class OracleTargetDao extends TargetBaseDAO{
             System.out.println("Removing trigger failed");
         }
         
-=======
-            String triggerCode = "DROP TRIGGER "+ triggerName;
-            System.out.println(triggerCode);
-            ResultSet rs = stmt.executeQuery(triggerCode);
-
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        System.out.println("Succesfully added trigger");
->>>>>>> origin/master
     }
 }
