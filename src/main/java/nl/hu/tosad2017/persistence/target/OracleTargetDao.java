@@ -50,7 +50,7 @@ public class OracleTargetDao extends TargetBaseDAO{
     	try {
         	Connection con = TargetBaseDAO.getConnection();
             Statement stmt = con.createStatement();
-            String triggerCode = "drop trigger \""+triggerName+"\";";
+            String triggerCode = "drop trigger \""+triggerName+"\"";
             System.out.println(triggerCode);
             if (stmt.execute(triggerCode)){
             	System.out.println("Succesfully removed trigger");

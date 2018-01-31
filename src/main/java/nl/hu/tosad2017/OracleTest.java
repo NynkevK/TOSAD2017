@@ -8,19 +8,17 @@ import nl.hu.tosad2017.model.model.BusinessRule;
 import nl.hu.tosad2017.model.model.CompareRule;
 import nl.hu.tosad2017.model.model.ListRule;
 import nl.hu.tosad2017.model.model.OracleRuleGenerator;
+import nl.hu.tosad2017.model.model.OtherRule;
 import nl.hu.tosad2017.model.model.RangeRule;
 import nl.hu.tosad2017.persistence.target.OracleTargetDao;
 
 public class OracleTest {
-    private static final String DB_DRIV = "oracle.jdbc.driver.OracleDriver";
     private static final String DB_URL  = "jdbc:oracle:thin:@//ondora02.hu.nl:8521/cursus02.hu.nl";
     private static final String DB_USER = "tosad_2017_2b_team1_target";
     private static final String DB_PASS = "tosad_2017_2b_team1_target";
 
     public static void main(String[] args){
         try{
-            // Load database driver
-            Class.forName(DB_DRIV).newInstance();
 
             // Create connection
             Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
@@ -55,14 +53,16 @@ public class OracleTest {
                     , "defined", "in", "UPD", "'BOE', 'KLA'");
             CompareRule rule4 = new CompareRule(1, "COMP", "BRG_VBMG_PROT_ALIS", "Levering datum kleiner dan orders datum", "Inter-Entity", "datum", "varchar", "VBMG_LEVERINGEN"
                     , "defined", "equals", "INS UPD", "aanvraag_datum", "VBMG_ORDERS", 0);
-//            gen.ParseValue("25-06-2017");
+//            OtherRule rule5 = new OtherRule(1,"BRG_VBMG_PROT_EOTH", "test", null, String query, null, "VBMG_LEVERINGEN", null,
+//                    "VBMG_LEVERINGEN", "Datum", String operator, String triggerevents, String messagetext);
+////            gen.ParseValue("25-06-2017");
             rule2.accept(gen);
             rule4.accept(gen);
             dao.removeTrigger("VBMG_LEVER_COMP1");
 //            statement.execute(rule.accept(gen));
 //            statement.execute(rule2.accept(gen));
 //            statement.execute(rule3.accept(gen));
-            dao.insertTrigger(rule2.accept(gen));
+//            dao.insertTrigger(rule2.accept(gen));
 //            dao.insertTrigger(rule3.accept(gen));
 
         } catch (Exception e){
