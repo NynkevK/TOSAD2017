@@ -5,10 +5,8 @@ import java.util.List;
 
 import nl.hu.tosad2017.model.model.ListRule;
 import nl.hu.tosad2017.model.model.OracleRuleGenerator;
-import nl.hu.tosad2017.model.model.RangeRule;
 import nl.hu.tosad2017.persistence.tool.ToolListRuleDAO;
 import nl.hu.tosad2017.persistence.target.OracleTargetDao;
-import nl.hu.tosad2017.persistence.target.TargetListRuleDAO;
 
 public class ListRuleService {
 	ToolListRuleDAO ToolDAO = new ToolListRuleDAO();

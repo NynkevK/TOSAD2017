@@ -5,10 +5,8 @@ import java.sql.SQLException;
 
 import nl.hu.tosad2017.model.model.ModifyRule;
 import nl.hu.tosad2017.model.model.OracleRuleGenerator;
-import nl.hu.tosad2017.model.model.OtherRule;
 import nl.hu.tosad2017.persistence.tool.ToolModifyRuleDAO;
 import nl.hu.tosad2017.persistence.target.OracleTargetDao;
-import nl.hu.tosad2017.persistence.target.TargetModifyRuleDAO;
 
 public class ModifyRuleService {
 	ToolModifyRuleDAO ToolDAO = new ToolModifyRuleDAO();
