@@ -57,7 +57,6 @@ public class OracleTargetDao extends TargetBaseDAO{
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
             System.out.println("Removing trigger failed");
         }
         

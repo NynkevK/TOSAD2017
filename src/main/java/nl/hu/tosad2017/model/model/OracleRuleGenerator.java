@@ -73,13 +73,29 @@ public class OracleRuleGenerator implements RuleGenerator {
 
 	@Override
 	public String visit(ListRule rule) {
-	    String l_passed = "begin\nl_passed := :new."+ rule.columnName +" "+ rule.operator +" ("+rule.getList()+");\n";
+		String VList[] = rule.getList().split(",");	
+		String ret = "";
+		try
+	    {
+	        Integer.parseInt(VList[0]);
+	        ret = rule.getList();
+	    } catch (NumberFormatException ex)
+	    {
+	    	for(int i = 0; i < VList.length; i++){
+	        ret = ret +"'"+ VList[i]+"'";
+	        if (VList.length > 0 && i+1 < VList.length){
+				ret = ret + ", ";
+			}
+	    	}
+	    }
+		System.out.println(VList[0]);
+	    String l_passed = "begin\nl_passed := :new."+ rule.columnName +" "+ rule.operator +" ("+ret+");\n";
 		
 		Object[] testArgs = {rule.getName(), generateTriggerEvents(rule), rule.getTableName(),l_passed,rule.getMessageText()};
 		
 		String code = triggerCode.format(testArgs);
-				System.out.println("Dit is de gegenereerde trigger code: \n"+ code);
-				return code;
+		System.out.println("Dit is de gegenereerde trigger code: \n"+ code);
+		return code;
 	}
 	
 	public String generateTriggerEvents(BusinessRule rule) {
@@ -123,7 +139,13 @@ public class OracleRuleGenerator implements RuleGenerator {
 
 	@Override
 	public String visit(OtherRule rule) {
-		String l_passed = "begin\nl_passed := :new."+ rule.columnName +" "+ rule.operator +" ("+rule.getList()+");\n";
+		String l_passed = "l_aantal pls_integer; "+
+		"\nbegin"+
+		"\nselect count(*)"+
+		"\ninto l_aantal"+
+		"\nfrom "+rule.getTableName()+
+		"\nwhere "+rule.getColumnName()+" "+rule.getOperator()+" "+ rule.getOtherColumn()+";"+
+		"\nl_passed := l_aantal <= "+rule.getQuery()+";";
 		
 		Object[] testArgs = {rule.getName(), generateTriggerEvents(rule), rule.getTableName(),l_passed,rule.getMessageText()};
 		
@@ -134,8 +156,19 @@ public class OracleRuleGenerator implements RuleGenerator {
 
 	@Override
 	public String visit(ModifyRule rule) {
-		// Nog niet geïmplementeerd
-		return null;
+		String l_passed = "begin"+ 
+				 "if "+ rule.getColumnName() +" = "+ rule.getColumnType() +" and"+
+				 "l_oper = 'UPD'"+ 
+				 "then"+
+				 ""+rule.getQuery()+
+				 "end if;";
+
+				
+		Object[] testArgs = {rule.getName(), generateTriggerEvents(rule), rule.getTableName(),l_passed,rule.getMessageText()};
+				
+		String code = triggerCode.format(testArgs);
+		System.out.println("Dit is de gegenereerde trigger code: \n"+ code);
+		return code;
 	}
 
 }
