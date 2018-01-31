@@ -40,15 +40,15 @@ public class OracleRuleGenerator implements RuleGenerator {
 	public String visit(CompareRule rule) {
 	    String l_passed = "begin\n";
 	    //Attribute compare rule generatie
-	    if (rule.getRuleType() == "Attribute") {
+	    if (rule.getRuleType().equalsIgnoreCase("Attribute")) {
 	    	l_passed += "l_passed := :new."+ rule.getColumnName() +" "+  generateOperator(rule) + " " + rule.getCompareValue() +";\n";
 	    }
 	    //Tuple compare rule generatie
-	    else if (rule.getRuleType() == "Tuple") {
+	    else if (rule.getRuleType().equalsIgnoreCase("Tuple")) {
 	    	l_passed += "l_passed := :new."+ rule.getColumnName() +" "+  generateOperator(rule) + " new." + rule.getComparedColumn() +";\n";
 	    } 
 	    //Inter-Entity rule generatie
-	    else if (rule.getRuleType() == "Inter-Entity") {
+	    else if (rule.getRuleType().equalsIgnoreCase("Inter-Entity")) {
 	    	OracleTargetDao dao = new OracleTargetDao();
             String constraintName = rule.getTableName().substring(0,8)+"_"+rule.getComparedTable().substring(5,8)+"_FK"; 
             l_passed = "cursor lc_tab is "+
