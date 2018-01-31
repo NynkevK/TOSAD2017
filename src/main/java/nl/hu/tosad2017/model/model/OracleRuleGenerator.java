@@ -139,7 +139,6 @@ public class OracleRuleGenerator implements RuleGenerator {
 
 	@Override
 	public String visit(OtherRule rule) {
-<<<<<<< HEAD
 		String l_passed = "l_aantal pls_integer; "+
 		"\nbegin"+
 		"\nselect count(*)"+
@@ -147,9 +146,6 @@ public class OracleRuleGenerator implements RuleGenerator {
 		"\nfrom "+rule.getTableName()+
 		"\nwhere "+rule.getColumnName()+" "+rule.getOperator()+" "+ rule.getOtherColumn()+";"+
 		"\nl_passed := l_aantal <= "+rule.getQuery()+";";
-=======
-		String l_passed = "begin\nl_passed := :new."+ rule.columnName +" "+ rule.operator +" ("+rule.getQuery()+");\n";
->>>>>>> origin/master
 		
 		Object[] testArgs = {rule.getName(), generateTriggerEvents(rule), rule.getTableName(),l_passed,rule.getMessageText()};
 		
