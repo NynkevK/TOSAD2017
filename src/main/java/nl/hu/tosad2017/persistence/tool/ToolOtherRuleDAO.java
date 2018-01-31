@@ -22,7 +22,7 @@ public class ToolOtherRuleDAO extends ToolBaseDAO{
             
             ps.setString(1, rule.getCode());
             ps.setString(2, rule.getName());
-            ps.setString(3, rule.getRuleType());System.out.println("otherrule type ="+rule.getRuleType());
+            ps.setString(3, rule.getRuleType());
             ps.setString(4, rule.getQuery());
             ps.setString(5, rule.getStatus());
             ps.setString(6, rule.getColumnName());
