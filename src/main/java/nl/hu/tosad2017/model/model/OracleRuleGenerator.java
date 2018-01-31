@@ -6,6 +6,7 @@ import nl.hu.tosad2017.persistence.target.OracleTargetDao;
 
 public class OracleRuleGenerator implements RuleGenerator {
 	
+	//Template voor de te genereren trigger code
 	MessageFormat triggerCode = new MessageFormat("create or replace trigger {0} \n"+
 			 "{1}  \n"+
 			 "on {2} \n"+
@@ -38,11 +39,16 @@ public class OracleRuleGenerator implements RuleGenerator {
 	@Override
 	public String visit(CompareRule rule) {
 	    String l_passed = "begin\n";
+	    //Attribute compare rule generatie
 	    if (rule.getRuleType() == "Attribute") {
-	    	l_passed += "l_passed := :new."+ rule.getColumnName() +" "+  rule.getOperator() + " " + rule.getCompareValue() +";\n";
-	    } else if (rule.getRuleType() == "Tuple") {
-	    	l_passed += "l_passed := :new."+ rule.getColumnName() +" "+  rule.getOperator() + " new." + rule.getComparedColumn() +";\n";
-	    } else if (rule.getRuleType() == "Inter-Entity") {
+	    	l_passed += "l_passed := :new."+ rule.getColumnName() +" "+  generateOperator(rule) + " " + rule.getCompareValue() +";\n";
+	    }
+	    //Tuple compare rule generatie
+	    else if (rule.getRuleType() == "Tuple") {
+	    	l_passed += "l_passed := :new."+ rule.getColumnName() +" "+  generateOperator(rule) + " new." + rule.getComparedColumn() +";\n";
+	    } 
+	    //Inter-Entity rule generatie
+	    else if (rule.getRuleType() == "Inter-Entity") {
 	    	OracleTargetDao dao = new OracleTargetDao();
             String constraintName = rule.getTableName().substring(0,8)+"_"+rule.getComparedTable().substring(5,8)+"_FK"; 
             l_passed = "cursor lc_tab is "+
@@ -54,10 +60,11 @@ public class OracleRuleGenerator implements RuleGenerator {
 				"\nopen lc_tab; "+
 				"\nfetch lc_tab into l_compare; "+
 				"\nclose lc_tab;"+
-				"\nl_passed := :new."+ rule.getColumnName() +" "+ rule.getOperator() +" l_compare;";
+				"\nl_passed := :new."+ rule.getColumnName() +" "+ generateOperator(rule) +" l_compare;";
 	    } else {
 	    	System.out.println("Rule type niet herkend");
 	    }
+	    
 		Object[] testArgs = {rule.getName(), generateTriggerEvents(rule), rule.getTableName(),l_passed,rule.getMessageText()};
 		String code = triggerCode.format(testArgs);
 		System.out.println("Dit is de gegenereerde trigger code: \n"+ code);
@@ -76,10 +83,10 @@ public class OracleRuleGenerator implements RuleGenerator {
 	}
 	
 	public String generateTriggerEvents(BusinessRule rule) {
+		//De triggerEvents parsen
 		String triggers[] = rule.getTriggerEvents().split("\\s+");
 		String events = "before";
 		
-		//De triggerEvents parsen
 		for(int i = 0; i < triggers.length; i++)
 		{
 			if (triggers[i].equals("INS")) {
@@ -95,11 +102,34 @@ public class OracleRuleGenerator implements RuleGenerator {
 		}
 		return events;
 	}
+	
+	public String generateOperator(BusinessRule rule) {
+		//Operator bepalen voor generatie trigger
+		String operator = rule.getOperator();
+		if (operator.equals("equals")){operator = "=";}
+		else if (operator.equalsIgnoreCase("notequals")){operator = "!=";}
+		else if (operator.equalsIgnoreCase("lesthanorequal")){operator = "<=";}
+		else if (operator.equalsIgnoreCase("greaterthanorequal")){operator = ">=";}
+		else if (operator.equalsIgnoreCase("lesthan")){operator = "<";}
+		else if (operator.equalsIgnoreCase("greaterthan")){operator = ">";}
+		else if (operator.equalsIgnoreCase("between")){operator = "between";}
+		else if (operator.equalsIgnoreCase("notbetween")){operator = "not between";}
+		else if (operator.equalsIgnoreCase("in")){operator = "in";}
+		else if (operator.equalsIgnoreCase("notin")){operator = "not in";}
+		else {System.out.print("Operator not found");};
+		
+		return operator;
+	}
 
 	@Override
 	public String visit(OtherRule rule) {
-		// Nog niet geïmplementeerd
-		return null;
+		String l_passed = "begin\nl_passed := :new."+ rule.columnName +" "+ rule.operator +" ("+rule.getList()+");\n";
+		
+		Object[] testArgs = {rule.getName(), generateTriggerEvents(rule), rule.getTableName(),l_passed,rule.getMessageText()};
+		
+		String code = triggerCode.format(testArgs);
+				System.out.println("Dit is de gegenereerde trigger code: \n"+ code);
+				return code;
 	}
 
 	@Override

@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import nl.hu.tosad2017.model.model.CompareRule;
-
 public class OracleTargetDao extends TargetBaseDAO{
 
     public void insertTrigger(String code) throws SQLException {
@@ -16,6 +14,7 @@ public class OracleTargetDao extends TargetBaseDAO{
             String triggerCode = code;
 
             if (stmt.execute(triggerCode)){
+            	System.out.println("Adding/Altering trigger has succeeded");
             }
 
         } catch (SQLException ex) {
@@ -47,22 +46,20 @@ public class OracleTargetDao extends TargetBaseDAO{
 
     }
     
-//    public void removeTrigger(String triggerName){
-//    	try {
-//        	Connection con = TargetBaseDAO.getConnection();
-//            Statement stmt = con.createStatement();
-//            String triggerCode = "DROP TRIGGER "+rule.get  
-//            System.out.println(triggerCode);
-//            ResultSet rs = stmt.executeQuery(triggerCode);
-//
-//            if(rs.next()) {
-//            	  fk = rs.getString(1);
-//            	  System.out.println(fk);
-//            }
-//
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
-//        System.out.println("Succesfully added trigger");
-//    }
+    public void removeTrigger(String triggerName){
+    	try {
+        	Connection con = TargetBaseDAO.getConnection();
+            Statement stmt = con.createStatement();
+            String triggerCode = "drop trigger " +"VBMG_LEVERINGEN"+ "."+triggerName+";";
+            System.out.println(triggerCode);
+            if (stmt.execute(triggerCode)){
+            	System.out.println("Succesfully removed trigger");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Removing trigger failed");
+        }
+        
+    }
 }
