@@ -100,9 +100,8 @@ public class OtherRuleResource {
 									@QueryParam("query") String query) throws SQLException {
 
 
-			OtherRule newRule = new OtherRule( code, name, message, type, 
-												columnName, columnType, otherColumn, otherTable,
-												table, status, operator, triggerEvents, query);
+			OtherRule newRule = new OtherRule(code, name, type, query, status, columnName, columnType,
+											table, otherColumn, otherTable, operator, triggerEvents, message);
 
 			if(otherruleservice.defineOtherRule(newRule) == true){
 				return Response.ok(true).build();
