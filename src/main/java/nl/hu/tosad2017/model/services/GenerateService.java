@@ -51,6 +51,7 @@ public class GenerateService {
 		} else if (type == "otherrule") {
 			OtherRule otherrule = otherDAO.readRule(id);
 			targetDAO.insertTrigger(otherrule.accept(generator));
+			otherrule.setStatus("generated");
 			otherDAO.updateRule(otherrule);
 		}
 		
