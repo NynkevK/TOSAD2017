@@ -28,7 +28,7 @@ public class OracleRuleGenerator implements RuleGenerator {
 
 	@Override
 	public String visit(RangeRule rule) {
-		String l_passed = "begin\nl_passed := :new."+ rule.getColumnName() +" "+  rule.getOperator() + " " + rule.getMinValue() + " and "+ rule.getMaxValue() +";\n";
+		String l_passed = "begin\nl_passed := :new."+ rule.getColumnName() +" "+  generateOperator(rule) + " " + rule.getMinValue() + " and "+ rule.getMaxValue() +";\n";
 		Object[] testArgs = {rule.getName(), generateTriggerEvents(rule), rule.getTableName(),l_passed,rule.getMessageText()};
 		
 		String code = triggerCode.format(testArgs);
@@ -89,7 +89,7 @@ public class OracleRuleGenerator implements RuleGenerator {
 	    	}
 	    }
 		System.out.println(VList[0]);
-	    String l_passed = "begin\nl_passed := :new."+ rule.columnName +" "+ rule.operator +" ("+ret+");\n";
+	    String l_passed = "begin\nl_passed := :new."+ rule.getColumnName() +" "+ generateOperator(rule) +" ("+ret+");\n";
 		
 		Object[] testArgs = {rule.getName(), generateTriggerEvents(rule), rule.getTableName(),l_passed,rule.getMessageText()};
 		
@@ -144,7 +144,7 @@ public class OracleRuleGenerator implements RuleGenerator {
 		"\nselect count(*)"+
 		"\ninto l_aantal"+
 		"\nfrom "+rule.getTableName()+
-		"\nwhere "+rule.getColumnName()+" "+rule.getOperator()+" "+ rule.getOtherColumn()+";"+
+		"\nwhere "+rule.getColumnName()+" "+generateOperator(rule)+" "+ rule.getOtherColumn()+";"+
 		"\nl_passed := l_aantal <= "+rule.getQuery()+";";
 		
 		Object[] testArgs = {rule.getName(), generateTriggerEvents(rule), rule.getTableName(),l_passed,rule.getMessageText()};

@@ -46,11 +46,11 @@ public class OracleTest {
             OracleRuleGenerator gen = new OracleRuleGenerator();
             OracleTargetDao dao = new OracleTargetDao();
             RangeRule rule = new RangeRule(1, "RANG", "VBMG_LEVER_RANG2", "Het aantal moet tussen 2 en 4", "Range", "aantal", "varchar", "VBMG_LEVERINGEN"
-                    , "defined", "between", "INS UPD", 2, 40);
+                    , "defined", "notbetween", "INS UPD", 2, 40);
             CompareRule rule2 = new CompareRule(1, "COMP", "VBMG_LEVER_COMP1", "Het aantal mag niet kleiner zijn dan 1", "Attribute", "aantal", "varchar", "VBMG_LEVERINGEN"
                     , "defined", "LesthanorequaL", "INS UPD", "Prijs", "", 1);
             ListRule rule3 = new ListRule(1, "LIST", "VBMG_LEVER_LIST1", "Het type moet BOE of KLA zijn", "List", "Product_type", "varchar", "VBMG_PRODUCTEN"
-                    , "defined", "in", "UPD", "BOE, KLA, CD, TIJ");
+                    , "defined", "notin", "UPD", "BOE,KLA,CD,TIJ");
             CompareRule rule4 = new CompareRule(1, "COMP", "BRG_VBMG_PROT_ALIS", "Levering datum kleiner dan orders datum", "Inter-Entity", "datum", "varchar", "VBMG_LEVERINGEN"
                     , "defined", "equals", "INS UPD", "aanvraag_datum", "VBMG_ORDERS", 0);
             OtherRule rule5 = new OtherRule(1,"EOTH", "BRG_VBMG_PROT_EOTH", null, "l_boek pls_integer; l_cd pls_integer; begin -- er moeten meer CD's dan boeken in de productenlijst staan if :new.product_type = 'BOE' and l_oper in ( 'INS', 'UPD' ) or :old.product_type = 'CD' and l_oper in ( 'DEL', 'UPD' ) then select count ( * ) into l_boek from vbmg_producten where product_type = 'BOE'; select count ( * ) into l_cd from vbmg_producten where product_type = 'CD'; l_passed := l_cd > l_boek; end if;", null, "VBMG_LEVERINGEN", null,
@@ -58,6 +58,10 @@ public class OracleTest {
             ListRule rule6 = new ListRule(1, "LIST", "VBMG_LEVER_LIST1", "Het type moet BOE of KLA zijn", "List", "Product_type", "varchar", "VBMG_PRODUCTEN"
                     , "defined", "in", "UPD", "1,4,8");
 //            gen.ParseValue("25-06-2017");
+            rule.accept(gen);
+            rule2.accept(gen);
+            rule4.accept(gen);
+            rule5.accept(gen);
             rule6.accept(gen);
             rule3.accept(gen);
             dao.removeTrigger("VBMG_LEVER_COMP1");
