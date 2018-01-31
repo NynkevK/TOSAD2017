@@ -123,7 +123,7 @@ public class OracleRuleGenerator implements RuleGenerator {
 
 	@Override
 	public String visit(OtherRule rule) {
-		String l_passed = "begin\nl_passed := :new."+ rule.columnName +" "+ rule.operator +" ("+rule.getList()+");\n";
+		String l_passed = "begin\nl_passed := :new."+ rule.columnName +" "+ rule.operator +" ("+rule.getQuery()+");\n";
 		
 		Object[] testArgs = {rule.getName(), generateTriggerEvents(rule), rule.getTableName(),l_passed,rule.getMessageText()};
 		
