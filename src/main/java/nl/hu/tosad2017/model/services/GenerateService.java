@@ -33,7 +33,7 @@ public class GenerateService {
 			targetDAO.insertTrigger(rangerule.accept(generator));
 			rangerule.setStatus("generated");
 			rangeDAO.updateRule(rangerule);
-		} else if (type == "comparerule") {
+		} else if (type.equals("comparerule")) {
 			CompareRule comparerule = compareDAO.readRule(id);
 			targetDAO.insertTrigger(comparerule.accept(generator));
 			comparerule.setStatus("generated");
