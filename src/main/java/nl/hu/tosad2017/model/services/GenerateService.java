@@ -38,17 +38,17 @@ public class GenerateService {
 			targetDAO.insertTrigger(comparerule.accept(generator));
 			comparerule.setStatus("generated");
 			compareDAO.updateRule(comparerule);
-		} else if (type == "listrule") {
+		} else if (type.equals("listrule")) {
 			ListRule listrule = listDAO.readRule(id);
 			targetDAO.insertTrigger(listrule.accept(generator));
 			listrule.setStatus("generated");
 			listDAO.updateRule(listrule);
-		} else if (type == "modifyrule") {
+		} else if (type.equals("modifyrule")) {
 			ModifyRule modifyrule = modifyDAO.readRule(id);
 			targetDAO.insertTrigger(modifyrule.accept(generator));
 			modifyrule.setStatus("generated");
 			modifyDAO.updateRule(modifyrule);
-		} else if (type == "otherrule") {
+		} else if (type.equals("otherrule")) {
 			OtherRule otherrule = otherDAO.readRule(id);
 			targetDAO.insertTrigger(otherrule.accept(generator));
 			otherrule.setStatus("generated");
