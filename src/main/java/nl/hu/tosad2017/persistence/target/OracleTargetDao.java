@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import nl.hu.tosad2017.model.model.CompareRule;
-
 public class OracleTargetDao extends TargetBaseDAO{
 
     public void insertTrigger(String code) throws SQLException {
@@ -16,6 +14,7 @@ public class OracleTargetDao extends TargetBaseDAO{
             String triggerCode = code;
 
             if (stmt.execute(triggerCode)){
+            	System.out.println("Adding/Altering trigger has succeeded");
             }
 
         } catch (SQLException ex) {
@@ -51,14 +50,16 @@ public class OracleTargetDao extends TargetBaseDAO{
     	try {
         	Connection con = TargetBaseDAO.getConnection();
             Statement stmt = con.createStatement();
-            String triggerCode = "DROP TRIGGER "+ triggerName;
+            String triggerCode = "drop trigger \""+triggerName+"\"";
             System.out.println(triggerCode);
-            ResultSet rs = stmt.executeQuery(triggerCode);
-
+            if (stmt.execute(triggerCode)){
+            	System.out.println("Succesfully removed trigger");
+            }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("Removing trigger failed");
         }
-        System.out.println("Succesfully added trigger");
+        
     }
 }
