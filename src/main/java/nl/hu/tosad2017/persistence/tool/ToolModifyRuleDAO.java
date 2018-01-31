@@ -15,7 +15,7 @@ public class ToolModifyRuleDAO extends ToolBaseDAO {
         String query = "INSERT INTO MODIFYRULE" +
                 "(ID,CODE,NAME,RULETYPE,QUERY,STATUS,COLUMNNAME,COLUMNTYPE,TABLENAME,OPERATOR" +
                 ",TRIGGEREVENTS,MESSAGETEXT)" +
-                "VALUES(0,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                "VALUES(0,?,?,?,?,?,?,?,?,?,?,?)";
 
         Connection connection = super.getConnection();
         PreparedStatement ps = connection.prepareStatement(query);
@@ -28,9 +28,9 @@ public class ToolModifyRuleDAO extends ToolBaseDAO {
         ps.setString(6, rule.getColumnName());
         ps.setString(7, rule.getColumnType());
         ps.setString(8, rule.getTableName());
-        ps.setString(11, rule.getOperator());
-        ps.setString(12, rule.getTriggerEvents());
-        ps.setString(13, rule.getMessageText());
+        ps.setString(9, rule.getOperator());
+        ps.setString(10, rule.getTriggerEvents());
+        ps.setString(11, rule.getMessageText());
         int i = ps.executeUpdate();
 
         if (i > 0) {
@@ -60,10 +60,10 @@ public class ToolModifyRuleDAO extends ToolBaseDAO {
         ps.setString(3, rule.getColumnName());
         ps.setString(4, rule.getColumnType());
         ps.setString(5, rule.getTableName());
-        ps.setString(8, rule.getOperator());
-        ps.setString(9, rule.getTriggerEvents());
-        ps.setString(10, rule.getMessageText());
-        ps.setInt(11,rule.getId());
+        ps.setString(6, rule.getOperator());
+        ps.setString(7, rule.getTriggerEvents());
+        ps.setString(8, rule.getMessageText());
+        ps.setInt(9,rule.getId());
         int i = ps.executeUpdate();
 
         if (i > 0) {
