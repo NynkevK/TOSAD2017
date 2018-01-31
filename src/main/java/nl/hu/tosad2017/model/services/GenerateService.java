@@ -31,18 +31,27 @@ public class GenerateService {
 		if (type.equals("rangerule")) {
 			RangeRule rangerule = rangeDAO.readRule(id);
 			targetDAO.insertTrigger(rangerule.accept(generator));
+			rangerule.setStatus("generated");
+			rangeDAO.updateRule(rangerule);
 		} else if (type == "comparerule") {
 			CompareRule comparerule = compareDAO.readRule(id);
 			targetDAO.insertTrigger(comparerule.accept(generator));
+			comparerule.setStatus("generated");
+			compareDAO.updateRule(comparerule);
 		} else if (type == "listrule") {
 			ListRule listrule = listDAO.readRule(id);
 			targetDAO.insertTrigger(listrule.accept(generator));
+			listrule.setStatus("generated");
+			listDAO.updateRule(listrule);
 		} else if (type == "modifyrule") {
 			ModifyRule modifyrule = modifyDAO.readRule(id);
 			targetDAO.insertTrigger(modifyrule.accept(generator));
+			modifyrule.setStatus("generated");
+			modifyDAO.updateRule(modifyrule);
 		} else if (type == "otherrule") {
 			OtherRule otherrule = otherDAO.readRule(id);
 			targetDAO.insertTrigger(otherrule.accept(generator));
+			otherDAO.updateRule(otherrule);
 		}
 		
 		return "service success";
