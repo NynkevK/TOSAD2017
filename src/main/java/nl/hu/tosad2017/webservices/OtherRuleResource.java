@@ -47,6 +47,7 @@ public class OtherRuleResource {
 				job.add("operator", r.getOperator());
 				job.add("triggerEvents", r.getTriggerEvents());
 				job.add("query", r.getQuery());
+				job.add("otherColumn", r.getOtherColumn());
 				jab.add(job);
 			}
 			
@@ -79,6 +80,7 @@ public class OtherRuleResource {
 			job.add("operator", r.getOperator());
 			job.add("triggerEvents", r.getTriggerEvents());
 			job.add("query", r.getQuery());
+			job.add("otherColumn", r.getOtherColumn());
 			return job.build().toString();
 		}
 
@@ -100,9 +102,8 @@ public class OtherRuleResource {
 									@QueryParam("query") String query) throws SQLException {
 
 
-			OtherRule newRule = new OtherRule( code, name, message, type, 
-												columnName, columnType, otherColumn, otherTable,
-												table, status, operator, triggerEvents, query);
+			OtherRule newRule = new OtherRule(code, name, type, query, status, columnName, columnType,
+											table, otherColumn, otherTable, operator, triggerEvents, message);
 
 			if(otherruleservice.defineOtherRule(newRule) == true){
 				return Response.ok(true).build();
@@ -121,6 +122,8 @@ public class OtherRuleResource {
 									@QueryParam("type") String type,
 									@QueryParam("columnName") String columnName,
 									@QueryParam("columnType") String columnType,
+									@QueryParam("otherColumn") String otherColumn,
+									@QueryParam("otherTable") String otherTable,
 									@QueryParam("table") String table,
 									@QueryParam("status") String status,
 									@QueryParam("operator") String operator,
@@ -138,6 +141,8 @@ public class OtherRuleResource {
 			oldRule.setRuleType(type);
 			oldRule.setColumnName(columnName);
 			oldRule.setColumnType(columnType);
+			oldRule.setOtherColumn(otherColumn);
+			oldRule.setOtherTable(otherTable);
 			oldRule.setTableName(table);
 			oldRule.setStatus(status);
 			oldRule.setOperator(operator);

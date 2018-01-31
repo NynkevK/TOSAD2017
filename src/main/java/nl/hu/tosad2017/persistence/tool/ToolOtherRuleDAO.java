@@ -19,7 +19,7 @@ public class ToolOtherRuleDAO extends ToolBaseDAO{
 
             Connection connection = super.getConnection();
             PreparedStatement ps = connection.prepareStatement(query);
-
+            
             ps.setString(1, rule.getCode());
             ps.setString(2, rule.getName());
             ps.setString(3, rule.getRuleType());
