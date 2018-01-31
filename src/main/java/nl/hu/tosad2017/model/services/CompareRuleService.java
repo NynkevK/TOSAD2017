@@ -34,7 +34,7 @@ public class CompareRuleService {
 	}
 	
 	public boolean updateCompareRule (CompareRule rule) throws SQLException {
-
+		targetDAO.insertTrigger(rule.accept(generator));
 		return ToolDAO.updateRule(rule);
 	}
 	
