@@ -52,6 +52,7 @@ public class GenerateService {
 		if (type.equals("rangerule")) {
 			RangeRule rangerule = rangeDAO.readRule(id);
 			targetDAO.removeTrigger(rangerule.getName());
+		} else if (type.equals("comparerule")) {
 			CompareRule comparerule = compareDAO.readRule(id);
 			targetDAO.removeTrigger(comparerule.getName());
 		} else if (type.equals("listrule")) {

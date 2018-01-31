@@ -3,6 +3,7 @@ package nl.hu.tosad2017.model.model;
 public class OtherRule extends BusinessRule {
     private String query;
     private String otherColumn;
+    private String otherTable;
 
 
     public OtherRule (int id, String code, String name, String ruletype, String query, String status, String columnname, String columntype,
@@ -23,7 +24,7 @@ public class OtherRule extends BusinessRule {
     }
 
     public OtherRule (String code, String name, String ruletype, String query, String status, String columnname, String columntype,
-                      String tablename, String otherColumn, String operator, String triggerevents, String messagetext) {
+                      String tablename, String otherColumn, String otherTable, String operator, String triggerevents, String messagetext) {
         super.code = code;
         super.name = name;
         super.ruleType = ruletype;
@@ -33,9 +34,11 @@ public class OtherRule extends BusinessRule {
         super.columnType = columntype;
         super.tableName = tablename;
         this.otherColumn = otherColumn;
+        this.otherTable = otherTable;
         super.operator = operator;
         super.triggerEvents = triggerevents;
         super.messageText = messagetext;
+   
     }
 
     public String getQuery() {
@@ -52,6 +55,14 @@ public class OtherRule extends BusinessRule {
 
     public void setOtherColumn(String otherColumn) {
         this.otherColumn = otherColumn;
+    }
+    
+    public String getOtherTable() {
+        return otherTable;
+    }
+
+    public void setOtherTable(String otherTable) {
+        this.otherTable = otherTable;
     }
 
 
