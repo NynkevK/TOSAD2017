@@ -38,7 +38,9 @@ public class CompareRuleService {
 	
 	public boolean deleteCompareRule (int id) throws SQLException {
 		CompareRule comparerule = ToolDAO.readRule(id);
-		targetDAO.removeTrigger(comparerule.getName());
+		if(comparerule.getStatus().equalsIgnoreCase("generated")){
+			targetDAO.removeTrigger(comparerule.getName());
+		}
 		return ToolDAO.deleteRule(id);
 	}
 }

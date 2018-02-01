@@ -36,7 +36,9 @@ public class ModifyRuleService {
 	
 	public boolean deleteModifyRule (int id) throws SQLException{
 		ModifyRule modifyrule = ToolDAO.readRule(id);
-		targetDAO.removeTrigger(modifyrule.getName());
+		if(modifyrule.getStatus().equalsIgnoreCase("generated")){
+			targetDAO.removeTrigger(modifyrule.getName());
+		}
 		return ToolDAO.deleteRule(id);
 	}
 }

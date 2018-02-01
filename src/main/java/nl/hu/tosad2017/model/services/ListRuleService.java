@@ -37,7 +37,9 @@ public class ListRuleService {
 	
 	public boolean deleteListRule (int id) throws SQLException {
 		ListRule listrule = ToolDAO.readRule(id);
-		targetDAO.removeTrigger(listrule.getName());
+		if(listrule.getStatus().equalsIgnoreCase("generated")){
+			targetDAO.removeTrigger(listrule.getName());
+		}
 		return ToolDAO.deleteRule(id);
 	}
 }

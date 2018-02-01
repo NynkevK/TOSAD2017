@@ -37,7 +37,9 @@ public class RangeRuleService {
 	
 	public boolean deleteRangeRule(int id) throws SQLException {
 		RangeRule rangerule = ToolDAO.readRule(id);
-		targetDAO.removeTrigger(rangerule.getName());
+		if(rangerule.getStatus().equalsIgnoreCase("generated")){
+			targetDAO.removeTrigger(rangerule.getName());
+		}
 		return ToolDAO.deleteRule(id);
 	}
 }

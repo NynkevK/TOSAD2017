@@ -34,7 +34,9 @@ public class OtherRuleService {
 	
 	public boolean deleteOtherRule(int id) throws SQLException {
 		OtherRule otherrule = ToolDAO.readRule(id);
-		targetDAO.removeTrigger(otherrule.getName());
+		if(otherrule.getStatus().equalsIgnoreCase("generated")){
+			targetDAO.removeTrigger(otherrule.getName());
+		}
 		return ToolDAO.deleteRule(id);
 	}
 }
