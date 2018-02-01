@@ -31,7 +31,9 @@ public class RangeRuleService {
 	}
 	
 	public boolean updateRangeRule(RangeRule rule) throws SQLException {
-		targetDAO.insertTrigger(rule.accept(generator));
+		if(rule.getStatus().equalsIgnoreCase("generated")){
+			targetDAO.insertTrigger(rule.accept(generator));
+		}
 		return ToolDAO.updateRule(rule);
 	}
 	
