@@ -28,7 +28,9 @@ public class OtherRuleService {
 	}
 	
 	public boolean updateOtherRule(OtherRule rule) throws SQLException {
-		targetDAO.insertTrigger(rule.accept(generator));
+		if(rule.getStatus().equalsIgnoreCase("generated")){
+			targetDAO.insertTrigger(rule.accept(generator));
+		}
 		return ToolDAO.updateRule(rule);
 	}
 	
